@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Awaru's Universe 🚀</title>
+    <!-- Tailwind CSS for Styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts for Game Aesthetic -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&family=Press+Start+2P&display=swap" rel="stylesheet">
+    <!-- jsPDF Library for A4 PDF Generation -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
+        }
+        .pixel-text {
+            font-family: 'Press Start 2P', cursive;
+        }
+        .game-card {
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(12px);
+            border: 2px solid #6366f1;
+            box-shadow: 0 0 20px rgba(99, 102, 241, 0.4);
+        }
+        .hidden-section {
+            display: none;
+        }
+    </style>
+</head>
+<body class="text-slate-200 min-h-screen flex items-center justify-center p-4">
+
+    <div class="w-full max-w-md game-card rounded-2xl p-6 relative overflow-hidden">
+        
+        <!-- ================= STEP 1: LANGUAGE SELECT ================= -->
+        <div id="lang-screen" class="text-center py-8">
+            <h1 class="pixel-text text-xs text-indigo-400 mb-2 animate-pulse">CHOOSE YOUR LANGUAGE</h1>
+            <h2 class="text-2xl font-extrabold mb-8">언어를 선택해주세요</h2>
+            <div class="space-y-4">
+                <button onclick="setLanguage('en')" class="w-full bg-indigo-600 hover:bg-indigo-500 font-bold py-4 px-6 rounded-xl transition duration-300 transform hover:scale-105 border-b-4 border-indigo-800">
+                    🇺🇸 English
+                </button>
+                <button onclick="setLanguage('ko')" class="w-full bg-purple-600 hover:bg-purple-500 font-bold py-4 px-6 rounded-xl transition duration-300 transform hover:scale-105 border-b-4 border-purple-800">
+                    🇰🇷 한국어
+                </button>
+            </div>
+        </div>
+
+        <!-- ================= STEP 2: GAME STORY INTRODUCTION ================= -->
+        <div id="story-screen" class="hidden-section text-center">
+            <div class="flex justify-between items-center mb-6">
+                <span class="pixel-text text-[10px] text-indigo-400">CHARACTER INTRO</span>
+                <span id="story-progress" class="text-sm font-bold text-slate-400">1/3</span>
+            </div>
+            
+            <!-- Avatar Window -->
+            <div class="w-24 h-24 mx-auto mb-6 bg-gradient-to-tr from-indigo-500 to-purple-500 rounded-full flex items-center justify-center text-4xl shadow-inner border-2 border-indigo-300">
+                ✨
+            </div>
+
+            <!-- Dialogue Box -->
+            <div class="bg-slate-900/90 rounded-xl p-5 border border-slate-700 min-h-[140px] flex items-center justify-center mb-6">
+                <p id="story-text" class="text-lg font-medium leading-relaxed"></p>
+            </div>
+
+            <button onclick="nextStoryStep()" id="next-btn" class="w-full bg-emerald-600 hover:bg-emerald-500 font-bold py-3 px-6 rounded-xl border-b-4 border-emerald-800 transition">
+                Next ▶
+            </button>
+        </div>
+
+        <!-- ================= STEP 3: MAIN HUB (LINKS & LETTER) ================= -->
+        <div id="hub-screen" class="hidden-section space-y-6">
+            <div class="text-center border-b border-slate-700 pb-4">
+                <h2 class="text-2xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-purple-400">AWARU (아와루)</h2>
+                <p id="hub-subtitle" class="text-xs text-slate-400 mt-1"></p>
+            </div>
+
+            <!-- Patreon Button -->
+            <div>
+                <a href="https://patreon.com/AWARU?utm_medium=unknown&utm_source=join_link&utm_campaign=creatorshare_creator&utm_content=copyLink" target="_blank" class="flex items-center justify-center gap-3 w-full bg-[#FF424D] text-white font-extrabold py-4 px-6 rounded-xl shadow-lg hover:brightness-110 transition border-b-4 border-red-800">
+                    <span>❤️</span> <span id="btn-patreon">Support on Patreon</span>
+                </a>
+            </div>
+
+            <!-- YouTube Section -->
+            <div class="space-y-3">
+                <h3 id="heading-yt" class="pixel-text text-[10px] text-indigo-400">CHANNELS</h3>
+                <a id="yt-link" href="#" target="_blank" class="flex items-center justify-between w-full bg-red-600 hover:bg-red-500 font-bold py-3 px-5 rounded-xl transition border-b-4 border-red-800">
+                    <span id="yt-channel-text">📺 YouTube Channel</span>
+                    <span>➜</span>
+                </a>
+                
+                <!-- Video Recommendations Placeholders -->
+                <div class="grid grid-cols-2 gap-3 mt-2">
+                    <a id="vid-recent" href="#" target="_blank" class="bg-slate-800 p-3 rounded-lg border border-slate-700 hover:border-indigo-500 transition text-xs">
+                        <span class="block text-rose-400 font-bold mb-1">🔥 Recent Video</span>
+                        <p class="text-slate-300 truncate">Check out the latest upload!</p>
+                    </a>
+                    <a id="vid-famous" href="#" target="_blank" class="bg-slate-800 p-3 rounded-lg border border-slate-700 hover:border-indigo-500 transition text-xs">
+                        <span class="block text-amber-400 font-bold mb-1">👑 Popular Video</span>
+                        <p class="text-slate-300 truncate">Most viewed adventure!</p>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Interactive Letter Box -->
+            <div class="bg-slate-900/60 p-4 rounded-xl border border-slate-700 space-y-3">
+                <h3 id="heading-letter" class="pixel-text text-[10px] text-purple-400">SEND A LETTER</h3>
+                <input type="text" id="sender-name" placeholder="Your Name / 이름" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-200 focus:outline-none focus:border-purple-500">
+                <textarea id="sender-msg" rows="3" placeholder="Write something to Awaru... / 메시지를 적어주세요..." class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-200 focus:outline-none focus:border-purple-500"></textarea>
+                
+                <button onclick="handleLetterSubmission()" class="w-full bg-gradient-to-r from-indigo-500 to-purple-500 text-white font-bold py-2.5 px-4 rounded-xl hover:opacity-90 transition shadow-md">
+                    📥 <span id="btn-submit-text">Download & Send Letter</span>
+                </button>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- ================= GAME LOGIC ENGINE ================= -->
+    <script>
+        let currentLang = 'en';
+        let storyIndex = 0;
+
+        const localization = {
+            en: {
+                story: [
+                    "Hello traveler! scale up your curiosity. Meet awaru (아와루), a Pisces born in the year 2000, possessing the energetic ENFJ spirit.",
+                    "At just 19 years old, he made a brave jump and moved all the way to South Korea!",
+                    "His ultimate quest? To build a life doing YouTube, capture his vibrant daily moments, and secure a dream collaboration with an SM Entertainment artist before turning 30! 🚀"
+                ],
+                nextBtn: "Next ▶",
+                finishBtn: "Enter Hub 🎮",
+                subtitle: "Pisces • ENFJ • Creator",
+                patreon: "Support on Patreon",
+                ytChannel: "📺 Visit My English YouTube",
+                headingYt: "YOUTUBE QUESTS",
+                headingLetter: "MESSAGE BOX",
+                btnSubmit: "Download PDF Letter",
+                alertFill: "Please fill out both your name and message!",
+                alertEmailMsg: "Your A4 PDF letter has downloaded! Please attach it to your email window to complete delivery to Awaru. ✉️"
+            },
+            ko: {
+                story: [
+                    "안녕 하세요! 모험가님. 2000년생 물고기자리이자 열정적인 ENFJ 영혼을 가진 아와루(awaru)를 소개합니다.",
+                    "그는 단 19살의 나이에 용기 있게 홀로 한국으로 건너왔습니다!",
+                    "그의 최종 목표는 유튜브로 수익을 창출하고, 소중한 일상을 기록하며, 30세가 되기 전에 SM 엔터테인먼트 아티스트와 멋진 콜라보 영상을 촬영하는 것입니다! 🚀"
+                ],
+                nextBtn: "다음 ▶",
+                finishBtn: "허브 입장 🎮",
+                subtitle: "물고기자리 • ENFJ • 크리에이터",
+                patreon: "패트리온 후원하기",
+                ytChannel: "📺 한국어 유튜브 채널 가기",
+                headingYt: "유튜브 채널 및 추천 영상",
+                headingLetter: "방명록 편지함",
+                btnSubmit: "PDF 편지 다운로드",
+                alertFill: "이름과 메시지를 모두 입력해주세요!",
+                alertEmailMsg: "A4 PDF 편지가 다운로드되었습니다! 메일 창에 파일을 첨부하여 아와루에게 전송해 주세요. ✉️"
+            }
+        };
+
+        const ytLinks = {
+            en: "https://www.youtube.com/@awarueng",
+            ko: "https://www.youtube.com/@awarukor"
+        };
+
+        function setLanguage(lang) {
+            currentLang = lang;
+            document.getElementById('lang-screen').classList.add('hidden-section');
+            document.getElementById('story-screen').classList.remove('hidden-section');
+            showStoryStep();
+        }
+
+        function showStoryStep() {
+            const langData = localization[currentLang];
+            document.getElementById('story-text').innerText = langData.story[storyIndex];
+            document.getElementById('story-progress').innerText = `${storyIndex + 1}/3`;
+            
+            if (storyIndex === langData.story.length - 1) {
+                document.getElementById('next-btn').innerText = langData.finishBtn;
+                document.getElementById('next-btn').className = "w-full bg-purple-600 hover:bg-purple-500 text-white font-bold py-3 px-6 rounded-xl border-b-4 border-purple-800 transition";
+            } else {
+                document.getElementById('next-btn').innerText = langData.nextBtn;
+            }
+        }
+
+        function nextStoryStep() {
+            if (storyIndex < localization[currentLang].story.length - 1) {
+                storyIndex++;
+                showStoryStep();
+            } else {
+                enterHub();
+            }
+        }
+
+        function enterHub() {
+            document.getElementById('story-screen').classList.add('hidden-section');
+            const hub = document.getElementById('hub-screen');
+            hub.classList.remove('hidden-section');
+
+            // Populate localized assets into the Hub
+            const data = localization[currentLang];
+            document.getElementById('hub-subtitle').innerText = data.subtitle;
+            document.getElementById('btn-patreon').innerText = data.patreon;
+            document.getElementById('yt-channel-text').innerText = data.ytChannel;
+            document.getElementById('heading-yt').innerText = data.headingYt;
+            document.getElementById('heading-letter').innerText = data.headingLetter;
+            document.getElementById('btn-submit-text').innerText = data.btnSubmit;
+
+            // Set dynamic channel links
+            document.getElementById('yt-link').href = ytLinks[currentLang];
+            document.getElementById('vid-recent').href = ytLinks[currentLang] + "/videos";
+            document.getElementById('vid-famous').href = ytLinks[currentLang] + "/videos?view=0&sort=p";
+        }
+
+        function handleLetterSubmission() {
+            const name = document.getElementById('sender-name').value.trim();
+            const message = document.getElementById('sender-msg').value.trim();
+            const data = localization[currentLang];
+
+            if (!name || !message) {
+                alert(data.alertFill);
+                return;
+            }
+
+            // 1. Generate Local A4 PDF using jsPDF
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF({
+                orientation: 'portrait',
+                unit: 'mm',
+                format: 'a4'
+            });
+
+            // Modern Elegant Layout for PDF Paper
+            doc.setFillColor(245, 247, 250);
+            doc.rect(0, 0, 210, 297, 'F');
+            
+            // Header Accents
+            doc.setFillColor(99, 102, 241);
+            doc.rect(0, 0, 210, 15, 'F');
+
+            doc.setFont("Helvetica", "bold");
+            doc.setFontSize(22);
+            doc.setTextColor(30, 41, 59);
+            doc.text("A Letter for Awaru", 20, 40);
+
+            doc.setFontSize(12);
+            doc.setFont("Helvetica", "normal");
+            doc.setTextColor(100, 116, 139);
+            doc.text(`From: ${name}`, 20, 52);
+            doc.text(`Date: ${new Date().toLocaleDateString()}`, 20, 58);
+
+            doc.setDrawColor(203, 213, 225);
+            doc.line(20, 65, 190, 65);
+
+            // Message body
+            doc.setFontSize(14);
+            doc.setTextColor(51, 65, 85);
+            
+            // Use splitTextToSize to automatically handle text wrapping on standard A4 margin width
+            const splitLines = doc.splitTextToSize(message, 170);
+            doc.text(splitLines, 20, 80);
+
+            // Save PDF
+            const filename = `Letter_from_${name.replace(/\s+/g, '_')}.pdf`;
+            doc.save(filename);
+
+            // 2. Trigger Mailto fallback to safely push delivery to your account 
+            // Note: Since browsers strict security blocks silent backend file attaching without APIs,
+            // this initiates an automatic mail composition pop-up configured to go to you.
+            alert(data.alertEmailMsg);
+            
+            const emailSubject = encodeURIComponent(`New Fan Letter from ${name}!`);
+            const emailBody = encodeURIComponent(`Hi Awaru!\n\nMy name is ${name}.\nI just generated an A4 fan letter PDF configuration on your landing page. Please find my text thoughts below:\n\n---\n"${message}"\n---`);
+            
+            window.location.href = `mailto:awaruwidianto@gmail.com?subject=${emailSubject}&body=${emailBody}`;
+        }
+    </script>
+</body>
+</html>
