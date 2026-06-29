@@ -247,39 +247,60 @@
     .choice-korea .choice-orb { background: #ef4444; animation-delay: -1s; }
     .choice-name { margin-top: 10px; display: block; font-family: var(--font-title); font-size: 16px; color: #5f46ce; text-shadow: 1px 1px 0 rgba(255,255,255,.85); }
 
-    .story-grid { display: grid; grid-template-columns: minmax(220px, 320px) minmax(0, 1fr); gap: clamp(18px, 4vw, 32px); align-items: center; }
-    .avatar-card { padding: 18px; text-align: center; }
-    .avatar-bubble {
-      width: min(180px, 50vw); height: min(180px, 50vw);
-      margin: 0 auto 14px;
+    /* Unified Story Layout Box */
+    .unified-story-window {
+      padding: 16px clamp(16px, 4vw, 32px) clamp(18px, 4vw, 28px);
+      width: min(100%, 780px);
+      margin: 0 auto;
+    }
+    .story-unified-body {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin-top: 4px;
+    }
+    .story-profile-compact {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      background: rgba(255, 255, 255, 0.45);
+      padding: 10px 16px;
+      border-radius: 18px;
+      border: 2px dashed rgba(86, 65, 121, 0.25);
+    }
+    .compact-avatar-bubble {
+      width: 60px; height: 60px;
       border-radius: 50%;
       background: linear-gradient(145deg, #a78bfa, #ff94cf);
-      border: 5px solid rgba(69,44,109,.82);
-      box-shadow: inset 0 -14px 0 rgba(71,52,118,.14), 0 15px 0 rgba(86,65,121,.20);
+      border: 3px solid rgba(69,44,109,.82);
+      box-shadow: inset 0 -4px 0 rgba(71,52,118,.14), 0 4px 0 rgba(86,65,121,.15);
       animation: avatarFloat 4s ease-in-out infinite;
       position: relative;
       overflow: hidden;
+      flex-shrink: 0;
     }
+    .story-profile-meta { flex-grow: 1; }
+    .story-profile-meta .character-name { font-size: 20px; margin: 0; }
+    .story-profile-meta .character-class { font-size: 12px; margin: 2px 0 0; }
+    
     .avatar-img { width: 100%; height: 100%; object-fit: cover; display: block; }
     .avatar-fallback { width: 100%; height: 100%; display: grid; place-items: center; font-weight: 900; color: #fff; background: linear-gradient(45deg, #6d5dfc, #ff94cf); font-size: 14px; padding: 10px; text-align: center; }
     .character-name { font-family: var(--font-title); font-size: 28px; color: #654bdb; margin: 0; }
     .character-class { margin: 4px 0 0; color: var(--ink-soft); font-weight: 900; }
-    .dialogue-card { padding: 10px clamp(14px, 3vw, 26px) clamp(18px, 3vw, 28px); }
-    .story-topline { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 16px; font-weight: 900; color: var(--ink-soft); }
+    .story-topline { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 6px; font-weight: 900; color: var(--ink-soft); }
     .mission-tag { font-family: var(--font-title); color: #7155e5; font-size: 18px; }
     .speech-bubble {
-      min-height: 190px;
+      min-height: 140px;
       display: flex;
       align-items: center;
-      padding: clamp(18px, 4vw, 28px);
+      padding: clamp(16px, 3.5vw, 24px);
       border-radius: 24px;
       background: rgba(255, 249, 241, .86);
       border: 3px solid rgba(70,49,117,.62);
       box-shadow: inset 0 0 0 3px rgba(255,255,255,.58);
       position: relative;
     }
-    .speech-bubble::after { content: ""; position: absolute; left: -18px; top: 42px; width: 32px; height: 32px; background: rgba(255,249,241,.86); border-left: 3px solid rgba(70,49,117,.62); border-bottom: 3px solid rgba(70,49,117,.62); transform: rotate(45deg); }
-    #story-text { margin: 0; font-size: clamp(18px, 2.3vw, 25px); line-height: 1.48; font-weight: 900; color: #3d315f; }
+    #story-text { margin: 0; font-size: clamp(16px, 2.1vw, 22px); line-height: 1.45; font-weight: 900; color: #3d315f; }
     .cursor-dot { display: inline-block; width: .65em; height: 1em; margin-left: 3px; background: #ff94cf; vertical-align: -0.12em; animation: cursorBlink .85s infinite; }
 
     .game-button, .cute-button {
@@ -301,85 +322,105 @@
     .pink-button { background: linear-gradient(180deg, #ffd2e9, #ff8ec9); }
 
     .hub-hero { text-align: center; margin-bottom: 24px; }
-    .hub-hero h2 { margin: 0; font-family: var(--font-title); font-size: clamp(42px, 8vw, 82px); color: #614ad5; line-height: .82; text-shadow: 3px 3px 0 #fff, 7px 7px 0 rgba(142,231,255,.42); }
+    .hub-title-container { display: flex; align-items: center; justify-content: center; gap: 12px; margin-bottom: 4px; }
+    .hub-hero-avatar {
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      border: 3px solid #564179;
+      background: linear-gradient(145deg, #a78bfa, #ff94cf);
+      box-shadow: 0 4px 0 rgba(70, 49, 117, 0.15);
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+    .hub-hero h2 { margin: 0; font-family: var(--font-title); font-size: clamp(36px, 7vw, 72px); color: #614ad5; line-height: .9; text-shadow: 3px 3px 0 #fff, 5px 5px 0 rgba(142,231,255,.42); }
     
     .player-identity-card {
       max-width: 640px;
-      margin: 0 auto 28px;
-      padding: 20px;
+      margin: 0 auto 20px;
+      padding: 16px;
       background: rgba(255, 255, 255, 0.75);
       border: 3px solid #564179;
       border-radius: 20px;
       text-align: center;
-      box-shadow: 0 8px 0 rgba(70, 49, 117, 0.15);
+      box-shadow: 0 6px 0 rgba(70, 49, 117, 0.15);
     }
     .player-identity-card h4 {
-      margin: 0 0 8px;
+      margin: 0 0 6px;
       font-family: var(--font-title);
-      font-size: 20px;
+      font-size: 18px;
       color: #6d5dfc;
       letter-spacing: 0.05em;
     }
     .player-identity-card p {
-      margin: 6px 0;
-      font-size: 15px;
+      margin: 4px 0;
+      font-size: 14px;
       font-weight: 800;
       color: var(--ink);
       line-height: 1.4;
     }
     .player-age-ticker {
       display: inline-block;
-      margin-top: 10px;
-      padding: 6px 14px;
+      margin-top: 8px;
+      padding: 5px 12px;
       background: #ffe58f;
       border: 2px solid #564179;
       border-radius: 99px;
       font-family: var(--font-title);
-      font-size: 14px;
+      font-size: 13px;
       color: #27213f;
     }
 
-    .hub-map {
-      position: relative;
-      min-height: auto;
-      display: flex;
-      flex-direction: row;
-      justify-content: center;
-      align-items: flex-start;
-      gap: clamp(14px, 3.5vw, 36px);
-      flex-wrap: wrap;
-      margin: 30px auto;
-      max-width: 840px;
+    /* Hub Left/Right Workspace Layout Split */
+    .hub-workspace {
+      display: grid;
+      grid-template-columns: 140px minmax(0, 1fr);
+      gap: 24px;
+      align-items: start;
+      margin: 24px auto;
+      max-width: 940px;
+      width: 100%;
     }
-    .hub-planet {
+    .hub-sidebar {
+      position: sticky;
+      top: 20px;
+    }
+    .hub-workspace .hub-map {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+      margin: 0;
+      width: 100%;
+      max-width: 100%;
+    }
+    .hub-workspace .hub-planet {
+      width: 90px;
       position: relative;
       display: flex;
       flex-direction: column;
       align-items: center;
       text-align: center;
       padding: 0;
-      width: 100px;
       border: 0;
       color: var(--ink);
       background: transparent;
       transition: transform .25s cubic-bezier(.18,.89,.32,1.28), filter .25s;
     }
-    .hub-planet:hover { transform: translateY(-8px) scale(1.05); filter: drop-shadow(0 0 20px rgba(255,255,255,.8)); }
-    .hub-planet:active { transform: scale(.96); }
-    .hub-planet .orb {
-      width: 76px; height: 76px;
+    .hub-workspace .hub-planet:hover { transform: translateY(-6px) scale(1.04); filter: drop-shadow(0 0 14px rgba(255,255,255,.8)); }
+    .hub-workspace .hub-planet .orb {
+      width: 58px; height: 58px;
       display: grid; place-items: center;
       border-radius: 50%;
-      border: 4px solid rgba(69,44,109,.82);
-      box-shadow: inset 0 -8px 0 rgba(70,49,117,.12), 0 5px 0 rgba(70,49,117,.24);
+      border: 3px solid rgba(69,44,109,.82);
+      box-shadow: inset 0 -6px 0 rgba(70,49,117,.12), 0 4px 0 rgba(70,49,117,.2);
       animation: planetFloat 5s ease-in-out infinite, dynamicColorShift 10s linear infinite !important;
       position: relative;
       overflow: hidden;
-      padding: 18px;
+      padding: 14px;
     }
-    .hub-planet .orb::before { content: ""; position: absolute; inset: 46% -28%; height: 17%; border: 2px solid rgba(255,255,255,.45); border-radius: 50%; transform: rotate(-16deg); }
-    .hub-planet strong { margin-top: 10px; display: block; font-family: var(--font-title); font-size: 16px; color: #5f46ce; text-shadow: 1px 1px 0 rgba(255,255,255,.85); }
-    .hub-planet small { display: block; font-weight: 900; color: var(--ink-soft); font-size: 11px; }
+    .hub-workspace .hub-planet .orb::before { content: ""; position: absolute; inset: 46% -28%; height: 17%; border: 2px solid rgba(255,255,255,.45); border-radius: 50%; transform: rotate(-16deg); }
+    .hub-workspace .hub-planet strong { margin-top: 6px; display: block; font-family: var(--font-title); font-size: 14px; color: #5f46ce; text-shadow: 1px 1px 0 rgba(255,255,255,.85); }
+    .hub-workspace .hub-planet small { display: block; font-weight: 900; color: var(--ink-soft); font-size: 10px; }
     
     .orb-patreon { background: radial-gradient(circle at 36% 28%, #fff, #ff94cf 45%, #ff5d76); color: #fff; }
     .orb-youtube { background: radial-gradient(circle at 36% 28%, #fff, #ffc8a2 38%, #ff6969); color: #fff; }
@@ -389,10 +430,12 @@
     .planet-secret { opacity: .48; filter: grayscale(.15); }
     .planet-secret.unlocked { opacity: 1; filter: none; animation: secretGlow 1s ease-in-out 3; }
 
-    .panel-section { display: none; margin-top: 24px; animation: panelPop .42s cubic-bezier(.18,.89,.32,1.28) both; }
+    .panel-section { display: none; margin-top: 0; animation: panelPop .42s cubic-bezier(.18,.89,.32,1.28) both; }
     .panel-section.active { display: block; }
     .content-panel { padding: 12px clamp(14px, 3vw, 24px) clamp(18px, 3vw, 26px); }
-    .panel-title { margin: -8px 0 14px; font-family: var(--font-title); font-size: clamp(28px, 5vw, 44px); color: #654bdb; }
+    
+    /* Smaller Titles for Panels */
+    .panel-title { margin: -4px 0 12px; font-family: var(--font-title); font-size: clamp(22px, 4.2vw, 32px) !important; color: #654bdb; }
     
     .youtube-single-container { max-width: 640px; margin: 0 auto; }
     .yt-channel-card {
@@ -441,7 +484,7 @@
     .quest-card strong { color: #5844c9; margin-top: 10px; display: block; }
     .quest-card small { color: var(--ink-soft); }
 
-    .mail-terminal { display: grid; grid-template-columns: minmax(0, 1fr) 230px; gap: 18px; align-items: stretch; }
+    .mail-terminal { display: grid; grid-template-columns: minmax(0, 1fr) 200px; gap: 16px; align-items: stretch; }
     .terminal-screen {
       padding: 18px;
       border-radius: 22px;
@@ -457,15 +500,15 @@
     .field { position: relative; z-index: 1; width: 100%; border: 3px solid rgba(255,255,255,.26); border-radius: 17px; background: rgba(255,255,255,.12); color: #fff; padding: 14px 15px; outline: none; font-weight: 800; transition: border .2s, background .2s, transform .2s; }
     .field::placeholder { color: rgba(255,255,255,.62); }
     .field:focus { border-color: #ffe58f; background: rgba(255,255,255,.18); transform: translateY(-2px); }
-    textarea.field { min-height: 150px; resize: vertical; line-height: 1.45; }
+    textarea.field { min-height: 130px; resize: vertical; line-height: 1.45; }
     .field-group { margin-bottom: 14px; }
     .rocket-card { display: grid; place-items: center; text-align: center; padding: 16px; border-radius: 24px; background: rgba(255,255,255,.62); border: 3px solid rgba(86,65,121,.26); color: #6d5dfc; }
-    .rocket-card svg { width: 80px; height: 80px; filter: drop-shadow(0 12px 20px rgba(86,65,121,.22)); animation: rocketIdle 2.7s ease-in-out infinite; }
-    .rocket-card p { margin: 8px 0 0; font-weight: 1000; color: var(--ink-soft); }
+    .rocket-card svg { width: 64px; height: 64px; filter: drop-shadow(0 12px 20px rgba(86,65,121,.22)); animation: rocketIdle 2.7s ease-in-out infinite; }
+    .rocket-card p { margin: 8px 0 0; font-weight: 1000; color: var(--ink-soft); font-size: 13px; }
     .send-row { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 14px; }
 
-    .radio-panel { display: grid; grid-template-columns: 120px minmax(0,1fr); gap: 18px; align-items: center; }
-    .radio-art { height: 110px; border-radius: 24px; background: linear-gradient(145deg, #fff7bf, #ffadd8); border: 4px solid rgba(69,44,109,.82); box-shadow: inset 0 -12px 0 rgba(70,49,117,.11), 0 8px 0 rgba(70,49,117,.24); display: grid; place-items: center; color: #4a3a74; padding: 10px; font-size: 42px; }
+    .radio-panel { display: grid; grid-template-columns: 100px minmax(0,1fr); gap: 16px; align-items: center; }
+    .radio-art { height: 90px; border-radius: 24px; background: linear-gradient(145deg, #fff7bf, #ffadd8); border: 4px solid rgba(69,44,109,.82); box-shadow: inset 0 -12px 0 rgba(70,49,117,.11), 0 8px 0 rgba(70,49,117,.24); display: grid; place-items: center; color: #4a3a74; padding: 10px; font-size: 36px; }
     .range { width: 100%; accent-color: #7f83ff; }
     .toggle { min-height: 44px; padding: 10px 14px; border-radius: 14px; border: 3px solid rgba(69,44,109,.7); background: rgba(255,255,255,.7); font-weight: 1000; box-shadow: 0 4px 0 rgba(70,49,117,.2); }
 
@@ -527,14 +570,14 @@
       .topbar { align-items: flex-start; flex-direction: column; }
       .hud { width: 100%; max-width: 100%; }
       .xp-wrap { width: 100%; flex: 1 1 100%; }
-      .planet-choice-grid, .story-grid, .mail-terminal, .radio-panel { grid-template-columns: 1fr; }
+      .planet-choice-grid, .mail-terminal, .radio-panel { grid-template-columns: 1fr; }
       .planet-choice-grid { flex-direction: row; }
       .planet-choice { width: 84px; }
       .choice-orb { width: 64px; height: 64px; }
-      .speech-bubble::after { display: none; }
-      .hub-map { display: flex; flex-direction: row; justify-content: center; gap: 12px; }
-      .hub-planet { width: 84px; }
-      .hub-planet .orb { width: 64px; height: 64px; }
+      .hub-workspace { grid-template-columns: 1fr; gap: 16px; }
+      .hub-workspace .hub-map { flex-direction: row; justify-content: center; flex-wrap: wrap; gap: 12px; }
+      .hub-workspace .hub-planet { width: 78px; }
+      .hub-workspace .hub-planet .orb { width: 52px; height: 52px; padding: 10px; }
       .planet.one { width: 58px; height: 58px; } .planet.three { width: 72px; height: 72px; }
       .sound-dock { right: 10px; bottom: 10px; }
       .dock-button { font-size: 12px; }
@@ -606,43 +649,50 @@
         </div>
       </section>
 
+      <!-- Unified Mission Intro Screen Box -->
       <section id="story-screen" class="screen" aria-labelledby="story-heading">
-        <div class="story-grid">
-          <aside class="pixel-window avatar-card">
-            <div class="window-label">
-              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2c-4.97 0-9 4.03-9 9 0 2.12.74 4.07 1.97 5.61L4.35 19.4a1 1 0 0 0 1.25 1.25l2.79-1.62A8.95 8.95 0 0 0 12 20c4.97 0 9-4.03 9-9s-4.03-9-9-9zm0 15c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
-              <span id="player-label"></span>
+        <div class="pixel-window unified-story-window">
+          <div class="window-label">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 9h12v2H6V9zm8 5H6v-2h8v2zm4-6H6V6h12v2z"/></svg>
+            <span id="story-heading">mission intro</span>
+            <span id="player-label" style="display:none"></span>
+            <span id="dialogue-label" style="display:none"></span>
+          </div>
+          
+          <div class="story-unified-body">
+            <div class="story-profile-compact">
+              <div class="compact-avatar-bubble" aria-hidden="true">
+                <img id="profile-img" class="avatar-img" src="english.jpg" alt="Awaru Profile" onerror="this.style.display='none'; document.getElementById('avatar-err').classList.remove('hidden-section')">
+                <div id="avatar-err" class="avatar-fallback hidden-section">@awaru.pdf</div>
+              </div>
+              <div class="story-profile-meta">
+                <h2 class="character-name">AWARU</h2>
+                <p class="character-class" id="character-class">pisces • enfj • creator</p>
+              </div>
+              <span class="mission-tag" id="story-progress" style="font-family:var(--font-title); font-weight:bold; color:var(--ink-soft);">1/3</span>
             </div>
-            <div class="avatar-bubble" aria-hidden="true">
-              <img id="profile-img" class="avatar-img" src="english.jpg" alt="Awaru Profile" onerror="this.style.display='none'; document.getElementById('avatar-err').classList.remove('hidden-section')">
-              <div id="avatar-err" class="avatar-fallback hidden-section">@awaru.pdf</div>
-            </div>
-            <h2 class="character-name">AWARU</h2>
-            <p class="character-class" id="character-class">pisces • enfj • creator</p>
-          </aside>
-          <article class="pixel-window dialogue-card">
-            <div class="window-label">
-              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 9h12v2H6V9zm8 5H6v-2h8v2zm4-6H6V6h12v2z"/></svg>
-              <span id="dialogue-label"></span>
-            </div>
-            <div class="story-topline">
-              <span class="mission-tag" id="story-heading">mission intro</span>
-              <span id="story-progress">1/3</span>
-            </div>
+
             <div class="speech-bubble" aria-live="polite">
               <p id="story-text"></p>
             </div>
+            
             <div class="button-row">
               <button onclick="nextStoryStep()" id="next-btn" class="game-button primary-button" type="button">next ▶</button>
               <button onclick="skipStory()" id="skip-btn" class="game-button" type="button">skip to hub ✨</button>
             </div>
-          </article>
+          </div>
         </div>
       </section>
 
       <section id="hub-screen" class="screen" aria-labelledby="hub-title">
         <div class="hub-hero">
-          <h2 id="hub-title">AWARU</h2>
+          <div class="hub-title-container">
+            <div class="hub-hero-avatar" aria-hidden="true">
+              <img id="hub-profile-img" class="avatar-img" src="english.jpg" alt="Awaru Profile" onerror="this.style.display='none'; document.getElementById('hub-avatar-err').classList.remove('hidden-section')">
+              <div id="hub-avatar-err" class="avatar-fallback hidden-section" style="font-size:9px; padding-top:14px;">@awaru</div>
+            </div>
+            <h2 id="hub-title">AWARU</h2>
+          </div>
           <p id="hub-subtitle"></p>
         </div>
 
@@ -653,142 +703,149 @@
           <div class="player-age-ticker" id="player-age-ticker">loading cosmic coordinates...</div>
         </div>
         
-        <div class="hub-map" aria-label="Galaxy hub map">
-          <button class="hub-planet planet-youtube" type="button" data-panel="youtube-panel" aria-label="Open YouTube planet">
-            <span class="orb orb-youtube">
-              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23 12s0-3.85-.53-5.83A2.9 2.9 0 0 0 20.43 4.1C18.49 3.6 12 3.6 12 3.6s-6.49 0-8.43.51A2.9 2.9 0 0 0 1.53 6.17C1 8.15 1 12 1 12s0 3.85.53 5.83a2.9 2.9 0 0 0 2.04 2.07c1.94.51 8.43.51 8.43.51s6.49 0 8.43-.51a2.9 2.9 0 0 0 2.04-2.07C23 15.85 23 12 23 12zM9.5 15.5v-7l6.5 3.5-6.5 3.5z"/></svg>
-            </span>
-            <strong id="planet-youtube-label">youtube</strong><small id="planet-youtube-small">videos</small>
-          </button>
-          <button class="hub-planet planet-music" type="button" data-panel="music-panel" aria-label="Open music planet">
-            <span class="orb orb-music">
-              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
-            </span>
-            <strong id="planet-music-label">music</strong><small id="planet-music-small">radio</small>
-          </button>
-          <button class="hub-planet planet-letter" type="button" data-panel="letter-panel" aria-label="Open letter planet">
-            <span class="orb orb-letter">
-              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
-            </span>
-            <strong id="planet-letter-label">letter</strong><small id="planet-letter-small">space mail</small>
-          </button>
-          <button class="hub-planet planet-patreon" type="button" data-panel="patreon-panel" aria-label="Open Patreon planet">
-            <span class="orb orb-patreon">
-              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.5 3 21.9 5.42 21.9 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
-            </span>
-            <strong id="planet-patreon-label">patreon</strong><small id="planet-patreon-small">portal</small>
-          </button>
-          <button class="hub-planet planet-secret" id="secret-planet" type="button" data-panel="secret-panel" aria-label="Open secret planet">
-            <span class="orb orb-secret">
-              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-            </span>
-            <strong id="planet-secret-label">secret</strong><small id="planet-secret-small">locked</small>
-          </button>
+        <!-- Modified Workspace Grid with Navigation Side-by-Side Content Display -->
+        <div class="hub-workspace">
+          <aside class="hub-sidebar">
+            <div class="hub-map" aria-label="Galaxy hub map">
+              <button class="hub-planet planet-youtube" type="button" data-panel="youtube-panel" aria-label="Open YouTube planet">
+                <span class="orb orb-youtube">
+                  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23 12s0-3.85-.53-5.83A2.9 2.9 0 0 0 20.43 4.1C18.49 3.6 12 3.6 12 3.6s-6.49 0-8.43.51A2.9 2.9 0 0 0 1.53 6.17C1 8.15 1 12 1 12s0 3.85.53 5.83a2.9 2.9 0 0 0 2.04 2.07c1.94.51 8.43.51 8.43.51s6.49 0 8.43-.51a2.9 2.9 0 0 0 2.04-2.07C23 15.85 23 12 23 12zM9.5 15.5v-7l6.5 3.5-6.5 3.5z"/></svg>
+                </span>
+                <strong id="planet-youtube-label">youtube</strong><small id="planet-youtube-small">videos</small>
+              </button>
+              <button class="hub-planet planet-music" type="button" data-panel="music-panel" aria-label="Open music planet">
+                <span class="orb orb-music">
+                  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
+                </span>
+                <strong id="planet-music-label">music</strong><small id="planet-music-small">radio</small>
+              </button>
+              <button class="hub-planet planet-letter" type="button" data-panel="letter-panel" aria-label="Open letter planet">
+                <span class="orb orb-letter">
+                  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                </span>
+                <strong id="planet-letter-label">letter</strong><small id="planet-letter-small">space mail</small>
+              </button>
+              <button class="hub-planet planet-patreon" type="button" data-panel="patreon-panel" aria-label="Open Patreon planet">
+                <span class="orb orb-patreon">
+                  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.5 3 21.9 5.42 21.9 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+                </span>
+                <strong id="planet-patreon-label">patreon</strong><small id="planet-patreon-small">portal</small>
+              </button>
+              <button class="hub-planet planet-secret" id="secret-planet" type="button" data-panel="secret-panel" aria-label="Open secret planet">
+                <span class="orb orb-secret">
+                  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                </span>
+                <strong id="planet-secret-label">secret</strong><small id="planet-secret-small">locked</small>
+              </button>
+            </div>
+          </aside>
+
+          <main class="hub-main-content">
+            <section id="youtube-panel" class="panel-section pixel-window content-panel" aria-labelledby="heading-yt">
+              <div class="window-label">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M21 3H3c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-9 9H3V5h9v7z"/></svg>
+                <span id="yt-window-label">video terminal</span>
+              </div>
+              <h3 id="heading-yt" class="panel-title">YOUTUBE CHANNEL</h3>
+              <div class="youtube-single-container">
+                <a id="yt-link" href="#" target="_blank" rel="noopener" class="yt-channel-card">
+                  <div class="yt-mock-thumbnail">
+                    <div class="yt-play-overlay">
+                      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                    </div>
+                  </div>
+                  <div class="yt-card-info">
+                    <div class="yt-card-meta">
+                      <h4 id="yt-channel-text">visit my youtube channel</h4>
+                      <p id="yt-channel-desc">please subscribe, it will help awaru chase his dreams.</p>
+                    </div>
+                    <div style="width: 24px; height: 24px; color: #5844c9;">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    </div>
+                  </div>
+                </a>
+              </div>
+            </section>
+
+            <section id="music-panel" class="panel-section pixel-window content-panel" aria-labelledby="music-title">
+              <div class="window-label">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
+                <span id="music-window-label">pixel radio</span>
+              </div>
+              <h3 id="music-title" class="panel-title">COZY PIXEL RADIO</h3>
+              <div class="radio-panel">
+                <div class="radio-art">📻</div>
+                <div>
+                  <p id="music-copy" class="subtitle" style="text-align:left;margin-left:0">soft retro bleeps made in your browser. no autoplay, no surprise sound.</p>
+                  <div class="button-row">
+                    <button id="music-play" type="button" class="game-button primary-button">▶ play</button>
+                    <button id="music-pause" type="button" class="game-button">⏸ pause</button>
+                    <button id="music-mute" type="button" class="game-button">🔇 mute</button>
+                  </div>
+                  <label id="volume-label" for="volume-range" style="display:block;margin-top:16px;font-weight:1000;color:var(--ink-soft)">volume</label>
+                  <input id="volume-range" class="range" type="range" min="0" max="1" step="0.01" value="0.28">
+                </div>
+              </div>
+            </section>
+
+            <section id="letter-panel" class="panel-section pixel-window content-panel" aria-labelledby="heading-letter">
+              <div class="window-label">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                <span id="letter-window-label">space mail terminal</span>
+              </div>
+              <h3 id="heading-letter" class="panel-title">SEND A LETTER</h3>
+              <div class="mail-terminal">
+                <div class="terminal-screen">
+                  <div class="field-group">
+                    <label for="sender-name" id="label-name">FROM</label>
+                    <input type="text" id="sender-name" class="field" placeholder="your name / 이름" autocomplete="name">
+                  </div>
+                  <div class="field-group">
+                    <label for="sender-msg" id="label-message">MESSAGE</label>
+                    <textarea id="sender-msg" rows="5" class="field" placeholder="write something to awaru... / 메시지를 적어주세요..."></textarea>
+                  </div>
+                  <div class="send-row">
+                    <button onclick="handleLetterSubmission()" class="game-button primary-button" type="button">
+                      <span style="width:16px;height:16px;display:inline-block;"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 16V4c0-1.1-.9-2-2-2H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2zm-11-4l2.03 2.71L16 11l4 5H8l3-4zM2 6v14c0 1.1.9 2 2 2h14v-2H4V6H2z"/></svg></span>
+                      <span id="btn-submit-text">generate png letter</span>
+                    </button>
+                    <button onclick="clearLetter()" class="game-button" type="button" id="btn-clear">clear</button>
+                  </div>
+                </div>
+                <aside class="rocket-card" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.5a15.3 15.3 0 0 1 4 9.5c0 3.7-1.3 6.4-4 8.5-2.7-2.1-4-4.8-4-8.5a15.3 15.3 0 0 1 4-9.5zM4 12c0-2 .5-3.8 1.4-5.4A17.2 17.2 0 0 0 2 12c0 4.3 2.5 8 6.1 9.7-.7-2.1-.7-4.3-.7-6.7s0-2.3-.4-3zm14.6-5.4c.9 1.6 1.4 3.4 1.4 5.4s0 1-.4 3c-.4 2.4-.4 4.6-1.1 6.7 3.6-1.7 6.1-5.4 6.1-9.7a17.2 17.2 0 0 0-3.4-5.4z"/></svg>
+                  <p id="rocket-copy">ready to launch your letter across the galaxy.</p>
+                </aside>
+              </div>
+            </section>
+
+            <section id="patreon-panel" class="panel-section pixel-window content-panel" aria-labelledby="patreon-title">
+              <div class="window-label">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.5 3 21.9 5.42 21.9 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+                <span id="patreon-window-label">creator camp</span>
+              </div>
+              <h3 id="patreon-title" class="panel-title">SUPPORT AWARU</h3>
+              <p id="patreon-copy" class="subtitle" style="text-align:left;margin-left:0">help fuel more cozy korea adventures, vlogs, music, and dream projects.</p>
+              <a href="#" id="patreon-link" target="_blank" rel="noopener" class="cute-button pink-button">
+                <span style="width:20px;height:20px;display:inline-block;"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82zM12 3L1 9l11 6 9-4.91V17h2V9L12 3z"/></svg></span>
+                <span id="btn-patreon">support on patreon</span>
+              </a>
+            </section>
+
+            <section id="secret-panel" class="panel-section pixel-window content-panel" aria-labelledby="secret-title">
+              <div class="window-label">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.5 3 21.9 5.42 21.9 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+                <span id="secret-window-label">hidden sphere</span>
+              </div>
+              <h3 id="secret-title" class="panel-title">SECRET PLANET</h3>
+              <p id="secret-copy" class="subtitle" style="text-align:left;margin-left:0">awaru's dream is still loading, but every brave day adds +1 hope.</p>
+              <div class="quest-card">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm1 11a1 1 0 1 1-1-1 1 1 0 0 1 1 1zm-5-1a1 1 0 1 1 1-1 1 1 0 0 1-1 1zm8-1a1 1 0 1 1-1-1 1 1 0 0 1 1 1zm-4 6a4 4 0 0 1-3.44-2h6.88A4 4 0 0 1 12 17z"/></svg>
+                <strong id="random-message">a tiny alien says: keep going, traveler.</strong><small id="secret-small-copy">you found a soft little corner of the universe.</small>
+              </div>
+            </section>
+          </main>
         </div>
-
-        <section id="youtube-panel" class="panel-section pixel-window content-panel" aria-labelledby="heading-yt">
-          <div class="window-label">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M21 3H3c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-9 9H3V5h9v7z"/></svg>
-            <span id="yt-window-label">video terminal</span>
-          </div>
-          <h3 id="heading-yt" class="panel-title">YOUTUBE CHANNEL</h3>
-          <div class="youtube-single-container">
-            <a id="yt-link" href="#" target="_blank" rel="noopener" class="yt-channel-card">
-              <div class="yt-mock-thumbnail">
-                <div class="yt-play-overlay">
-                  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-                </div>
-              </div>
-              <div class="yt-card-info">
-                <div class="yt-card-meta">
-                  <h4 id="yt-channel-text">visit my youtube channel</h4>
-                  <p id="yt-channel-desc">please subscribe, it will help awaru chase his dreams.</p>
-                </div>
-                <div style="width: 24px; height: 24px; color: #5844c9;">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-                </div>
-              </div>
-            </a>
-          </div>
-        </section>
-
-        <section id="music-panel" class="panel-section pixel-window content-panel" aria-labelledby="music-title">
-          <div class="window-label">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
-            <span id="music-window-label">pixel radio</span>
-          </div>
-          <h3 id="music-title" class="panel-title">COZY PIXEL RADIO</h3>
-          <div class="radio-panel">
-            <div class="radio-art">📻</div>
-            <div>
-              <p id="music-copy" class="subtitle" style="text-align:left;margin-left:0">soft retro bleeps made in your browser. no autoplay, no surprise sound.</p>
-              <div class="button-row">
-                <button id="music-play" type="button" class="game-button primary-button">▶ play</button>
-                <button id="music-pause" type="button" class="game-button">⏸ pause</button>
-                <button id="music-mute" type="button" class="game-button">🔇 mute</button>
-              </div>
-              <label id="volume-label" for="volume-range" style="display:block;margin-top:16px;font-weight:1000;color:var(--ink-soft)">volume</label>
-              <input id="volume-range" class="range" type="range" min="0" max="1" step="0.01" value="0.28">
-            </div>
-          </div>
-        </section>
-
-        <section id="letter-panel" class="panel-section pixel-window content-panel" aria-labelledby="heading-letter">
-          <div class="window-label">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
-            <span id="letter-window-label">space mail terminal</span>
-          </div>
-          <h3 id="heading-letter" class="panel-title">SEND A LETTER</h3>
-          <div class="mail-terminal">
-            <div class="terminal-screen">
-              <div class="field-group">
-                <label for="sender-name" id="label-name">FROM</label>
-                <input type="text" id="sender-name" class="field" placeholder="your name / 이름" autocomplete="name">
-              </div>
-              <div class="field-group">
-                <label for="sender-msg" id="label-message">MESSAGE</label>
-                <textarea id="sender-msg" rows="5" class="field" placeholder="write something to awaru... / 메시지를 적어주세요..."></textarea>
-              </div>
-              <div class="send-row">
-                <button onclick="handleLetterSubmission()" class="game-button primary-button" type="button">
-                  <span style="width:16px;height:16px;display:inline-block;"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 16V4c0-1.1-.9-2-2-2H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2zm-11-4l2.03 2.71L16 11l4 5H8l3-4zM2 6v14c0 1.1.9 2 2 2h14v-2H4V6H2z"/></svg></span>
-                  <span id="btn-submit-text">generate png letter</span>
-                </button>
-                <button onclick="clearLetter()" class="game-button" type="button" id="btn-clear">clear</button>
-              </div>
-            </div>
-            <aside class="rocket-card" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.5a15.3 15.3 0 0 1 4 9.5c0 3.7-1.3 6.4-4 8.5-2.7-2.1-4-4.8-4-8.5a15.3 15.3 0 0 1 4-9.5zM4 12c0-2 .5-3.8 1.4-5.4A17.2 17.2 0 0 0 2 12c0 4.3 2.5 8 6.1 9.7-.7-2.1-.7-4.3-.7-6.7s0-2.3-.4-3zm14.6-5.4c.9 1.6 1.4 3.4 1.4 5.4s0 1-.4 3c-.4 2.4-.4 4.6-1.1 6.7 3.6-1.7 6.1-5.4 6.1-9.7a17.2 17.2 0 0 0-3.4-5.4z"/></svg>
-              <p id="rocket-copy">ready to launch your letter across the galaxy.</p>
-            </aside>
-          </div>
-        </section>
-
-        <section id="patreon-panel" class="panel-section pixel-window content-panel" aria-labelledby="patreon-title">
-          <div class="window-label">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.5 3 21.9 5.42 21.9 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
-            <span id="patreon-window-label">creator camp</span>
-          </div>
-          <h3 id="patreon-title" class="panel-title">SUPPORT AWARU</h3>
-          <p id="patreon-copy" class="subtitle" style="text-align:left;margin-left:0">help fuel more cozy korea adventures, vlogs, music, and dream projects.</p>
-          <a href="#" id="patreon-link" target="_blank" rel="noopener" class="cute-button pink-button">
-            <span style="width:20px;height:20px;display:inline-block;"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82zM12 3L1 9l11 6 9-4.91V17h2V9L12 3z"/></svg></span>
-            <span id="btn-patreon">support on patreon</span>
-          </a>
-        </section>
-
-        <section id="secret-panel" class="panel-section pixel-window content-panel" aria-labelledby="secret-title">
-          <div class="window-label">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.5 3 21.9 5.42 21.9 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
-            <span id="secret-window-label">hidden sphere</span>
-          </div>
-          <h3 id="secret-title" class="panel-title">SECRET PLANET</h3>
-          <p id="secret-copy" class="subtitle" style="text-align:left;margin-left:0">awaru's dream is still loading, but every brave day adds +1 hope.</p>
-          <div class="quest-card">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm1 11a1 1 0 1 1-1-1 1 1 0 0 1 1 1zm-5-1a1 1 0 1 1 1-1 1 1 0 0 1-1 1zm8-1a1 1 0 1 1-1-1 1 1 0 0 1 1 1zm-4 6a4 4 0 0 1-3.44-2h6.88A4 4 0 0 1 12 17z"/></svg>
-            <strong id="random-message">a tiny alien says: keep going, traveler.</strong><small id="secret-small-copy">you found a soft little corner of the universe.</small>
-          </div>
-        </section>
       </section>
     </div>
   </main>
@@ -1170,6 +1227,13 @@
         profileImg.style.display = 'block';
         document.getElementById('avatar-err').classList.add('hidden-section');
         profileImg.src = lang === "ko" ? "korean.jpg" : "english.jpg";
+      }
+
+      const hubProfileImg = document.getElementById("hub-profile-img");
+      if (hubProfileImg) {
+        hubProfileImg.style.display = 'block';
+        document.getElementById('hub-avatar-err').classList.add('hidden-section');
+        hubProfileImg.src = lang === "ko" ? "korean.jpg" : "english.jpg";
       }
 
       if (lang === 'ko') {
