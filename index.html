@@ -801,7 +801,7 @@
                   </div>
                   <div class="send-row">
                     <button onclick="handleLetterSubmission()" class="game-button primary-button" type="button">
-                      <span id="btn-submit-text">generate png letter</span>
+                      <span id="btn-submit-text">send</span>
                     </button>
                     <button onclick="clearLetter()" class="game-button" type="button" id="btn-clear">clear</button>
                   </div>
@@ -860,8 +860,13 @@
       </div>
       <div id="success-state" class="hidden-section">
         <div class="success-check">✓</div>
-        <h2 class="panel-title" id="success-title">MISSION COMPLETE!</h2>
-        <p class="subtitle" id="success-copy">your png layout was created and downloaded! open instagram to send it straight to my dms.</p>
+        <h2 class="panel-title" id="success-title">LETTER READY!</h2>
+        <p class="subtitle" id="success-copy">please screen capture the layout below and send it to awaru by dm!</p>
+        
+        <div style="text-align: center; margin: 14px 0; overflow: hidden;">
+          <img id="preview-letter-img" src="" alt="Letter Preview" style="max-width: 100%; max-height: 290px; border-radius: 14px; border: 3px solid rgba(69,44,109,.82); box-shadow: var(--pixel-shadow);">
+        </div>
+
         <div class="button-row" style="justify-content:center">
           <button id="open-instagram-btn" type="button" class="game-button primary-button">💌 open instagram dm</button>
           <button id="close-launch-btn" type="button" class="game-button">close</button>
@@ -964,7 +969,7 @@
         labelMessage: "MESSAGE",
         namePlaceholder: "your name",
         messagePlaceholder: "write something to awaru...",
-        btnSubmit: "generate png letter",
+        btnSubmit: "send",
         clear: "clear",
         rocketCopy: "ready to launch your letter across the galaxy.",
         patreonWindowLabel: "creator camp",
@@ -985,8 +990,8 @@
         overlayWindowLabel: "🚀 rocket dm mail",
         launchTitle: "LAUNCHING PNG...",
         launchCopy: "preparing your galaxy letter image for awaru.",
-        successTitle: "MISSION COMPLETE!",
-        successCopy: "your png layout was created and downloaded! open instagram send it straight to my dms.",
+        successTitle: "LETTER READY!",
+        successCopy: "please screen capture the layout below and send it to awaru by dm!",
         openInstaBtn: "💌 open instagram dm",
         closeLaunchBtn: "close",
         congratsWindowLabel: "🏆 thank you",
@@ -1058,7 +1063,7 @@
         labelMessage: "메시지",
         namePlaceholder: "이름을 적어주세요",
         messagePlaceholder: "아와루에게 전달할 메시지를 적어주세요...",
-        btnSubmit: "png 편지 이미지 생성",
+        btnSubmit: "보내기",
         clear: "지우기",
         rocketCopy: "은하계를 가로질러 편지를 발사할 준비가 되었습니다.",
         patreonWindowLabel: "크리에이터 캠프",
@@ -1079,8 +1084,8 @@
         overlayWindowLabel: "🚀 로켓 dm 우편",
         launchTitle: "PNG 발사 중...",
         launchCopy: "아와루에게 전달할 은하 편지 이미지를 구성하고 있습니다.",
-        successTitle: "미션 완료!",
-        successCopy: "png 레이아웃이 생성되어 다운로드되었습니다! 인스타그램을 열어 dms로 바로 전송해보세요.",
+        successTitle: "편지 완성!",
+        successCopy: "아래 생성된 은하 편지 화면을 캡처(스크린샷)하여 아와루에게 인스타그램 DM으로 전송해주세요!",
         openInstaBtn: "💌 인스타그램 DM 열기",
         closeLaunchBtn: "닫기",
         congratsWindowLabel: "🏆 thank you",
@@ -1463,44 +1468,91 @@
       canvas.height = 1000;
       const ctx = canvas.getContext("2d");
 
-      ctx.fillStyle = "#faf4ff";
+      const grad = ctx.createLinearGradient(0, 0, 800, 1000);
+      grad.addColorStop(0, '#c9b6ff');
+      grad.addColorStop(0.25, '#ffbbdb');
+      grad.addColorStop(0.5, '#7f83ff');
+      grad.addColorStop(0.75, '#7fe7ff');
+      grad.addColorStop(1, '#cfb7ff');
+      ctx.fillStyle = grad;
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-      ctx.strokeStyle = "#6f55be";
+      ctx.fillStyle = "rgba(255, 255, 255, 0.35)";
+      for (let i = 0; i < 45; i++) {
+        ctx.beginPath();
+        ctx.arc(Math.random() * 800, Math.random() * 1000, Math.random() * 3 + 1, 0, Math.PI * 2);
+        ctx.fill();
+      }
+
+      const p1Grad = ctx.createRadialGradient(120, 140, 5, 120, 140, 50);
+      p1Grad.addColorStop(0, '#fff4be');
+      p1Grad.addColorStop(0.5, '#ff9ece');
+      p1Grad.addColorStop(1, '#8d82ff');
+      ctx.fillStyle = p1Grad;
+      ctx.beginPath();
+      ctx.arc(120, 140, 45, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.strokeStyle = "rgba(255,255,255,0.55)";
+      ctx.lineWidth = 3;
+      ctx.beginPath();
+      ctx.ellipse(120, 140, 65, 15, -18 * Math.PI / 180, 0, Math.PI * 2);
+      ctx.stroke();
+
+      const p2Grad = ctx.createRadialGradient(700, 180, 5, 700, 180, 35);
+      p2Grad.addColorStop(0, '#dffcff');
+      p2Grad.addColorStop(0.5, '#8ee7ff');
+      p2Grad.addColorStop(1, '#7167f9');
+      ctx.fillStyle = p2Grad;
+      ctx.beginPath();
+      ctx.arc(700, 180, 32, 0, Math.PI * 2);
+      ctx.fill();
+
+      ctx.fillStyle = "rgba(255, 255, 255, 0.95)";
+      ctx.beginPath();
+      ctx.ellipse(680, 880, 35, 10, 0, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = "rgba(142, 231, 255, 0.85)";
+      ctx.beginPath();
+      ctx.arc(680, 876, 15, Math.PI, 0);
+      ctx.fill();
+      ctx.fillStyle = "#ffe58f";
+      ctx.beginPath();
+      ctx.arc(665, 880, 3, 0, Math.PI * 2);
+      ctx.arc(680, 882, 3, 0, Math.PI * 2);
+      ctx.arc(695, 880, 3, 0, Math.PI * 2);
+      ctx.fill();
+
+      ctx.strokeStyle = "#564179";
       ctx.lineWidth = 8;
       ctx.strokeRect(20, 20, canvas.width - 40, canvas.height - 40);
 
-      ctx.strokeStyle = "#ff94cf";
-      ctx.lineWidth = 2;
-      ctx.strokeRect(30, 30, canvas.width - 60, canvas.height - 60);
-
-      ctx.fillStyle = "#ffffff";
+      ctx.fillStyle = "rgba(255, 255, 255, 0.75)";
       ctx.beginPath();
       ctx.roundRect(50, 60, canvas.width - 100, 140, 16);
       ctx.fill();
-      ctx.strokeStyle = "#6f55be";
+      ctx.strokeStyle = "#564179";
       ctx.lineWidth = 4;
       ctx.stroke();
 
-      ctx.fillStyle = "#5e48cc";
+      ctx.fillStyle = "#5140b8";
       ctx.font = "bold 34px sans-serif";
       ctx.textAlign = "center";
       ctx.fillText(t().pdfTitle.toUpperCase() || "A LETTER FOR AWARU", canvas.width / 2, 115);
 
-      ctx.fillStyle = "#5c527a";
+      ctx.fillStyle = "#27213f";
       ctx.font = "22px sans-serif";
       const today = new Date().toLocaleDateString(state.currentLang === "ko" ? "ko-KR" : "en-US", { year: "numeric", month: "long", day: "numeric" });
       ctx.fillText(`${t().from}: ${name}  |  ${today}`, canvas.width / 2, 160);
 
-      ctx.fillStyle = "#ffffff";
+      ctx.fillStyle = "rgba(255, 255, 255, 0.88)";
       ctx.beginPath();
       ctx.roundRect(50, 240, canvas.width - 100, 610, 16);
       ctx.fill();
-      ctx.strokeStyle = "#b49eff";
+      ctx.strokeStyle = "#564179";
       ctx.lineWidth = 3;
       ctx.stroke();
 
-      ctx.fillStyle = "#342b56";
+      ctx.fillStyle = "#27213f";
       ctx.font = "24px sans-serif";
       ctx.textAlign = "left";
       
@@ -1527,16 +1579,15 @@
         y += lineHeight;
       }
 
-      ctx.fillStyle = "#5e48cc";
+      ctx.fillStyle = "#5140b8";
       ctx.font = "bold 20px sans-serif";
       ctx.textAlign = "center";
       ctx.fillText("@awaru.pdf  ✦  AWARU UNIVERSE", canvas.width / 2, 915);
 
-      const link = document.createElement("a");
-      const safeName = name.replace(/[^a-z0-9가-힣_-]+/gi, "_") || "Traveler";
-      link.download = `Letter_from_${safeName}_AwaruUniverse.png`;
-      link.href = canvas.toDataURL("image/png");
-      link.click();
+      const previewImg = document.getElementById("preview-letter-img");
+      if (previewImg) {
+        previewImg.src = canvas.toDataURL("image/png");
+      }
     }
 
     function openInstagramDM() {
