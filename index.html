@@ -166,22 +166,6 @@
     }
     .brand h1 { margin: 0; font-family: var(--font-title); font-size: clamp(22px, 4.6vw, 38px); line-height: .9; letter-spacing: .02em; color: #5140b8; text-shadow: 2px 2px 0 rgba(255,255,255,.9); }
     
-    .planet-nav-btn {
-      margin-top: 6px;
-      padding: 4px 10px;
-      font-size: 11px;
-      font-weight: 800;
-      border-radius: 8px;
-      background: var(--glass-strong);
-      border: 2px solid rgba(86,65,121,.3);
-      color: #5140b8;
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
-      transition: all 0.2s;
-    }
-    .planet-nav-btn:hover { background: #fff; transform: translateY(-1px); }
-    
     .hud { display: flex; align-items: center; justify-content: flex-end; flex-grow: 1; max-width: 400px; }
     .xp-wrap { width: 100%; height: 18px; padding: 3px; border-radius: 999px; background: rgba(71,52,118,.22); border: 2px solid rgba(86,65,121,.45); }
     .xp-fill { width: 14%; height: 100%; border-radius: 999px; background: linear-gradient(90deg, #8ee7ff, #ff94cf, #ffe58f); box-shadow: 0 0 14px rgba(255,148,207,.6); transition: width .8s cubic-bezier(.2,.9,.2,1); }
@@ -222,32 +206,38 @@
       font-weight: 700;
     }
 
-    #lang-screen .choose-card { width: min(100%, 780px); padding: 8px clamp(16px, 4vw, 32px) 30px; }
-    .big-title { margin: -6px 0 10px; text-align: center; font-family: var(--font-title); font-size: clamp(34px, 8vw, 72px); line-height: .86; color: #654bdb; text-shadow: 3px 3px 0 #fff, 6px 6px 0 rgba(255,148,207,.46); }
-    .subtitle { margin: 0 auto 26px; max-width: 620px; text-align: center; color: var(--ink-soft); font-size: clamp(16px, 2vw, 20px); font-weight: 800; }
-    .planet-choice-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(14px, 3vw, 24px); }
+    #lang-screen .choose-card { width: min(100%, 640px); padding: 8px 24px 24px; }
+    .big-title { margin: 6px 0 4px; text-align: center; font-family: var(--font-title); font-size: 26px; color: #654bdb; }
+    .subtitle { margin: 0 auto 16px; max-width: 620px; text-align: center; color: var(--ink-soft); font-size: 14px; font-weight: 800; }
+    .planet-choice-grid { display: flex; flex-direction: row; justify-content: center; gap: 20px; flex-wrap: wrap; }
     .planet-choice {
-      min-height: 200px;
-      display: grid;
-      place-items: center;
-      gap: 12px;
-      padding: 22px;
-      border-radius: 28px;
-      border: 4px solid rgba(70,49,117,.78);
-      background: linear-gradient(160deg, rgba(255,255,255,.78), rgba(255,255,255,.42));
-      box-shadow: 0 8px 0 rgba(70,49,117,.25), 0 18px 34px rgba(70,49,117,.18);
-      transition: transform .26s cubic-bezier(.18,.89,.32,1.28), filter .26s, box-shadow .26s;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 0;
+      width: 100px;
+      border: 0;
+      color: var(--ink);
+      background: transparent;
+      transition: transform .25s cubic-bezier(.18,.89,.32,1.28), filter .25s;
+    }
+    .planet-choice:hover { transform: translateY(-6px) scale(1.05); filter: drop-shadow(0 0 16px rgba(255,255,255,.8)); }
+    .planet-choice:active { transform: scale(.96); }
+    .choice-orb {
+      width: 76px; height: 76px;
+      display: grid; place-items: center;
+      border-radius: 50%;
+      border: 4px solid rgba(69,44,109,.82);
+      box-shadow: inset 0 -8px 0 rgba(70,49,117,.12), 0 5px 0 rgba(70,49,117,.24);
+      animation: planetFloat 5s ease-in-out infinite;
       position: relative;
       overflow: hidden;
-      color: var(--ink);
     }
-    .planet-choice::after { content: "✦ ✧ ✦"; position: absolute; top: 16px; right: 16px; color: rgba(119,87,225,.5); font-family: var(--font-title); }
-    .planet-choice:hover { transform: translateY(-10px) rotate(-1deg) scale(1.03); filter: saturate(120%); box-shadow: 0 12px 0 rgba(70,49,117,.25), 0 0 36px rgba(255,255,255,.76); }
-    .planet-choice:active { transform: translateY(0) scale(.98); box-shadow: 0 4px 0 rgba(70,49,117,.25); }
-    .choice-orb { width: 90px; height: 90px; border-radius: 50%; display: grid; place-items: center; border: 4px solid rgba(70,49,117,.50); animation: planetFloat 4.8s ease-in-out infinite; }
-    .choice-earth .choice-orb { background: #3b82f6; color: #2563eb; }
-    .choice-korea .choice-orb { background: #ef4444; color: #dc2626; animation-delay: -1s; }
-    .choice-name { font-family: var(--font-title); font-size: 30px; color: #6047d6; }
+    .choice-orb::before { content: ""; position: absolute; inset: 46% -28%; height: 17%; border: 2px solid rgba(255,255,255,.45); border-radius: 50%; transform: rotate(-16deg); }
+    .choice-earth .choice-orb { background: #3b82f6; }
+    .choice-korea .choice-orb { background: #ef4444; animation-delay: -1s; }
+    .choice-name { margin-top: 10px; display: block; font-family: var(--font-title); font-size: 16px; color: #5f46ce; text-shadow: 1px 1px 0 rgba(255,255,255,.85); }
 
     .story-grid { display: grid; grid-template-columns: minmax(220px, 320px) minmax(0, 1fr); gap: clamp(18px, 4vw, 32px); align-items: center; }
     .avatar-card { padding: 18px; text-align: center; }
@@ -492,7 +482,9 @@
       .hud { width: 100%; max-width: 100%; }
       .xp-wrap { width: 100%; flex: 1 1 100%; }
       .planet-choice-grid, .story-grid, .mail-terminal, .radio-panel { grid-template-columns: 1fr; }
-      .planet-choice { min-height: 180px; }
+      .planet-choice-grid { flex-direction: row; }
+      .planet-choice { width: 84px; }
+      .choice-orb { width: 64px; height: 64px; }
       .speech-bubble::after { display: none; }
       .hub-map { display: flex; flex-direction: row; justify-content: center; gap: 12px; }
       .hub-planet { width: 84px; }
@@ -507,6 +499,7 @@
   </style>
 </head>
 <body>
+  <!-- Transparent browser context interaction unlock wrapper -->
   <div id="iosAudioUnlocker"></div>
 
   <div class="cosmic-decoration" aria-hidden="true">
@@ -540,10 +533,6 @@
           </div>
           <div>
             <h1 id="main-title">AWARU UNIVERSE</h1>
-            <button class="planet-nav-btn hidden-section" id="planet-nav-btn" onclick="returnToPlanetSelection()">
-              <svg viewBox="0 0 24 24" width="12" height="12" fill="currentColor"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10zm-1-14.414V11H7v2h4v3.414l4.707-4.707L11 7.586z"/></svg>
-              <span id="nav-btn-text">preference:</span>
-            </button>
           </div>
         </div>
         <div class="hud">
@@ -555,7 +544,7 @@
         <div class="pixel-window choose-card">
           <div class="window-label">
             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.43 12.98c.04-.32.07-.64.07-.98s-.03-.66-.07-.98l2.11-1.65c.19-.15.24-.42.12-.64l-2-3.46c-.12-.22-.39-.3-.61-.22l-2.49 1c-.52-.4-1.08-.73-1.69-.98l-.38-2.65C14.46 2.18 14.25 2 14 2h-4c-.25 0-.46.18-.49.42l-.38 2.65c-.61.25-1.17.59-1.69.98l-2.49-1c-.23-.09-.49 0-.61.22l-2 3.46c-.13.22-.07.49.12.64l2.11 1.65c-.04.32-.07.65-.07.98s.03.66.07.98l-2.11 1.65c-.19.15-.24.42-.12.64l2 3.46c.12.22.39.3.61.22l2.49-1c.52.4 1.08.73 1.69.98l.38 2.65c.03.24.24.42.49.42h4c.25 0 .46-.18.49-.42l-.38-2.65c.61-.25 1.17-.59 1.69-.98l2.49 1c.23.09.49 0 .61-.22l2-3.46c.12-.22.07-.49-.12-.64l-2.11-1.65zM12 15.5c-1.93 0-3-1.57-3-3.5s1.07-3.5 3-3.5 3 1.57 3 3.5-1.07 3.5-3 3.5z"/></svg>
-            preference:
+            <span id="preference-label">preference</span>
           </div>
           <h2 class="big-title" id="language-title">CHOOSE YOUR PLANET</h2>
           <p class="subtitle" id="language-subtitle">pick a cozy world and begin awaru's pastel galaxy adventure.</p>
@@ -784,12 +773,13 @@
     </div>
   </div>
 
+  <!-- Congrats Overlay System -->
   <div class="launch-overlay" id="congrats-overlay" role="dialog" aria-modal="true">
     <div class="pixel-window launch-card" style="background: linear-gradient(145deg, #fffcf0, #fff3ff);">
-      <div class="window-label" id="congrats-window-label" style="background:#ffe58f;">🏆 victory achieved</div>
+      <div class="window-label" id="congrats-window-label" style="background:#ffe58f;">🏆 thank you</div>
       <div class="success-check" style="background:linear-gradient(145deg, #ffe58f, #ff94cf); color:#fff; font-size:48px;">★</div>
-      <h2 class="panel-title" id="congrats-title" style="font-size:36px; margin-bottom:4px;">CONGRATS!</h2>
-      <p class="subtitle" id="congrats-copy" style="font-size:16px;">you completed every planet world and unlocked maximum cosmic power! +500 xp granted.</p>
+      <h2 class="panel-title" id="congrats-title" style="font-size:36px; margin-bottom:4px;">THANK YOU</h2>
+      <p class="subtitle" id="congrats-copy" style="font-size:16px;">thank you for supporting awaru! it truly means the world to him.</p>
       <div class="button-row" style="justify-content:center">
         <button id="congrats-btn" onclick="document.getElementById('congrats-overlay').classList.remove('active')" type="button" class="game-button primary-button">awesome! 🎮</button>
       </div>
@@ -831,7 +821,7 @@
       en: {
         htmlLang: "en",
         mainTitle: "AWARU UNIVERSE",
-        navBtnText: "preference:",
+        preferenceLabel: "preference",
         languageTitle: "CHOOSE YOUR PLANET",
         chooseSubtitle: "pick a cozy world and begin awaru's pastel galaxy adventure.",
         playerLabel: "player",
@@ -902,9 +892,9 @@
         successCopy: "your png layout was created and downloaded! open instagram to send it straight to my dms.",
         openInstaBtn: "💌 open instagram dm",
         closeLaunchBtn: "close",
-        congratsWindowLabel: "🏆 victory achieved",
-        congratsTitle: "CONGRATS!",
-        congratsCopy: "you completed every planet world and unlocked maximum cosmic power! +500 xp granted.",
+        congratsWindowLabel: "🏆 thank you",
+        congratsTitle: "THANK YOU",
+        congratsCopy: "thank you for supporting awaru! it truly means the world to him.",
         congratsBtn: "awesome! 🎮",
         soundOn: "🔊 sound on",
         soundOff: "🔈 sound off",
@@ -922,7 +912,7 @@
       ko: {
         htmlLang: "ko",
         mainTitle: "AWARU UNIVERSE",
-        navBtnText: "환경 설정:",
+        preferenceLabel: "환경 설정",
         languageTitle: "행성을 선택하세요",
         chooseSubtitle: "귀여운 행성을 선택하고 아와루의 파스텔 은하 모험을 시작하세요.",
         playerLabel: "플레이어",
@@ -993,9 +983,9 @@
         successCopy: "png 레이아웃이 생성되어 다운로드되었습니다! 인스타그램을 열어 dms로 바로 전송해보세요.",
         openInstaBtn: "💌 인스타그램 DM 열기",
         closeLaunchBtn: "닫기",
-        congratsWindowLabel: "🏆 승리 달성",
-        congratsTitle: "축하합니다!",
-        congratsCopy: "모든 행성 세계를 완료하고 최고의 우주 에너지를 잠금 해제하셨습니다! +500 xp가 부여됩니다.",
+        congratsWindowLabel: "🏆 thank you",
+        congratsTitle: "THANK YOU",
+        congratsCopy: "아와루를 응원해 주셔서 감사합니다! 여러분의 지지가 그에게는 정말 큰 힘이 됩니다.",
         congratsBtn: "최고야! 🎮",
         soundOn: "🔊 소리 켬",
         soundOff: "🔈 소리 끔",
@@ -1031,12 +1021,6 @@
     function showScreen(id) {
       $$(".screen").forEach(screen => screen.classList.remove("active"));
       $("#" + id).classList.add("active");
-      
-      if (id !== "lang-screen") {
-        $("#planet-nav-btn").classList.remove("hidden-section");
-      } else {
-        $("#planet-nav-btn").classList.add("hidden-section");
-      }
       playSound("transition");
     }
 
@@ -1058,7 +1042,7 @@
     function applyLocalization() {
       const data = t();
       setText("main-title", data.mainTitle);
-      setText("nav-btn-text", data.navBtnText);
+      setText("preference-label", data.preferenceLabel);
       setText("language-title", data.languageTitle);
       setText("language-subtitle", data.chooseSubtitle);
       setText("player-label", data.playerLabel);
@@ -1361,7 +1345,6 @@
       state.masterGain.connect(state.audioContext.destination);
     }
 
-    // Instagram Built-In Engine Force Unlock Interaction Handler
     function forceUnlockAudioContext() {
       initAudio();
       if (state.audioContext) {
@@ -1439,7 +1422,6 @@
     }
 
     function bindEvents() {
-      // Listen to the overlay tap target to resolve the background browser context limits
       $("#iosAudioUnlocker").addEventListener("click", forceUnlockAudioContext);
       $("#iosAudioUnlocker").addEventListener("touchstart", forceUnlockAudioContext);
 
