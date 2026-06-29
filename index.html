@@ -142,7 +142,7 @@
       backdrop-filter: blur(22px) saturate(130%);
       overflow: hidden;
       transform-style: preserve-3d;
-      transform: scale(0.75) !important;
+      transform: scale(0.8) !important;
       transform-origin: center center;
     }
     .app-shell::before {
@@ -562,7 +562,7 @@
 
     @media (max-width: 760px) {
       .galaxy-stage { padding: 10px; align-items: start; }
-      .app-shell { min-height: auto; border-radius: 26px; transform: scale(0.75) !important; }
+      .app-shell { min-height: auto; border-radius: 26px; transform: scale(0.8) !important; }
       .topbar { align-items: flex-start; flex-direction: column; }
       .hud { width: 100%; max-width: 100%; }
       .xp-wrap { width: 100%; flex: 1 1 100%; }
@@ -873,8 +873,7 @@
   <div class="launch-overlay" id="congrats-overlay" role="dialog" aria-modal="true">
     <div class="pixel-window launch-card" style="background: linear-gradient(145deg, #fffcf0, #fff3ff);">
       <div class="window-label" id="congrats-window-label" style="background:#ffe58f;">🏆 thank you</div>
-      <div class="success-check" style="background:linear-gradient(145deg, #ffe58f, #ff94cf); color:#fff; font-size:44px;">★</div>
-      <h2 class="panel-title" id="congrats-title" style="font-size:32px; margin-bottom:4px;">THANK YOU</h2>
+      <h2 class="panel-title" id="congrats-title" style="font-size:32px; margin-top:12px; margin-bottom:4px;">THANK YOU</h2>
       <p class="subtitle" id="congrats-copy" style="font-size:14px;">thank you for supporting awaru! it truly means the world to him.</p>
       <div class="button-row" style="justify-content:center">
         <button id="congrats-btn" onclick="document.getElementById('congrats-overlay').classList.remove('active')" type="button" class="game-button primary-button">awesome! 🎮</button>
@@ -1580,6 +1579,11 @@
         state.audioContext.resume().then(() => {
           state.soundEnabled = true;
           updateSoundToggle();
+          let buf = state.audioContext.createBuffer(1, 1, 22050);
+          let src = state.audioContext.createBufferSource();
+          src.buffer = buf;
+          src.connect(state.audioContext.destination);
+          src.start(0);
         }).catch(err => console.log("Audio pipeline optimization trace:", err));
       }
     }
@@ -1689,7 +1693,7 @@
       document.addEventListener("mousemove", event => {
         const x = (event.clientX / window.innerWidth - .5) * 2;
         const y = (event.clientY / window.innerHeight - .5) * 2;
-        $("#app-shell").style.transform = `scale(0.75) rotateY(${x * 1.2}deg) rotateX(${-y * 1.2}deg)`;
+        $("#app-shell").style.transform = `scale(0.8) rotateY(${x * 1.2}deg) rotateX(${-y * 1.2}deg)`;
         $$('[data-depth]').forEach(el => {
           const depth = Number(el.dataset.depth || 0);
           el.style.marginLeft = `${x * depth * 80}px`;
