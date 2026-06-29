@@ -8,8 +8,6 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;500;700;800&family=Nunito:wght@400;600;700;800;900&family=Pixelify+Sans:wght@500;600;700&display=swap" rel="stylesheet">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
   <style>
     :root {
       --ink: #27213f;
@@ -409,8 +407,8 @@
     .launch-card { width: min(520px, 100%); padding: 28px; text-align: center; }
     .big-rocket { font-size: 96px; animation: launchRocket 1.4s ease-in-out infinite; }
     .success-check { width: 80px; height: 80px; border-radius: 50%; display: grid; place-items: center; margin: 0 auto 14px; background: linear-gradient(145deg, #b5f7d3, #8ee7ff); border: 4px solid rgba(69,44,109,.78); font-size: 44px; animation: panelPop .42s cubic-bezier(.18,.89,.32,1.28) both; }
-    .email-help { display: none; margin-top: 14px; padding: 14px; border-radius: 16px; background: rgba(255,255,255,.66); font-weight: 900; color: var(--ink-soft); }
-    .email-help.active { display: block; }
+    .dm-help { display: none; margin-top: 14px; padding: 14px; border-radius: 16px; background: rgba(255,255,255,.66); font-weight: 900; color: var(--ink-soft); }
+    .dm-help.active { display: block; }
 
     .footer-line { padding: 12px 22px; text-align: center; color: rgba(62,48,94,.72); font-weight: 1000; font-size: 12px; position: relative; z-index: 2; }
     #qr-cache { position: fixed; left: -9999px; top: -9999px; width: 320px; height: 320px; pointer-events: none; }
@@ -454,6 +452,48 @@
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; scroll-behavior: auto !important; }
     }
+
+    .youtube-terminal { display: grid; gap: 12px; }
+    .youtube-frame-wrap { position: relative; width: 100%; aspect-ratio: 16 / 9; border-radius: 22px; overflow: hidden; border: 4px solid rgba(69,44,109,.82); box-shadow: var(--pixel-shadow), inset 0 0 0 3px rgba(255,255,255,.35); background: rgba(255,255,255,.5); }
+    .youtube-frame-wrap::before { content: "RECENT QUEST"; position: absolute; z-index: 2; left: 12px; top: 10px; padding: 5px 9px; border-radius: 999px; background: rgba(255,247,191,.92); border: 2px solid rgba(69,44,109,.52); font-family: var(--font-title); color: #6a4ddb; font-size: 12px; pointer-events: none; }
+    #youtube-player { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+    .mission-list { display: grid; gap: 8px; margin: 12px 0 0; }
+    .mission-chip { display: flex; justify-content: space-between; gap: 10px; align-items: center; padding: 9px 12px; border-radius: 16px; background: rgba(255,255,255,.58); border: 2px solid rgba(86,65,121,.18); font-weight: 1000; color: var(--ink-soft); }
+    .mission-chip.done { color: #5140b8; background: rgba(181,247,211,.64); }
+    #letter-preview-canvas { display:none; }
+
+    /* Focused layout update: language first, cleaner subtitles, smaller hub menu */
+    .brand p, #hub-subtitle, #lang-screen .subtitle, .choice-caption { display: none !important; }
+    #lang-screen .choose-card { width: min(100%, 620px); padding: 8px clamp(14px, 4vw, 26px) 24px; }
+    .big-title { font-size: clamp(28px, 7vw, 54px); margin-bottom: 20px; }
+    .planet-choice-grid { gap: clamp(12px, 3vw, 18px); }
+    .planet-choice { min-height: 176px; padding: 16px; border-radius: 24px; }
+    .choice-orb { width: 92px; height: 92px; font-size: 40px; }
+    .choice-name { font-size: clamp(22px, 5vw, 27px); }
+    .planet-choice.is-selected { transform: translateY(-8px) scale(1.03); box-shadow: 0 12px 0 rgba(70,49,117,.28), 0 0 38px rgba(255,255,255,.9), 0 0 0 5px rgba(255,247,191,.78); }
+    .language-proceed-row { display: flex; justify-content: center; margin-top: 18px; }
+    #language-proceed:disabled { opacity: .45; cursor: not-allowed; filter: grayscale(.2); transform: none; }
+    .hub-hero { margin-bottom: 8px; }
+    .hub-hero h2 { font-size: clamp(34px, 7vw, 58px); }
+    .hub-map { min-height: 315px; grid-template-rows: repeat(6, 46px); max-width: 660px; margin: 0 auto; }
+    .route-line { inset: 46px 88px 70px; }
+    .hub-planet { padding: 6px; }
+    .hub-planet .orb { width: clamp(72px, 10vw, 96px); height: clamp(72px, 10vw, 96px); font-size: clamp(28px, 4vw, 38px); border-width: 4px; }
+    .hub-planet strong { margin-top: 7px; font-size: 16px; }
+    .hub-planet small { font-size: 12px; }
+    .planet-patreon { grid-column: 2 / span 3; grid-row: 2 / span 2; }
+    .planet-youtube { grid-column: 8 / span 3; grid-row: 1 / span 2; }
+    .planet-letter { grid-column: 5 / span 4; grid-row: 3 / span 2; }
+    .planet-secret { grid-column: 9 / span 3; grid-row: 4 / span 2; }
+    @media (max-width: 720px) {
+      .planet-choice { min-height: 150px; }
+      .choice-orb { width: 78px; height: 78px; font-size: 34px; }
+      .hub-map { grid-template-columns: 1fr 1fr; gap: 10px; max-width: 360px; }
+      .hub-planet .orb { width: 76px; height: 76px; }
+      .hub-planet strong { font-size: 14px; }
+      .hub-planet small { display: none; }
+    }
+
   </style>
 </head>
 <body>
@@ -466,8 +506,8 @@
     <div class="planet one" data-depth="0.05"></div>
     <div class="planet two" data-depth="0.08"></div>
     <div class="planet three" data-depth="0.04"></div>
-    <div class="ufo" data-depth="0.12">🛸</div>
-    <div class="alien-sprite" id="hidden-alien" data-depth="0.1">👾</div>
+    <div class="ufo" data-depth="0.12">⌁</div>
+    <div class="alien-sprite" id="hidden-alien" data-depth="0.1">☄</div>
     <div class="shooting-star s1"></div>
     <div class="shooting-star s2"></div>
     <div class="particle p1"></div>
@@ -479,10 +519,10 @@
     <div class="app-shell" id="app-shell">
       <header class="topbar" aria-label="Mission status">
         <div class="brand">
-          <div class="brand-badge" aria-hidden="true">🚀</div>
+          <div class="brand-badge" aria-hidden="true">✦</div>
           <div>
             <h1>Awaru Universe</h1>
-            <p id="brand-subline">Foreigner in Korea dream quest</p>
+            <p id="brand-subline"></p>
           </div>
         </div>
         <div class="hud">
@@ -495,20 +535,21 @@
 
       <section id="lang-screen" class="screen active center-layout" aria-labelledby="language-title">
         <div class="pixel-window choose-card">
-          <div class="window-label">🌍 SELECT SAVE FILE</div>
+          <div class="window-label">✧ SELECT QUEST FILE</div>
           <h2 class="big-title" id="language-title">Choose Your Planet</h2>
-          <p class="subtitle">Pick a cozy world and begin Awaru's pastel galaxy adventure.</p>
+          <p class="subtitle"></p>
           <div class="planet-choice-grid">
-            <button class="planet-choice choice-earth" type="button" onclick="setLanguage('en')" aria-label="Choose English planet">
-              <span class="choice-orb">🌎</span>
-              <span class="choice-name">EARTH</span>
-              <span class="choice-caption">English Quest</span>
+            <button class="planet-choice choice-earth" id="language-en" type="button" onclick="selectLanguage('en')" aria-label="Choose English planet" aria-pressed="false">
+              <span class="choice-orb">✧</span>
+              <span class="choice-name">ENGLISH PLANET</span>
             </button>
-            <button class="planet-choice choice-korea" type="button" onclick="setLanguage('ko')" aria-label="Choose Korean planet">
-              <span class="choice-orb">🇰🇷</span>
-              <span class="choice-name">KOREA</span>
-              <span class="choice-caption">한국어 퀘스트</span>
+            <button class="planet-choice choice-korea" id="language-ko" type="button" onclick="selectLanguage('ko')" aria-label="Choose Korean planet" aria-pressed="false">
+              <span class="choice-orb">✦</span>
+              <span class="choice-name">한국어 행성</span>
             </button>
+          </div>
+          <div class="language-proceed-row">
+            <button class="game-button primary-button" id="language-proceed" type="button" onclick="proceedWithLanguage()" disabled>Proceed ▷</button>
           </div>
         </div>
       </section>
@@ -516,13 +557,13 @@
       <section id="story-screen" class="screen" aria-labelledby="story-heading">
         <div class="story-grid">
           <aside class="pixel-window avatar-card">
-            <div class="window-label">👽 PLAYER</div>
-            <div class="avatar-bubble" aria-hidden="true"><div class="avatar-face">✨</div></div>
+            <div class="window-label">✧ PLAYER</div>
+            <div class="avatar-bubble" aria-hidden="true"><div class="avatar-face">✧</div></div>
             <h2 class="character-name">AWARU</h2>
             <p class="character-class" id="character-class">Pisces • ENFJ • Creator</p>
           </aside>
           <article class="pixel-window dialogue-card">
-            <div class="window-label">💬 RPG DIALOGUE</div>
+            <div class="window-label">▣ RPG DIALOGUE</div>
             <div class="story-topline">
               <span class="mission-tag" id="story-heading">MISSION INTRO</span>
               <span id="story-progress">1/3</span>
@@ -532,7 +573,7 @@
             </div>
             <div class="button-row">
               <button onclick="nextStoryStep()" id="next-btn" class="game-button primary-button" type="button">Next ▶</button>
-              <button onclick="skipStory()" id="skip-btn" class="game-button" type="button">Skip to Hub ✨</button>
+              <button onclick="skipStory()" id="skip-btn" class="game-button" type="button">Skip to Hub ✧</button>
             </div>
           </article>
         </div>
@@ -546,41 +587,43 @@
         <div class="hub-map" aria-label="Galaxy hub map">
           <div class="route-line" aria-hidden="true"></div>
           <button class="hub-planet planet-patreon" type="button" data-panel="patreon-panel" aria-label="Open Patreon planet">
-            <span class="orb orb-patreon">❤️</span><strong id="planet-patreon-label">Patreon</strong><small id="planet-patreon-small">support portal</small>
+            <span class="orb orb-patreon">♡</span><strong id="planet-patreon-label">Patreon</strong><small id="planet-patreon-small">support portal</small>
           </button>
           <button class="hub-planet planet-youtube" type="button" data-panel="youtube-panel" aria-label="Open YouTube planet">
-            <span class="orb orb-youtube">📺</span><strong id="planet-youtube-label">YouTube</strong><small id="planet-youtube-small">video quests</small>
+            <span class="orb orb-youtube">▣</span><strong id="planet-youtube-label">YouTube</strong><small id="planet-youtube-small">video quests</small>
           </button>
           <button class="hub-planet planet-letter" type="button" data-panel="letter-panel" aria-label="Open letter planet">
-            <span class="orb orb-letter">💌</span><strong id="planet-letter-label">Letter</strong><small id="planet-letter-small">space mail</small>
-          </button>
-          <button class="hub-planet planet-music" type="button" data-panel="music-panel" aria-label="Open music planet">
-            <span class="orb orb-music">🎵</span><strong id="planet-music-label">Music</strong><small id="planet-music-small">pixel radio</small>
+            <span class="orb orb-letter">✉</span><strong id="planet-letter-label">Letter</strong><small id="planet-letter-small">space mail</small>
           </button>
           <button class="hub-planet planet-secret" id="secret-planet" type="button" data-panel="secret-panel" aria-label="Open secret planet">
-            <span class="orb orb-secret">⭐</span><strong id="planet-secret-label">Secret</strong><small id="planet-secret-small">locked</small>
+            <span class="orb orb-secret">☆</span><strong id="planet-secret-label">Secret</strong><small id="planet-secret-small">locked</small>
           </button>
         </div>
 
         <section id="patreon-panel" class="panel-section pixel-window content-panel" aria-labelledby="patreon-title">
-          <div class="window-label">❤️ CREATOR CAMP</div>
+          <div class="window-label">♡ CREATOR CAMP</div>
           <h3 id="patreon-title" class="panel-title">Support Awaru</h3>
           <p id="patreon-copy" class="subtitle" style="text-align:left;margin-left:0">Help fuel more cozy Korea adventures, vlogs, music, and dream projects.</p>
-          <a href="https://patreon.com/AWARU?utm_medium=unknown&utm_source=join_link&utm_campaign=creatorshare_creator&utm_content=copyLink" target="_blank" rel="noopener" class="cute-button pink-button"><span>🚀</span><span id="btn-patreon">Support on Patreon</span></a>
+          <a href="https://patreon.com/AWARU?utm_medium=unknown&utm_source=join_link&utm_campaign=creatorshare_creator&utm_content=copyLink" target="_blank" rel="noopener" class="cute-button pink-button"><span>✦</span><span id="btn-patreon">Support on Patreon</span></a>
         </section>
 
         <section id="youtube-panel" class="panel-section pixel-window content-panel" aria-labelledby="heading-yt">
-          <div class="window-label">📺 VIDEO QUESTS</div>
-          <h3 id="heading-yt" class="panel-title">YouTube Quests</h3>
-          <div class="video-grid">
-            <a id="yt-link" href="#" target="_blank" rel="noopener" class="quest-card"><span>🛰️</span><strong id="yt-channel-text">Visit YouTube</strong><small>Main channel gate</small></a>
-            <a id="vid-recent" href="#" target="_blank" rel="noopener" class="quest-card"><span>🔥</span><strong id="vid-recent-title">Recent Video</strong><small id="vid-recent-copy">Latest upload path</small></a>
-            <a id="vid-famous" href="#" target="_blank" rel="noopener" class="quest-card"><span>👑</span><strong id="vid-famous-title">Popular Video</strong><small id="vid-famous-copy">Most viewed adventure</small></a>
+          <div class="window-label">▣ VIDEO QUEST</div>
+          <h3 id="heading-yt" class="panel-title">Recent Video Quest</h3>
+          <p id="youtube-copy" class="subtitle" style="text-align:left;margin-left:0">Watch Awaru's latest upload inside this tiny galaxy window.</p>
+          <div class="youtube-terminal">
+            <div class="youtube-frame-wrap">
+              <iframe id="youtube-player" title="Awaru recent YouTube video" src="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+            </div>
+            <div class="button-row" style="margin-top:14px">
+              <button id="watched-video-btn" type="button" class="game-button primary-button">✦ I watched it +1</button>
+              <a id="yt-link" href="#" target="_blank" rel="noopener" class="game-button">Open channel</a>
+            </div>
           </div>
         </section>
 
         <section id="letter-panel" class="panel-section pixel-window content-panel" aria-labelledby="heading-letter">
-          <div class="window-label">💌 SPACE MAIL TERMINAL</div>
+          <div class="window-label">✉ SPACE MAIL TERMINAL</div>
           <h3 id="heading-letter" class="panel-title">Send a Letter</h3>
           <div class="mail-terminal">
             <div class="terminal-screen">
@@ -589,44 +632,30 @@
                 <input type="text" id="sender-name" class="field" placeholder="Your Name / 이름" autocomplete="name">
               </div>
               <div class="field-group">
+                <label for="sender-planet" id="label-planet">PLANET</label>
+                <input type="text" id="sender-planet" class="field" placeholder="Which planet are you from?" autocomplete="off">
+              </div>
+              <div class="field-group">
                 <label for="sender-msg" id="label-message">MESSAGE</label>
                 <textarea id="sender-msg" rows="5" class="field" placeholder="Write something to Awaru... / 메시지를 적어주세요..."></textarea>
               </div>
               <div class="send-row">
-                <button onclick="handleLetterSubmission()" class="game-button primary-button" type="button">🚀 <span id="btn-submit-text">Generate PDF Letter</span></button>
+                <button onclick="handleLetterSubmission()" class="game-button primary-button" type="button">✦ <span id="btn-submit-text">Generate PNG Letter</span></button>
                 <button onclick="clearLetter()" class="game-button" type="button" id="btn-clear">Clear</button>
               </div>
             </div>
             <aside class="rocket-card" aria-hidden="true">
-              <div class="rocket">🚀</div>
+              <div class="rocket">✦</div>
               <p id="rocket-copy">Ready to launch your letter across the galaxy.</p>
             </aside>
           </div>
         </section>
 
-        <section id="music-panel" class="panel-section pixel-window content-panel" aria-labelledby="music-title">
-          <div class="window-label">🎵 PIXEL RADIO</div>
-          <h3 id="music-title" class="panel-title">Cozy Pixel Radio</h3>
-          <div class="radio-panel">
-            <div class="radio-art">📻</div>
-            <div>
-              <p id="music-copy" class="subtitle" style="text-align:left;margin-left:0">Soft retro bleeps made in your browser. No autoplay, no surprise sound.</p>
-              <div class="button-row">
-                <button id="music-play" type="button" class="game-button primary-button">▶ Play</button>
-                <button id="music-pause" type="button" class="game-button">⏸ Pause</button>
-                <button id="music-mute" type="button" class="game-button">🔇 Mute</button>
-              </div>
-              <label for="volume-range" style="display:block;margin-top:16px;font-weight:1000;color:var(--ink-soft)">Volume</label>
-              <input id="volume-range" class="range" type="range" min="0" max="1" step="0.01" value="0.28">
-            </div>
-          </div>
-        </section>
-
         <section id="secret-panel" class="panel-section pixel-window content-panel" aria-labelledby="secret-title">
-          <div class="window-label">⭐ HIDDEN QUEST</div>
+          <div class="window-label">☆ HIDDEN QUEST</div>
           <h3 id="secret-title" class="panel-title">Secret Planet</h3>
           <p id="secret-copy" class="subtitle" style="text-align:left;margin-left:0">Awaru's dream is still loading, but every brave day in Korea adds +1 hope.</p>
-          <div class="quest-card"><span>👽</span><strong id="random-message">A tiny alien says: keep going, traveler.</strong><small id="secret-small-copy">You found a soft little corner of the universe.</small></div>
+          <div class="quest-card"><span>☾</span><strong id="random-message">Coming soon... a soft secret is loading.</strong><small id="secret-small-copy">You found a soft little corner of the universe.</small></div>
         </section>
       </section>
 
@@ -635,8 +664,8 @@
   </main>
 
   <div class="sound-dock" aria-label="Sound controls">
-    <button id="sound-toggle" class="dock-button" type="button">🔈 Sound OFF</button>
-    <button id="motion-toggle" class="dock-button" type="button">✨ Motion ON</button>
+    <button id="sound-toggle" class="dock-button" type="button">♫ Sound OFF</button>
+    <button id="motion-toggle" class="dock-button" type="button">✧ Motion ON</button>
   </div>
 
   <div class="toast-stack" id="toast-stack" aria-live="polite"></div>
@@ -644,215 +673,255 @@
 
   <div class="launch-overlay" id="launch-overlay" role="dialog" aria-modal="true" aria-labelledby="launch-title">
     <div class="pixel-window launch-card">
-      <div class="window-label">🚀 ROCKET MAIL</div>
+      <div class="window-label">✦ ROCKET MAIL</div>
       <div id="launch-state">
-        <div class="big-rocket">🚀</div>
-        <h2 class="panel-title" id="launch-title">Launching PDF...</h2>
-        <p class="subtitle" id="launch-copy">Preparing your galaxy letter for Awaru.</p>
+        <div class="big-rocket">✦</div>
+        <h2 class="panel-title" id="launch-title">Launching PNG...</h2>
+        <p class="subtitle" id="launch-copy">Turning your space mail into an HD PNG.</p>
       </div>
       <div id="success-state" class="hidden-section">
         <div class="success-check">✓</div>
         <h2 class="panel-title" id="success-title">Mission Complete!</h2>
-        <p class="subtitle" id="success-copy">Your PDF was generated. Open your email app to finish sending it.</p>
+        <p class="subtitle" id="success-copy">Your HD PNG letter is ready. Send it to Awaru by Instagram DM.</p>
         <div class="button-row" style="justify-content:center">
-          <button id="open-email-btn" type="button" class="game-button primary-button">✉️ Open Email</button>
+          <button id="open-email-btn" type="button" class="game-button primary-button">Open DM Guide</button>
           <button id="close-launch-btn" type="button" class="game-button">Close</button>
         </div>
-        <div class="email-help" id="email-help"></div>
+        <div class="dm-help" id="dm-help"></div>
       </div>
     </div>
   </div>
 
+  <script src="https://www.youtube.com/iframe_api"></script>
+  <canvas id="letter-preview-canvas" width="1600" height="2100" aria-hidden="true"></canvas>
   <script>
     "use strict";
 
     const state = {
       currentLang: "en",
+      selectedLang: null,
       storyIndex: 0,
       xp: 14,
       level: 1,
       soundEnabled: false,
-      audioStarted: false,
       musicPlaying: false,
       muted: false,
       starClicks: 0,
       secretUnlocked: false,
-      pendingMailto: "",
       typingTimer: null,
-      audioContext: null,
-      musicTimer: null,
-      masterGain: null
+      ytPlayer: null,
+      missions: new Set(),
+      sounds: {},
+      radio: null,
+      audioUnlocked: false
     };
 
     const LINKS = {
       patreon: "https://patreon.com/AWARU?utm_medium=unknown&utm_source=join_link&utm_campaign=creatorshare_creator&utm_content=copyLink",
+      instagram: "https://www.instagram.com/awaruwidianto/",
       youtube: {
         en: "https://www.youtube.com/@awarueng",
         ko: "https://www.youtube.com/@awarukor"
       },
-      email: "awaruwidianto@gmail.com"
+      youtubeEmbed: {
+        en: "https://www.youtube.com/embed?listType=user_uploads&list=awarueng&enablejsapi=1&origin=" + encodeURIComponent(location.origin),
+        ko: "https://www.youtube.com/embed?listType=user_uploads&list=awarukor&enablejsapi=1&origin=" + encodeURIComponent(location.origin)
+      }
     };
 
     const localization = {
       en: {
         htmlLang: "en",
-        brand: "Foreigner in Korea dream quest",
-        chooseSubtitle: "Pick a cozy world and begin Awaru's pastel galaxy adventure.",
+        brand: "",
+        chooseSubtitle: "",
         characterClass: "Pisces • ENFJ • Creator",
         story: [
-          "Hello traveler! Scale up your curiosity. Meet Awaru (아와루), a Pisces born in the year 2000 with an energetic ENFJ spirit.",
+          "Hello traveler! Scale up your curiosity. Meet Awaru, a Pisces born in the year 2000 with an energetic ENFJ spirit.",
           "At only 19 years old, he made a brave jump and moved all the way to South Korea to chase a brighter life.",
-          "His ultimate quest? Build a life through YouTube, capture his colorful daily moments, and create a dream collaboration with an SM Entertainment artist before turning 30. 🚀"
+          "His ultimate quest? Build a life through YouTube, capture his colorful daily moments, and create a dream collaboration before turning 30."
         ],
         missionIntro: "MISSION INTRO",
-        nextBtn: "Next ▶",
-        finishBtn: "Enter Hub 🎮",
-        skipBtn: "Skip to Hub ✨",
-        subtitle: "Pisces • ENFJ • Creator living in Korea",
+        nextBtn: "Next ▷",
+        finishBtn: "Enter Hub",
+        skipBtn: "Skip to Hub ✧",
+        subtitle: "",
         patreon: "Support on Patreon",
-        patreonCopy: "Help fuel more cozy Korea adventures, vlogs, music, and dream projects.",
-        ytChannel: "Visit My English YouTube",
-        headingYt: "YouTube Quests",
-        recent: "Recent Video",
-        recentCopy: "Latest upload path",
-        famous: "Popular Video",
-        famousCopy: "Most viewed adventure",
+        patreonCopy: "Help fuel more cozy Korea adventures, vlogs, music, and dream projects. Visiting Patreon gives this quest +1 point.",
+        ytChannel: "Open channel",
+        headingYt: "Recent Video Quest",
+        youtubeCopy: "Watch Awaru's recent upload inside this tiny galaxy window. Tap the +1 button after watching.",
+        watchedBtn: "✦ I watched it +1",
         headingLetter: "Send a Letter",
         labelName: "FROM",
+        labelPlanet: "PLANET",
         labelMessage: "MESSAGE",
         namePlaceholder: "Your Name",
+        planetPlaceholder: "Which planet are you from?",
         messagePlaceholder: "Write something to Awaru...",
-        btnSubmit: "Generate PDF Letter",
+        btnSubmit: "Generate HD PNG Letter",
         clear: "Clear",
-        rocketCopy: "Ready to launch your letter across the galaxy.",
-        alertFill: "Please fill out both your name and message!",
-        launchTitle: "Launching PDF...",
-        launchCopy: "Preparing your galaxy letter for Awaru.",
+        rocketCopy: "Awaru will read it from space. Download the PNG and send it to his DM.",
+        alertFill: "Please fill out your name, planet, and message!",
+        launchTitle: "Launching PNG...",
+        launchCopy: "Turning your space mail into an HD PNG.",
         successTitle: "Mission Complete!",
-        successCopy: "Your PDF was generated. Open your email app to finish sending it.",
-        openEmail: "✉️ Open Email",
+        successCopy: "Your HD PNG letter is ready. Please send it to Awaru by Instagram DM.",
+        openInstagram: "Open Instagram",
         close: "Close",
-        emailHelp: "If your browser blocks the email window, please open your email app manually, attach the downloaded PDF, and send it to awaruwidianto@gmail.com.",
-        mailSubject: name => `New Fan Letter from ${name}!`,
-        mailBody: (name, message) => `Hi Awaru!\n\nMy name is ${name}.\nI just generated a PDF fan letter from Awaru Universe. Please find my message below and the downloaded PDF attached manually.\n\n---\n${message}\n---`,
-        pdfTitle: "A Letter for Awaru",
-        pdfFooter: "Generated from Awaru Universe",
+        dmHelp: "Instagram may not attach files automatically. Open your DM with Awaru, attach the downloaded PNG, and send it there.",
+        pngTitle: "A Space Letter for Awaru",
+        pngFooter: "Generated from Awaru Universe",
         from: "From",
+        planet: "Planet",
         date: "Date",
-        musicTitle: "Cozy Pixel Radio",
-        musicCopy: "Soft retro bleeps made in your browser. No autoplay, no surprise sound.",
         secretTitle: "Secret Planet",
-        secretCopy: "Awaru's dream is still loading, but every brave day in Korea adds +1 hope.",
+        secretCopy: "Coming soon... This planet will become Awaru's announcement corner.",
         randomMessages: [
-          "A tiny alien says: keep going, traveler.",
-          "A UFO whispers: your soft era is powerful.",
-          "A moon bunny says: dreams grow one vlog at a time.",
-          "The galaxy says: Korea looks brighter with you in it."
+          "Coming soon... a soft secret is loading.",
+          "The tiny galaxy is saving this place for a future announcement.",
+          "Secret signal: please check back later."
         ],
-        secretSmall: "You found a soft little corner of the universe.",
-        secretLocked: "locked",
-        secretUnlocked: "unlocked",
-        unlockedToast: "Secret Planet unlocked! ⭐",
-        starToast: count => `Star collected: ${count}/20 ✨`,
-        stayToast: "30-second cozy traveler bonus unlocked!",
-        konamiToast: "Konami Code accepted. Hidden alien activated! 👾"
+        secretSmall: "A future portal is sleeping here.",
+        secretLocked: "coming soon",
+        secretUnlocked: "coming soon",
+        unlockedToast: "Secret Planet says: coming soon...",
+        starToast: count => `Star collected: ${count}/20`,
+        stayToast: "30-second traveler bonus found.",
+        konamiToast: "Secret code accepted. A tiny alien woke up.",
+        missionToast: label => `${label} quest +1`,
+        missionsDone: count => `Mission points: ${count}/3`
       },
       ko: {
         htmlLang: "ko",
-        brand: "한국에서 꿈을 쫓는 외국인 크리에이터",
-        chooseSubtitle: "귀여운 행성을 선택하고 아와루의 파스텔 은하 모험을 시작하세요.",
+        brand: "",
+        chooseSubtitle: "",
         characterClass: "물고기자리 • ENFJ • 크리에이터",
         story: [
-          "안녕하세요, 모험가님! 2000년생 물고기자리이자 열정적인 ENFJ 영혼을 가진 아와루(Awaru)를 소개합니다.",
+          "안녕하세요, 모험가님! 2000년생 물고기자리이자 열정적인 ENFJ 영혼을 가진 아와루를 소개합니다.",
           "그는 단 19살의 나이에 용기 있게 홀로 한국으로 건너와 더 밝은 삶을 향해 모험을 시작했습니다.",
-          "그의 최종 퀘스트는 유튜브로 삶을 만들어가고, 소중한 일상을 기록하며, 30세가 되기 전 SM 엔터테인먼트 아티스트와 꿈의 콜라보 영상을 만드는 것입니다. 🚀"
+          "그의 최종 퀘스트는 유튜브로 삶을 만들어가고, 소중한 일상을 기록하며, 30세가 되기 전 꿈의 콜라보를 만드는 것입니다."
         ],
         missionIntro: "미션 소개",
-        nextBtn: "다음 ▶",
-        finishBtn: "허브 입장 🎮",
-        skipBtn: "허브로 바로가기 ✨",
-        subtitle: "한국에서 살아가는 물고기자리 • ENFJ • 크리에이터",
+        nextBtn: "다음 ▷",
+        finishBtn: "허브 입장",
+        skipBtn: "허브로 바로가기 ✧",
+        subtitle: "",
         patreon: "패트리온 후원하기",
-        patreonCopy: "한국 일상, 브이로그, 음악, 꿈 프로젝트를 이어갈 수 있도록 응원해주세요.",
-        ytChannel: "한국어 유튜브 채널 가기",
-        headingYt: "유튜브 퀘스트",
-        recent: "최근 영상",
-        recentCopy: "최신 업로드 보기",
-        famous: "인기 영상",
-        famousCopy: "가장 많이 본 모험",
+        patreonCopy: "한국 일상, 브이로그, 음악, 꿈 프로젝트를 이어갈 수 있도록 응원해주세요. 패트리온 방문 시 퀘스트 +1점입니다.",
+        ytChannel: "채널 열기",
+        headingYt: "최근 영상 퀘스트",
+        youtubeCopy: "아와루의 최근 영상을 작은 은하 창 안에서 시청해보세요. 시청 후 +1 버튼을 눌러주세요.",
+        watchedBtn: "✦ 영상 봤어요 +1",
         headingLetter: "편지 보내기",
         labelName: "보내는 사람",
+        labelPlanet: "출신 행성",
         labelMessage: "메시지",
         namePlaceholder: "이름",
+        planetPlaceholder: "어느 행성에서 오셨나요?",
         messagePlaceholder: "아와루에게 메시지를 적어주세요...",
-        btnSubmit: "PDF 편지 생성",
+        btnSubmit: "HD PNG 편지 생성",
         clear: "지우기",
-        rocketCopy: "편지를 은하계로 발사할 준비가 되었어요.",
-        alertFill: "이름과 메시지를 모두 입력해주세요!",
-        launchTitle: "PDF 발사 중...",
-        launchCopy: "아와루에게 보낼 은하 편지를 준비하고 있어요.",
+        rocketCopy: "아와루가 우주에서 읽을 거예요. PNG를 다운로드하고 DM으로 보내주세요.",
+        alertFill: "이름, 행성, 메시지를 모두 입력해주세요!",
+        launchTitle: "PNG 발사 중...",
+        launchCopy: "우주 편지를 HD PNG로 만들고 있어요.",
         successTitle: "미션 완료!",
-        successCopy: "PDF가 생성되었습니다. 이메일 앱을 열어 전송을 완료해주세요.",
-        openEmail: "✉️ 이메일 열기",
+        successCopy: "HD PNG 편지가 준비되었습니다. 인스타 DM으로 아와루에게 보내주세요.",
+        openInstagram: "인스타그램 열기",
         close: "닫기",
-        emailHelp: "브라우저에서 이메일 창이 열리지 않는 경우, 이메일 앱을 직접 열고 다운로드된 PDF를 첨부한 뒤 awaruwidianto@gmail.com 으로 보내주세요.",
-        mailSubject: name => `${name}님의 새로운 팬레터`,
-        mailBody: (name, message) => `안녕하세요 Awaru!\n\n제 이름은 ${name}입니다.\nAwaru Universe에서 PDF 팬레터를 생성했습니다. 다운로드된 PDF를 직접 첨부해서 보내드립니다.\n\n---\n${message}\n---`,
-        pdfTitle: "아와루에게 보내는 편지",
-        pdfFooter: "Generated from Awaru Universe",
+        dmHelp: "Instagram에서 파일이 자동 첨부되지는 않습니다. 아와루 DM을 열고 다운로드된 PNG 이미지를 첨부해 보내주세요.",
+        pngTitle: "아와루에게 보내는 우주 편지",
+        pngFooter: "Generated from Awaru Universe",
         from: "From",
+        planet: "Planet",
         date: "Date",
-        musicTitle: "코지 픽셀 라디오",
-        musicCopy: "브라우저에서 만들어지는 부드러운 레트로 사운드입니다. 자동 재생은 없어요.",
         secretTitle: "비밀 행성",
-        secretCopy: "아와루의 꿈은 아직 로딩 중이지만, 한국에서의 하루하루가 희망 +1을 더해줍니다.",
+        secretCopy: "Coming soon... 이 행성은 곧 아와루의 공지 공간이 될 예정입니다.",
         randomMessages: [
-          "작은 외계인이 말합니다: 계속 나아가요, 모험가님.",
-          "UFO가 속삭입니다: 부드러운 마음도 강한 힘이에요.",
-          "달토끼가 말합니다: 꿈은 영상 하나씩 자라나요.",
-          "은하가 말합니다: 당신이 있어서 한국의 밤이 더 빛나요."
+          "Coming soon... 작은 비밀이 로딩 중입니다.",
+          "이 은하 공간은 미래 공지를 위해 저장되어 있어요.",
+          "Secret signal: 나중에 다시 확인해주세요."
         ],
-        secretSmall: "우주의 작은 힐링 공간을 발견했어요.",
-        secretLocked: "잠김",
-        secretUnlocked: "해제됨",
-        unlockedToast: "비밀 행성이 열렸어요! ⭐",
-        starToast: count => `별 수집: ${count}/20 ✨`,
-        stayToast: "30초 머무르기 보너스가 열렸어요!",
-        konamiToast: "코나미 코드 성공! 숨은 외계인이 깨어났어요 👾"
+        secretSmall: "미래 포털이 잠들어 있어요.",
+        secretLocked: "coming soon",
+        secretUnlocked: "coming soon",
+        unlockedToast: "비밀 행성: coming soon...",
+        starToast: count => `별 수집: ${count}/20`,
+        stayToast: "30초 여행자 보너스를 찾았어요.",
+        konamiToast: "시크릿 코드 성공. 작은 외계인이 깨어났어요.",
+        missionToast: label => `${label} 퀘스트 +1`,
+        missionsDone: count => `미션 포인트: ${count}/3`
       }
     };
 
     const $ = selector => document.querySelector(selector);
     const $$ = selector => Array.from(document.querySelectorAll(selector));
+    const t = () => localization[state.currentLang];
+    const setText = (id, text) => { const el = document.getElementById(id); if (el) el.textContent = text; };
 
-    function t() { return localization[state.currentLang]; }
-
-    function setText(id, text) {
-      const element = document.getElementById(id);
-      if (element) element.textContent = text;
-    }
-
-    function updateHud(mission, xp = state.xp, level = state.level) {
-      state.xp = Math.max(0, Math.min(100, xp));
+    function updateHud(mission = "START") {
+      const points = state.missions.size;
+      const xp = Math.min(100, 14 + points * 28 + (state.storyIndex ? 8 : 0));
+      const level = points >= 3 ? 4 : points >= 2 ? 3 : points >= 1 ? 2 : 1;
+      state.xp = xp;
       state.level = level;
       setText("mission-label", mission);
       setText("level-label", String(level).padStart(2, "0"));
-      setText("xp-label", `${state.xp}%`);
-      $("#xp-fill").style.width = `${state.xp}%`;
+      setText("xp-label", `${xp}%`);
+      const fill = $("#xp-fill");
+      if (fill) fill.style.width = `${xp}%`;
+    }
+
+    function completeMission(key, label) {
+      if (state.missions.has(key)) {
+        showToast(t().missionsDone(state.missions.size));
+        return;
+      }
+      state.missions.add(key);
+      updateHud("MISSION");
+      showToast(t().missionToast(label));
+      playSound("level");
+      if (state.missions.size >= 3) showToast("LEVEL COMPLETE ✦");
     }
 
     function showScreen(id) {
       $$(".screen").forEach(screen => screen.classList.remove("active"));
-      $("#" + id).classList.add("active");
+      const screen = $("#" + id);
+      if (screen) screen.classList.add("active");
       playSound("transition");
     }
 
+    function selectLanguage(lang) {
+      unlockAudioAndRadio();
+      state.selectedLang = lang;
+      $$(".planet-choice").forEach(button => {
+        const active = button.id === `language-${lang}`;
+        button.classList.toggle("is-selected", active);
+        button.setAttribute("aria-pressed", active ? "true" : "false");
+      });
+      const proceed = $("#language-proceed");
+      if (proceed) {
+        proceed.disabled = false;
+        proceed.textContent = lang === "ko" ? "시작하기 ▷" : "Proceed ▷";
+      }
+      playSound("coin");
+    }
+
+    function proceedWithLanguage() {
+      if (!state.selectedLang) {
+        showToast("Choose a planet first ✦");
+        return;
+      }
+      setLanguage(state.selectedLang);
+    }
+
     function setLanguage(lang) {
+      unlockAudioAndRadio();
       state.currentLang = lang;
       state.storyIndex = 0;
       document.documentElement.lang = t().htmlLang;
       applyLocalization();
-      updateHud("INTRO", 28, 1);
+      updateHud("INTRO");
       showScreen("story-screen");
       showStoryStep();
       playSound("level");
@@ -861,18 +930,19 @@
     function applyLocalization() {
       const data = t();
       setText("brand-subline", data.brand);
+      const subtitle = document.querySelector("#lang-screen .subtitle");
+      if (subtitle) subtitle.textContent = data.chooseSubtitle;
       setText("character-class", data.characterClass);
       setText("hub-subtitle", data.subtitle);
       setText("btn-patreon", data.patreon);
       setText("patreon-copy", data.patreonCopy);
       setText("yt-channel-text", data.ytChannel);
       setText("heading-yt", data.headingYt);
-      setText("vid-recent-title", data.recent);
-      setText("vid-recent-copy", data.recentCopy);
-      setText("vid-famous-title", data.famous);
-      setText("vid-famous-copy", data.famousCopy);
+      setText("youtube-copy", data.youtubeCopy);
+      setText("watched-video-btn", data.watchedBtn);
       setText("heading-letter", data.headingLetter);
       setText("label-name", data.labelName);
+      setText("label-planet", data.labelPlanet);
       setText("label-message", data.labelMessage);
       setText("btn-submit-text", data.btnSubmit);
       setText("btn-clear", data.clear);
@@ -882,20 +952,21 @@
       setText("launch-copy", data.launchCopy);
       setText("success-title", data.successTitle);
       setText("success-copy", data.successCopy);
-      setText("open-email-btn", data.openEmail);
+      setText("open-email-btn", data.openInstagram);
       setText("close-launch-btn", data.close);
-      setText("music-title", data.musicTitle);
-      setText("music-copy", data.musicCopy);
       setText("secret-title", data.secretTitle);
       setText("secret-copy", data.secretCopy);
       setText("secret-small-copy", data.secretSmall);
-      setText("planet-secret-small", state.secretUnlocked ? data.secretUnlocked : data.secretLocked);
+      setText("planet-secret-small", data.secretLocked);
       setText("random-message", data.randomMessages[Math.floor(Math.random() * data.randomMessages.length)]);
-      $("#sender-name").placeholder = data.namePlaceholder;
-      $("#sender-msg").placeholder = data.messagePlaceholder;
-      $("#yt-link").href = LINKS.youtube[state.currentLang];
-      $("#vid-recent").href = LINKS.youtube[state.currentLang] + "/videos";
-      $("#vid-famous").href = LINKS.youtube[state.currentLang] + "/videos?view=0&sort=p";
+      const name = $("#sender-name"), planet = $("#sender-planet"), msg = $("#sender-msg");
+      if (name) name.placeholder = data.namePlaceholder;
+      if (planet) planet.placeholder = data.planetPlaceholder;
+      if (msg) msg.placeholder = data.messagePlaceholder;
+      const ytLink = $("#yt-link");
+      if (ytLink) ytLink.href = LINKS.youtube[state.currentLang];
+      const frame = $("#youtube-player");
+      if (frame) frame.src = LINKS.youtubeEmbed[state.currentLang];
     }
 
     function showStoryStep() {
@@ -906,10 +977,11 @@
       const finalStep = state.storyIndex === stepCount - 1;
       setText("next-btn", finalStep ? data.finishBtn : data.nextBtn);
       typeText($("#story-text"), data.story[state.storyIndex]);
-      updateHud("STORY", 32 + state.storyIndex * 18, 1);
+      updateHud("STORY");
     }
 
     function typeText(element, text) {
+      if (!element) return;
       clearInterval(state.typingTimer);
       element.innerHTML = "";
       let index = 0;
@@ -918,12 +990,9 @@
       state.typingTimer = setInterval(() => {
         element.textContent = text.slice(0, index);
         element.appendChild(cursor);
-        if (index % 3 === 0) playSound("typing", 0.03);
+        if (index % 5 === 0) playSound("typing");
         index++;
-        if (index > text.length) {
-          clearInterval(state.typingTimer);
-          cursor.remove();
-        }
+        if (index > text.length) { clearInterval(state.typingTimer); cursor.remove(); }
       }, 23);
     }
 
@@ -932,16 +1001,14 @@
         state.storyIndex += 1;
         showStoryStep();
         playSound("click");
-      } else {
-        enterHub();
-      }
+      } else enterHub();
     }
 
     function skipStory() { enterHub(); }
 
     function enterHub() {
       applyLocalization();
-      updateHud("HUB", 76, 2);
+      updateHud("HUB");
       showScreen("hub-screen");
       openPanel("youtube-panel");
       playSound("level");
@@ -951,29 +1018,21 @@
       $$(".panel-section").forEach(panel => panel.classList.remove("active"));
       const panel = $("#" + id);
       if (panel) panel.classList.add("active");
-      const missionName = id.split("-")[0].toUpperCase();
-      updateHud(missionName, id === "secret-panel" ? 100 : Math.max(state.xp, 82), id === "secret-panel" ? 3 : 2);
-      if (id === "secret-panel" && !state.secretUnlocked) {
-        unlockSecret("planet");
-      }
+      updateHud(id === "secret-panel" ? "SECRET" : id.split("-")[0].toUpperCase());
+      if (id === "secret-panel") showToast(t().unlockedToast);
     }
 
     async function handleLetterSubmission() {
+      unlockAudioAndRadio();
       const name = $("#sender-name").value.trim();
+      const planet = $("#sender-planet").value.trim();
       const message = $("#sender-msg").value.trim();
-      if (!name || !message) {
-        showToast(t().alertFill);
-        playSound("error");
-        return;
-      }
+      if (!name || !planet || !message) { showToast(t().alertFill); playSound("error"); return; }
       showLaunch();
-      await sleep(900);
-      generatePDF(name, message);
-      const emailSubject = encodeURIComponent(t().mailSubject(name));
-      const emailBody = encodeURIComponent(t().mailBody(name, message));
-      state.pendingMailto = `mailto:${LINKS.email}?subject=${emailSubject}&body=${emailBody}`;
+      await sleep(850);
+      generatePNG(name, planet, message);
       showSuccess();
-      updateHud("MAIL", 96, 3);
+      completeMission("letter", "LETTER");
       playSound("success");
     }
 
@@ -981,7 +1040,7 @@
       $("#launch-overlay").classList.add("active");
       $("#launch-state").classList.remove("hidden-section");
       $("#success-state").classList.add("hidden-section");
-      $("#email-help").classList.remove("active");
+      $("#dm-help").classList.remove("active");
       setText("launch-title", t().launchTitle);
       setText("launch-copy", t().launchCopy);
     }
@@ -991,275 +1050,202 @@
       $("#success-state").classList.remove("hidden-section");
       setText("success-title", t().successTitle);
       setText("success-copy", t().successCopy);
-      setText("email-help", t().emailHelp);
+      setText("dm-help", t().dmHelp);
     }
 
     function clearLetter() {
       $("#sender-name").value = "";
+      const planet = $("#sender-planet"); if (planet) planet.value = "";
       $("#sender-msg").value = "";
-      showToast("Space mail cleared ✨");
+      showToast("Space mail cleared");
       playSound("coin");
     }
 
-    function generatePDF(name, message) {
-      const { jsPDF } = window.jspdf;
-      const doc = new jsPDF({ orientation: "portrait", unit: "mm", format: "a4" });
+    function wrapCanvasText(ctx, text, x, y, maxWidth, lineHeight, maxLines) {
+      const words = text.replace(/\n/g, " \n ").split(/\s+/);
+      let line = "";
+      let lines = [];
+      words.forEach(word => {
+        if (word === "\n") { lines.push(line); line = ""; return; }
+        const test = line ? line + " " + word : word;
+        if (ctx.measureText(test).width > maxWidth && line) { lines.push(line); line = word; }
+        else line = test;
+      });
+      if (line) lines.push(line);
+      if (lines.length > maxLines) lines = lines.slice(0, maxLines - 1).concat("...");
+      lines.forEach((l, i) => ctx.fillText(l, x, y + i * lineHeight));
+    }
+
+    function roundRect(ctx, x, y, w, h, r, fill, stroke) {
+      ctx.beginPath();
+      ctx.moveTo(x + r, y); ctx.arcTo(x + w, y, x + w, y + h, r); ctx.arcTo(x + w, y + h, x, y + h, r); ctx.arcTo(x, y + h, x, y, r); ctx.arcTo(x, y, x + w, y, r); ctx.closePath();
+      if (fill) ctx.fill(); if (stroke) ctx.stroke();
+    }
+
+    function drawCanvasStar(ctx, x, y, r, color) {
+      ctx.fillStyle = color;
+      ctx.beginPath();
+      for (let i = 0; i < 10; i++) {
+        const a = -Math.PI / 2 + i * Math.PI / 5;
+        const rad = i % 2 ? r * 0.45 : r;
+        const px = x + Math.cos(a) * rad, py = y + Math.sin(a) * rad;
+        i ? ctx.lineTo(px, py) : ctx.moveTo(px, py);
+      }
+      ctx.closePath(); ctx.fill();
+    }
+
+    function generatePNG(name, planet, message) {
+      const canvas = $("#letter-preview-canvas");
+      const ctx = canvas.getContext("2d");
+      const W = canvas.width, H = canvas.height;
       const data = t();
-      const page = { w: 210, h: 297 };
-      const margin = 18;
-      const safeWidth = page.w - margin * 2;
       const today = new Date().toLocaleDateString(state.currentLang === "ko" ? "ko-KR" : "en-US", { year: "numeric", month: "long", day: "numeric" });
-
-      doc.setFillColor(250, 244, 255);
-      doc.rect(0, 0, page.w, page.h, "F");
-      doc.setFillColor(226, 241, 255);
-      doc.circle(26, 35, 26, "F");
-      doc.setFillColor(255, 220, 240);
-      doc.circle(181, 54, 34, "F");
-      doc.setFillColor(225, 255, 239);
-      doc.circle(164, 244, 42, "F");
-      doc.setDrawColor(111, 85, 190);
-      doc.setLineWidth(2.2);
-      doc.roundedRect(11, 11, 188, 275, 7, 7, "S");
-      doc.setLineWidth(.8);
-      doc.setDrawColor(255, 148, 207);
-      doc.roundedRect(15, 15, 180, 267, 5, 5, "S");
-
-      for (let i = 0; i < 38; i++) {
-        const x = 15 + ((i * 37) % 180);
-        const y = 19 + ((i * 53) % 257);
-        drawStar(doc, x, y, i % 3 === 0 ? 2.1 : 1.4, i % 2 ? [255, 148, 207] : [111, 85, 190]);
-      }
-
-      doc.setFillColor(255, 255, 255);
-      doc.roundedRect(23, 24, 164, 40, 8, 8, "F");
-      doc.setDrawColor(111, 85, 190);
-      doc.setLineWidth(1.2);
-      doc.roundedRect(23, 24, 164, 40, 8, 8, "S");
-      doc.setFont("helvetica", "bold");
-      doc.setFontSize(21);
-      doc.setTextColor(94, 72, 204);
-      doc.text(data.pdfTitle, page.w / 2, 42, { align: "center", maxWidth: 150 });
-      doc.setFont("helvetica", "normal");
-      doc.setFontSize(10.5);
-      doc.setTextColor(92, 82, 122);
-      doc.text(`${data.from}: ${name}`, page.w / 2, 53, { align: "center", maxWidth: 150 });
-      doc.text(`${data.date}: ${today}`, page.w / 2, 59, { align: "center" });
-
-      doc.setFillColor(255, 255, 255);
-      doc.roundedRect(23, 75, 164, 134, 8, 8, "F");
-      doc.setDrawColor(180, 158, 255);
-      doc.setLineWidth(1);
-      doc.roundedRect(23, 75, 164, 134, 8, 8, "S");
-      doc.setFont("helvetica", "normal");
-      doc.setFontSize(12);
-      doc.setTextColor(52, 43, 86);
-      const lines = doc.splitTextToSize(message, 142);
-      const maxLines = 31;
-      const displayed = lines.length > maxLines ? lines.slice(0, maxLines - 1).concat("...") : lines;
-      doc.text(displayed, 34, 89, { lineHeightFactor: 1.35, maxWidth: 142 });
-
-      drawPixelRocket(doc, 32, 225);
-      drawPixelAlien(doc, 172, 225);
-
-      doc.setFont("helvetica", "bold");
-      doc.setFontSize(10);
-      doc.setTextColor(94, 72, 204);
-      doc.text("YouTube", 80, 226, { align: "center" });
-      doc.text("Patreon", 130, 226, { align: "center" });
-      addQRToDoc(doc, LINKS.youtube[state.currentLang], 62, 230, 36);
-      addQRToDoc(doc, LINKS.patreon, 112, 230, 36);
-
-      doc.setFillColor(255, 255, 255);
-      doc.roundedRect(41, 273, 128, 8, 4, 4, "F");
-      doc.setFont("helvetica", "bold");
-      doc.setFontSize(9);
-      doc.setTextColor(92, 82, 122);
-      doc.text(data.pdfFooter, page.w / 2, 278.7, { align: "center" });
-
+      const grad = ctx.createLinearGradient(0, 0, W, H);
+      grad.addColorStop(0, "#f8eaff"); grad.addColorStop(.35, "#d9f6ff"); grad.addColorStop(.7, "#ffe0f1"); grad.addColorStop(1, "#efe6ff");
+      ctx.fillStyle = grad; ctx.fillRect(0, 0, W, H);
+      for (let i = 0; i < 95; i++) drawCanvasStar(ctx, 80 + ((i * 173) % (W - 160)), 90 + ((i * 227) % (H - 180)), i % 4 === 0 ? 12 : 7, i % 3 === 0 ? "#7b61ff" : i % 3 === 1 ? "#ff8ec7" : "#ffffff");
+      ctx.strokeStyle = "#5d477f"; ctx.lineWidth = 18; roundRect(ctx, 85, 85, W - 170, H - 170, 54, false, true);
+      ctx.strokeStyle = "#ff94cf"; ctx.lineWidth = 7; roundRect(ctx, 125, 125, W - 250, H - 250, 40, false, true);
+      ctx.fillStyle = "rgba(255,255,255,.84)"; roundRect(ctx, 190, 180, W - 380, 315, 42, true, false);
+      ctx.fillStyle = "#5d47d7"; ctx.font = "900 74px Nunito, Arial"; ctx.textAlign = "center"; ctx.fillText(data.pngTitle, W / 2, 305);
+      ctx.fillStyle = "#5f5684"; ctx.font = "700 34px Nunito, Arial";
+      ctx.fillText(`${data.from}: ${name}`, W / 2, 385);
+      ctx.fillText(`${data.planet}: ${planet}`, W / 2, 435);
+      ctx.fillText(`${data.date}: ${today}`, W / 2, 485);
+      ctx.fillStyle = "rgba(255,255,255,.9)"; roundRect(ctx, 210, 590, W - 420, 1030, 46, true, false);
+      ctx.strokeStyle = "#b49eff"; ctx.lineWidth = 7; roundRect(ctx, 210, 590, W - 420, 1030, 46, false, true);
+      ctx.fillStyle = "#342b56"; ctx.font = "500 46px 'M PLUS Rounded 1c', Nunito, Arial"; ctx.textAlign = "left";
+      wrapCanvasText(ctx, message, 300, 710, W - 600, 70, 13);
+      ctx.textAlign = "center";
+      ctx.fillStyle = "#6d5dfc"; ctx.font = "900 54px Nunito, Arial"; ctx.fillText("✦ AWARU WILL READ IT FROM SPACE ✦", W / 2, 1760);
+      ctx.fillStyle = "rgba(255,255,255,.82)"; roundRect(ctx, 430, 1900, W - 860, 90, 45, true, false);
+      ctx.fillStyle = "#5f5684"; ctx.font = "900 34px Nunito, Arial"; ctx.fillText(data.pngFooter, W / 2, 1958);
       const safeName = name.replace(/[^a-z0-9가-힣_-]+/gi, "_").replace(/^_+|_+$/g, "") || "Traveler";
-      doc.save(`Letter_from_${safeName}_Awaru_Universe.pdf`);
+      const a = document.createElement("a");
+      a.download = `Awaru_space_letter_from_${safeName}.png`;
+      a.href = canvas.toDataURL("image/png", 1);
+      a.click();
     }
 
-    function drawStar(doc, x, y, size, rgb) {
-      doc.setFillColor(rgb[0], rgb[1], rgb[2]);
-      doc.triangle(x, y - size, x - size * .45, y, x + size * .45, y, "F");
-      doc.triangle(x, y + size, x - size * .45, y, x + size * .45, y, "F");
-    }
-
-    function drawPixelRocket(doc, x, y) {
-      doc.setFillColor(111, 85, 190);
-      doc.rect(x, y, 10, 21, "F");
-      doc.setFillColor(255, 148, 207);
-      doc.triangle(x, y, x + 5, y - 9, x + 10, y, "F");
-      doc.setFillColor(142, 231, 255);
-      doc.circle(x + 5, y + 8, 2.5, "F");
-      doc.setFillColor(255, 200, 162);
-      doc.triangle(x + 1, y + 21, x + 5, y + 31, x + 9, y + 21, "F");
-    }
-
-    function drawPixelAlien(doc, x, y) {
-      doc.setFillColor(181, 247, 211);
-      doc.roundedRect(x, y, 17, 14, 4, 4, "F");
-      doc.rect(x + 3, y + 14, 3, 7, "F");
-      doc.rect(x + 11, y + 14, 3, 7, "F");
-      doc.setFillColor(50, 43, 86);
-      doc.circle(x + 5, y + 6, 1.5, "F");
-      doc.circle(x + 12, y + 6, 1.5, "F");
-    }
-
-    function addQRToDoc(doc, text, x, y, size) {
-      const cache = $("#qr-cache");
-      cache.innerHTML = "";
-      new QRCode(cache, { text, width: 256, height: 256, correctLevel: QRCode.CorrectLevel.M });
-      const canvas = cache.querySelector("canvas");
-      if (canvas) {
-        const img = canvas.toDataURL("image/png");
-        doc.addImage(img, "PNG", x, y, size, size);
+    function makeToneDataUri(freq = 660, duration = .12, type = "square", volume = .22) {
+      const sampleRate = 22050;
+      const samples = Math.floor(sampleRate * duration);
+      const data = new Uint8Array(44 + samples * 2);
+      const view = new DataView(data.buffer);
+      const write = (offset, str) => [...str].forEach((c, i) => view.setUint8(offset + i, c.charCodeAt(0)));
+      write(0, "RIFF"); view.setUint32(4, 36 + samples * 2, true); write(8, "WAVE"); write(12, "fmt "); view.setUint32(16, 16, true); view.setUint16(20, 1, true); view.setUint16(22, 1, true); view.setUint32(24, sampleRate, true); view.setUint32(28, sampleRate * 2, true); view.setUint16(32, 2, true); view.setUint16(34, 16, true); write(36, "data"); view.setUint32(40, samples * 2, true);
+      for (let i = 0; i < samples; i++) {
+        const t = i / sampleRate;
+        let wave = Math.sin(2 * Math.PI * freq * t);
+        if (type === "square") wave = wave >= 0 ? 1 : -1;
+        if (type === "triangle") wave = 2 * Math.abs(2 * ((freq * t) % 1) - 1) - 1;
+        const env = Math.max(0, 1 - i / samples);
+        view.setInt16(44 + i * 2, wave * 32767 * volume * env, true);
       }
+      let binary = ""; data.forEach(b => binary += String.fromCharCode(b));
+      return "data:audio/wav;base64," + btoa(binary);
     }
 
-    function openEmail() {
-      if (!state.pendingMailto) return;
-      window.location.href = state.pendingMailto;
-      setTimeout(() => $("#email-help").classList.add("active"), 900);
+    function initSoundAssets() {
+      if (state.sounds.click) return;
+      state.sounds = {
+        click: new Audio(makeToneDataUri(620, .07, "square", .18)),
+        hover: new Audio(makeToneDataUri(860, .04, "triangle", .08)),
+        typing: new Audio(makeToneDataUri(980, .025, "square", .05)),
+        coin: new Audio(makeToneDataUri(1040, .14, "triangle", .18)),
+        level: new Audio(makeToneDataUri(784, .22, "triangle", .20)),
+        success: new Audio(makeToneDataUri(988, .24, "triangle", .22)),
+        error: new Audio(makeToneDataUri(180, .16, "square", .16)),
+        transition: new Audio(makeToneDataUri(430, .08, "triangle", .11))
+      };
+      state.radio = new Audio(makeToneDataUri(392, 4.8, "triangle", .055));
+      state.radio.loop = true;
     }
 
-    function showToast(message) {
-      const toast = document.createElement("div");
-      toast.className = "toast";
-      toast.textContent = message;
-      $("#toast-stack").appendChild(toast);
-      setTimeout(() => { toast.style.opacity = "0"; toast.style.transform = "translateY(12px)"; }, 3200);
-      setTimeout(() => toast.remove(), 3800);
+    function unlockAudioAndRadio() {
+      initSoundAssets();
+      if (state.audioUnlocked) return;
+      state.audioUnlocked = true;
+      state.soundEnabled = true;
+      updateSoundToggle();
+      startMusic();
     }
 
-    function sleep(ms) { return new Promise(resolve => setTimeout(resolve, ms)); }
-
-    function unlockSecret(reason) {
-      if (state.secretUnlocked) return;
-      state.secretUnlocked = true;
-      $("#secret-planet").classList.add("unlocked");
-      setText("planet-secret-small", t().secretUnlocked);
-      showToast(reason === "stay" ? t().stayToast : t().unlockedToast);
-      playSound("level");
-    }
-
-    function initAudio() {
-      if (state.audioContext) return;
-      const AudioContext = window.AudioContext || window.webkitAudioContext;
-      if (!AudioContext) return;
-      state.audioContext = new AudioContext();
-      state.masterGain = state.audioContext.createGain();
-      state.masterGain.gain.value = Number($("#volume-range").value);
-      state.masterGain.connect(state.audioContext.destination);
-    }
-
-    function playTone(frequency, duration, type = "sine", gain = 0.08, delay = 0) {
+    function playSound(name) {
       if (!state.soundEnabled || state.muted) return;
-      initAudio();
-      if (!state.audioContext) return;
-      const now = state.audioContext.currentTime + delay;
-      const osc = state.audioContext.createOscillator();
-      const vol = state.audioContext.createGain();
-      osc.type = type;
-      osc.frequency.setValueAtTime(frequency, now);
-      vol.gain.setValueAtTime(gain, now);
-      vol.gain.exponentialRampToValueAtTime(0.001, now + duration);
-      osc.connect(vol).connect(state.masterGain);
-      osc.start(now);
-      osc.stop(now + duration + 0.02);
-    }
-
-    function playSound(name, gain) {
-      if (!state.soundEnabled) return;
-      const g = gain || 0.07;
-      if (name === "click") playTone(520, .06, "square", g);
-      if (name === "hover") playTone(740, .04, "triangle", 0.025);
-      if (name === "typing") playTone(880, .025, "square", gain || 0.018);
-      if (name === "coin") { playTone(880, .08, "triangle", g); playTone(1320, .1, "triangle", g, .06); }
-      if (name === "level") { playTone(523, .09, "triangle", g); playTone(659, .09, "triangle", g, .08); playTone(784, .14, "triangle", g, .16); }
-      if (name === "success") { playTone(659, .12, "sine", g); playTone(988, .18, "sine", g, .1); }
-      if (name === "error") playTone(180, .16, "sawtooth", g);
-      if (name === "transition") playTone(420, .06, "triangle", 0.035);
+      initSoundAssets();
+      const src = state.sounds[name];
+      if (!src) return;
+      try {
+        const s = src.cloneNode();
+        s.volume = name === "typing" || name === "hover" ? 0.25 : 0.55;
+        s.play().catch(() => {});
+      } catch (_) {}
     }
 
     function startMusic() {
-      state.soundEnabled = true;
-      updateSoundToggle();
-      initAudio();
-      if (!state.audioContext) return;
-      if (state.audioContext.state === "suspended") state.audioContext.resume();
+      initSoundAssets();
+      if (!state.radio || state.muted) return;
       state.musicPlaying = true;
-      const notes = [392, 523, 587, 659, 587, 523, 440, 392];
-      let i = 0;
-      clearInterval(state.musicTimer);
-      state.musicTimer = setInterval(() => {
-        if (!state.musicPlaying) return;
-        playTone(notes[i % notes.length], .18, "triangle", 0.035);
-        if (i % 2 === 0) playTone(notes[(i + 2) % notes.length] / 2, .25, "sine", 0.018);
-        i++;
-      }, 420);
-      playSound("coin");
+      state.radio.volume = 0.16;
+      state.radio.play().catch(() => {});
     }
 
     function pauseMusic() {
       state.musicPlaying = false;
-      clearInterval(state.musicTimer);
-      playSound("click");
+      if (state.radio) state.radio.pause();
     }
 
-    function updateSoundToggle() {
-      setText("sound-toggle", state.soundEnabled ? "🔊 Sound ON" : "🔈 Sound OFF");
+    function updateSoundToggle() { setText("sound-toggle", state.soundEnabled ? "♫ Sound ON" : "♫ Sound OFF"); }
+    function showToast(message) {
+      const toast = document.createElement("div"); toast.className = "toast"; toast.textContent = message;
+      $("#toast-stack").appendChild(toast);
+      setTimeout(() => { toast.style.opacity = "0"; toast.style.transform = "translateY(12px)"; }, 3200);
+      setTimeout(() => toast.remove(), 3800);
     }
+    const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
+
+    function unlockSecret(reason) {
+      state.secretUnlocked = true;
+      $("#secret-planet").classList.add("unlocked");
+      setText("planet-secret-small", t().secretUnlocked);
+      showToast(reason === "stay" ? t().stayToast : t().unlockedToast);
+    }
+
+    function openInstagram() {
+      window.open(LINKS.instagram, "_blank", "noopener");
+      setTimeout(() => $("#dm-help").classList.add("active"), 650);
+    }
+
+    function onYouTubeIframeAPIReady() {
+      try {
+        state.ytPlayer = new YT.Player("youtube-player", {
+          events: { onStateChange: event => { if (event.data === YT.PlayerState.PLAYING) { pauseMusic(); completeMission("video", "VIDEO"); } } }
+        });
+      } catch (_) {}
+    }
+    window.onYouTubeIframeAPIReady = onYouTubeIframeAPIReady;
 
     function bindEvents() {
+      document.addEventListener("pointerdown", unlockAudioAndRadio, { once: true });
+      document.addEventListener("touchstart", unlockAudioAndRadio, { once: true, passive: true });
       $$("button, a").forEach(el => {
         el.addEventListener("mouseenter", () => playSound("hover"));
         el.addEventListener("click", () => playSound("click"));
       });
       $$(".hub-planet").forEach(button => button.addEventListener("click", () => openPanel(button.dataset.panel)));
-      $("#open-email-btn").addEventListener("click", openEmail);
+      const patreon = document.querySelector('a[href*="patreon.com"]');
+      if (patreon) patreon.addEventListener("click", () => completeMission("patreon", "PATREON"));
+      const watched = $("#watched-video-btn");
+      if (watched) watched.addEventListener("click", () => { pauseMusic(); completeMission("video", "VIDEO"); });
+      const ytf = $("#youtube-player");
+      if (ytf) ["pointerdown", "focus"].forEach(ev => ytf.addEventListener(ev, () => pauseMusic()));
+      $("#open-email-btn").addEventListener("click", openInstagram);
       $("#close-launch-btn").addEventListener("click", () => $("#launch-overlay").classList.remove("active"));
-      $("#sound-toggle").addEventListener("click", () => {
-        state.soundEnabled = !state.soundEnabled;
-        if (state.soundEnabled) { initAudio(); playSound("coin"); }
-        updateSoundToggle();
-      });
-      $("#motion-toggle").addEventListener("click", () => {
-        document.body.classList.toggle("reduced-motion");
-        setText("motion-toggle", document.body.classList.contains("reduced-motion") ? "✨ Motion OFF" : "✨ Motion ON");
-      });
-      $("#music-play").addEventListener("click", startMusic);
-      $("#music-pause").addEventListener("click", pauseMusic);
-      $("#music-mute").addEventListener("click", () => {
-        state.muted = !state.muted;
-        setText("music-mute", state.muted ? "🔈 Unmute" : "🔇 Mute");
-      });
-      $("#volume-range").addEventListener("input", event => {
-        initAudio();
-        if (state.masterGain) state.masterGain.gain.value = Number(event.target.value);
-      });
-      $$(".star-clicker").forEach(star => {
-        star.addEventListener("click", () => {
-          state.starClicks += 1;
-          star.style.visibility = "hidden";
-          showToast(t().starToast(Math.min(state.starClicks, 20)));
-          playSound("coin");
-          if (state.starClicks >= 20) unlockSecret("stars");
-          setTimeout(() => { star.style.visibility = "visible"; }, 2500);
-        });
-      });
-      document.addEventListener("mousemove", event => {
-        const x = (event.clientX / window.innerWidth - .5) * 2;
-        const y = (event.clientY / window.innerHeight - .5) * 2;
-        $("#app-shell").style.transform = `rotateY(${x * 1.2}deg) rotateX(${-y * 1.2}deg)`;
-        $$('[data-depth]').forEach(el => {
-          const depth = Number(el.dataset.depth || 0);
-          el.style.marginLeft = `${x * depth * 80}px`;
-          el.style.marginTop = `${y * depth * 80}px`;
-        });
-      });
+      $("#sound-toggle").addEventListener("click", () => { state.soundEnabled = !state.soundEnabled; if (state.soundEnabled) startMusic(); else pauseMusic(); updateSoundToggle(); });
+      $("#motion-toggle").addEventListener("click", () => { document.body.classList.toggle("reduced-motion"); setText("motion-toggle", document.body.classList.contains("reduced-motion") ? "✧ Motion OFF" : "✧ Motion ON"); });
+      $$(".star-clicker").forEach(star => star.addEventListener("click", () => { state.starClicks += 1; star.style.visibility = "hidden"; showToast(t().starToast(Math.min(state.starClicks, 20))); playSound("coin"); if (state.starClicks >= 20) unlockSecret("stars"); setTimeout(() => { star.style.visibility = "visible"; }, 2500); }));
+      document.addEventListener("mousemove", event => { const x = (event.clientX / window.innerWidth - .5) * 2; const y = (event.clientY / window.innerHeight - .5) * 2; const shell = $("#app-shell"); if (shell) shell.style.transform = `rotateY(${x * 1.2}deg) rotateX(${-y * 1.2}deg)`; $$('[data-depth]').forEach(el => { const depth = Number(el.dataset.depth || 0); el.style.marginLeft = `${x * depth * 80}px`; el.style.marginTop = `${y * depth * 80}px`; }); });
       document.addEventListener("keydown", handleKonami);
       setTimeout(() => unlockSecret("stay"), 30000);
     }
@@ -1268,30 +1254,20 @@
     let konamiIndex = 0;
     function handleKonami(event) {
       const key = event.key.length === 1 ? event.key.toLowerCase() : event.key;
-      if (key === konami[konamiIndex].toLowerCase()) {
-        konamiIndex += 1;
-        if (konamiIndex === konami.length) {
-          konamiIndex = 0;
-          unlockSecret("konami");
-          showToast(t().konamiToast);
-          $("#hidden-alien").style.fontSize = "58px";
-        }
-      } else {
-        konamiIndex = 0;
-      }
+      if (key === konami[konamiIndex].toLowerCase()) { konamiIndex += 1; if (konamiIndex === konami.length) { konamiIndex = 0; unlockSecret("konami"); showToast(t().konamiToast); $("#hidden-alien").style.fontSize = "58px"; } }
+      else konamiIndex = 0;
     }
 
+    window.selectLanguage = selectLanguage;
+    window.proceedWithLanguage = proceedWithLanguage;
     window.setLanguage = setLanguage;
     window.nextStoryStep = nextStoryStep;
     window.skipStory = skipStory;
     window.handleLetterSubmission = handleLetterSubmission;
     window.clearLetter = clearLetter;
 
-    document.addEventListener("DOMContentLoaded", () => {
-      updateHud("START", 14, 1);
-      bindEvents();
-      updateSoundToggle();
-    });
+    document.addEventListener("DOMContentLoaded", () => { applyLocalization(); updateHud("START"); bindEvents(); updateSoundToggle(); });
   </script>
+
 </body>
 </html>
