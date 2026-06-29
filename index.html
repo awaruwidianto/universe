@@ -323,7 +323,7 @@
       border-radius: 22px;
       background: rgba(255, 249, 241, .86);
       border: 3px solid rgba(70,49,117,.62);
-      box-shadow: inset 0 0 0 3px rgba(255,255,255,.58);
+      box-shadow: inset 0 0 0 3px rgba(255,255,255,.588);
       position: relative;
     }
     #story-text { margin: 0; font-size: clamp(15px, 2vw, 20px); line-height: 1.4; font-weight: 900; color: #3d315f; }
@@ -650,8 +650,8 @@
             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.43 12.98c.04-.32.07-.64.07-.98s-.03-.66-.07-.98l2.11-1.65c.19-.15.24-.42.12-.64l-2-3.46c-.12-.22-.39-.3-.61-.22l-2.49 1c-.52-.4-1.08-.73-1.69-.98l-.38-2.65C14.46 2.18 14.25 2 14 2h-4c-.25 0-.46.18-.49.42l-.38 2.65c-.61.25-1.17.59-1.69.98l-2.49-1c-.23-.09-.49 0-.61.22l-2 3.46c-.13.22-.07.49.12.64l2.11 1.65c-.04.32-.07.65-.07.98s.03.66.07.98l-2.11 1.65c-.19.15-.24.42-.12.64l2 3.46c.12.22.39.3.61.22l2.49-1c.52.4 1.08.73-1.69-.98l.38-2.65c.03.24.24.42.49.42h4c.25 0 .46-.18.49-.42l-.38-2.65c.61-.25 1.17-.59 1.69-.98l2.49 1c.23.09.49 0 .61-.22l2-3.46c.12-.22.07-.49-.12-.64l-2.11-1.65zM12 15.5c-1.93 0-3-1.57-3-3.5s1.07-3.5 3-3.5 3 1.57 3 3.5-1.07 3.5-3 3.5z"/></svg>
             <span id="preference-label">preference</span>
           </div>
-          <h2 class="big-title" id="language-title">CHOOSE YOUR PLANET</h2>
-          <p class="subtitle" id="language-subtitle">pick a cozy world and begin awaru's pastel galaxy adventure.</p>
+          <h2 class="big-title" id="language-title">CHOOSE WHICH PLANET</h2>
+          <p class="subtitle" id="language-subtitle">of awaru you would like to see?</p>
           <div class="planet-choice-grid">
             <button class="planet-choice choice-earth" type="button" onclick="setLanguage('en')" aria-label="Choose English planet">
               <span class="choice-orb"></span>
@@ -681,7 +681,7 @@
                 <div id="avatar-err" class="avatar-fallback hidden-section">@awaru.pdf</div>
               </div>
               <div class="story-profile-meta">
-                <h2 class="character-name">AWARU</h2>
+                <h2 class="character-name" id="story-profile-name">AWARU</h2>
                 <p class="character-class" id="character-class">pisces • enfj • creator</p>
               </div>
               <span class="mission-tag" id="story-progress" style="font-family:var(--font-title); font-weight:bold; color:var(--ink-soft);">-/-</span>
@@ -943,9 +943,10 @@
         htmlLang: "en",
         mainTitle: "AWARU UNIVERSE",
         preferenceLabel: "preference",
-        languageTitle: "CHOOSE YOUR PLANET",
-        chooseSubtitle: "pick a cozy world and begin awaru's pastel galaxy adventure.",
+        languageTitle: "CHOOSE WHICH PLANET",
+        chooseSubtitle: "of awaru you would like to see?",
         playerLabel: "",
+        storyCharacterName: "AWARU",
         characterClass: "pisces • enfj • creator",
         dialogueLabel: "",
         story: [
@@ -1042,6 +1043,7 @@
         languageTitle: "행성을 선택하세요",
         chooseSubtitle: "귀여운 행성을 선택하고 아와루의 파스텔 은하 모험을 시작하세요.",
         playerLabel: "",
+        storyCharacterName: "아와루",
         characterClass: "물고기자리 • enfj • 크리에이터",
         dialogueLabel: "",
         story: [
@@ -1297,6 +1299,7 @@
       setText("language-title", data.languageTitle);
       setText("language-subtitle", data.chooseSubtitle);
       setText("player-label", data.playerLabel);
+      setText("story-profile-name", data.storyCharacterName);
       setText("character-class", data.characterClass);
       setText("dialogue-label", data.dialogueLabel);
       setText("hub-title", data.hubTitle);
@@ -1390,7 +1393,7 @@
       updateHud(32 + state.storyIndex * 18, 1);
     }
 
-    function typeText(element, text) {
+    UX.typeText = function(element, text) {
       clearInterval(state.typingTimer);
       element.innerHTML = "";
       let index = 0;
@@ -1399,7 +1402,7 @@
       state.typingTimer = setInterval(() => {
         element.textContent = text.slice(0, index);
         element.appendChild(cursor);
-        if (index % 3 === 0) playSound("typing", 0.03);
+        if (index % 3 === 0) playSound("typing", 0.018);
         index++;
         if (index > text.length) {
           clearInterval(state.typingTimer);
@@ -1407,6 +1410,7 @@
         }
       }, 23);
     }
+    const typeText = UX.typeText;
 
     function nextStoryStep() {
       if (state.storyIndex < t().story.length - 1) {
