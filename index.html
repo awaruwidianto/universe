@@ -160,8 +160,8 @@
       backdrop-filter: blur(22px) saturate(130%);
       overflow: hidden;
       transform-style: preserve-3d;
-      transform: scale(0.8) !important;
-      transform-origin: center center;
+      transform: scale(var(--shell-scale, 0.84)) !important;
+      transform-origin: top center;
     }
     .app-shell::before {
       content: "";
@@ -579,8 +579,9 @@
     @keyframes secretGlow { 0%,100%{filter:drop-shadow(0 0 0 rgba(255,255,255,0))} 50%{filter:drop-shadow(0 0 36px rgba(255,229,143,.95))} }
 
     @media (max-width: 760px) {
-      .galaxy-stage { padding: 10px; align-items: start; }
-      .app-shell { min-height: auto; border-radius: 26px; transform: scale(0.8) !important; }
+      .galaxy-stage { padding: 8px; align-items: start; place-items: start center; }
+      .app-shell { min-height: auto; border-radius: 26px; transform: scale(var(--shell-scale-mobile, 0.92)) !important; width: min(108vw, 1020px); }
+      :root { --shell-scale-mobile: 0.92; }
       .topbar { align-items: flex-start; flex-direction: column; }
       .hud { width: 100%; max-width: 100%; }
       .xp-wrap { width: 100%; flex: 1 1 100%; }
@@ -596,12 +597,97 @@
       .sound-dock { right: 10px; bottom: 10px; }
       .dock-button { font-size: 12px; }
     }
+
+    @media (max-width: 430px) {
+      :root { --shell-scale-mobile: 0.9; }
+      .screen { padding: 14px; }
+      .hub-hero h2 { font-size: clamp(28px, 12vw, 44px); }
+      .player-identity-clean { font-size: 13px; }
+      .sound-dock { transform: scale(.92); transform-origin: right bottom; }
+    }
+
+    .hub-planet.active-planet .orb {
+      box-shadow: inset 0 -5px 0 rgba(70,49,117,.12), 0 5px 0 rgba(70,49,117,.25), 0 0 0 5px rgba(255,255,255,.62), 0 0 22px rgba(255,148,207,.65);
+    }
+    .hub-planet.active-planet strong { color: #3f31a8; }
+    .game-button, .cute-button, .dock-button { position: relative; overflow: hidden; }
+    .game-button::after, .cute-button::after, .dock-button::after {
+      content: ""; position: absolute; inset: 0; transform: translateX(-120%);
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,.45), transparent);
+      transition: transform .45s ease; pointer-events: none;
+    }
+    .game-button:hover::after, .cute-button:hover::after, .dock-button:hover::after { transform: translateX(120%); }
+    .content-panel { background: linear-gradient(145deg, rgba(255,255,255,.78), rgba(255,255,255,.52)); }
+    .terminal-screen { box-shadow: inset 0 0 0 3px rgba(255,255,255,.12), 0 6px 0 rgba(55,38,98,.28), 0 0 28px rgba(142,231,255,.16); }
+    .mini-social-row { display:flex; gap:8px; flex-wrap:wrap; margin-top:10px; }
+    .orb-instagram { background: radial-gradient(circle at 36% 28%, #fff, #ff94cf 35%, #8b5cf6 68%, #f97316); color: #fff; }
+    #instagram-panel.panel-section { max-width: 580px; margin: 0 auto; }
+    .insta-card {
+      display:block; border-radius:20px; padding:16px; background: linear-gradient(135deg, rgba(255,210,233,.9), rgba(174,242,255,.72));
+      border:3px solid rgba(86,65,121,.34); box-shadow: 0 8px 24px rgba(70,49,117,.10);
+      transition: transform .25s cubic-bezier(.18,.89,.32,1.28), box-shadow .25s;
+    }
+    .insta-card:hover { transform: translateY(-4px); box-shadow: 0 10px 28px rgba(70,49,117,.18); }
+    .insta-handle { font-family: var(--font-title); font-size: 24px; color:#5844c9; margin:0 0 4px; }
+    .insta-copy { margin:0; color: var(--ink-soft); font-weight:900; font-size:13px; }
+
+
+    .yin-yang-logo { width: 100%; height: 100%; filter: drop-shadow(0 0 10px rgba(255,255,255,.8)); }
+    .terminal-intro-card { text-align: center; padding: 18px 18px 22px; max-width: 620px; margin: 0 auto; }
+    .terminal-intro-card .panel-title { margin-top: 6px; }
+    .terminal-intro-copy { margin: 8px auto 0; max-width: 460px; color: var(--ink-soft); font-weight: 900; font-size: 14px; line-height: 1.55; }
+    .terminal-modal-backdrop { position: fixed; inset: 0; z-index: 49; display: none; background: rgba(37, 28, 72, .24); backdrop-filter: none; -webkit-backdrop-filter: none; pointer-events: none; }
+    .terminal-modal-backdrop.active { display: block; }
+    body.terminal-modal-open { overflow: hidden; }
+    body.terminal-modal-open #app-shell { transform: none !important; }
+    body.terminal-modal-open .panel-section.active {
+      position: fixed; left: 56%; top: 52%; transform: translate3d(-50%, -50%, 0);
+      z-index: 55; width: min(78vw, 620px); max-height: min(76vh, 760px); overflow: auto; pointer-events: auto;
+      background: rgba(255,255,255,.94); backdrop-filter: none; -webkit-backdrop-filter: none;
+      backface-visibility: hidden; -webkit-font-smoothing: antialiased; text-rendering: geometricPrecision;
+      animation: terminalModalPop .34s cubic-bezier(.18,.89,.32,1.28) both;
+    }
+    .terminal-close-btn {
+      position: absolute; top: 10px; right: 12px; z-index: 3; width: 34px; height: 34px;
+      border-radius: 12px; border: 3px solid rgba(69,44,109,.75);
+      background: linear-gradient(180deg, #fff7bf, #ffbfde); color: #4b3970;
+      font-weight: 1000; box-shadow: 0 3px 0 rgba(70,49,117,.28);
+    }
+    .terminal-close-btn:hover { transform: translateY(-2px); }
+    .galaxy-loader {
+      position: fixed; inset: 0; z-index: 80; display: grid; place-items: center; padding: 20px;
+      background:
+        radial-gradient(circle at 20% 20%, rgba(255,148,207,.55), transparent 28%),
+        radial-gradient(circle at 80% 30%, rgba(142,231,255,.50), transparent 26%),
+        linear-gradient(135deg, #33285b, #6d5dfc, #ff94cf);
+      transition: opacity .45s ease, visibility .45s ease;
+    }
+    .galaxy-loader.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+    .loader-card { width: min(360px, 92vw); text-align: center; padding: 24px 20px; }
+    .loader-orb { width: 78px; height: 78px; margin: 0 auto 14px; border-radius: 50%; border: 4px solid rgba(86,65,121,.86); background: radial-gradient(circle at 34% 24%, #fff, #8ee7ff 36%, #ff94cf 68%, #6d5dfc); box-shadow: 0 0 35px rgba(255,255,255,.55); animation: planetFloat 2.4s ease-in-out infinite, dynamicColorShift 6s linear infinite; }
+    .loader-title { margin: 0; font-family: var(--font-title); color: #fff; font-size: 30px; text-shadow: 2px 2px 0 rgba(61,49,95,.7); }
+    .loader-copy { margin: 6px 0 0; color: #fff9f1; font-weight: 1000; }
+
+    @media (max-width: 760px) {
+      body.terminal-modal-open .panel-section.active { left: 50%; top: 54%; width: min(92vw, 620px); max-height: 72vh; }
+      .terminal-modal-backdrop { pointer-events: none; }
+    }
+    @keyframes terminalModalPop { from{opacity:0; transform:translate3d(-50%, -46%, 0) scale(.98)} to{opacity:1; transform:translate3d(-50%, -50%, 0) scale(1)} }
+
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; scroll-behavior: auto !important; }
     }
   </style>
 </head>
 <body>
+
+  <div class="galaxy-loader" id="galaxy-loader" aria-live="polite">
+    <div class="pixel-window loader-card">
+      <div class="loader-orb" aria-hidden="true"></div>
+      <h2 class="loader-title" id="galaxy-loader-title">CONNECTING TO GALAXY...</h2>
+      <p class="loader-copy" id="galaxy-loader-copy">loading awaru universe ✨</p>
+    </div>
+  </div>
 
   <div class="cosmic-decoration" aria-hidden="true">
     <button class="star-clicker" type="button" aria-label="collect star"></button>
@@ -633,7 +719,20 @@
       <header class="topbar" aria-label="Mission status">
         <div class="brand">
           <div class="brand-badge" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M13.13 2.13a2 2 0 0 0-2.26 0L3.34 7.22a2 2 0 0 0-.91 1.67v8.22a2 2 0 0 0 .91 1.67l7.53 5.09a2 2 0 0 0 2.26 0l7.53-5.09a2 2 0 0 0 .91-1.67V8.89a2 2 0 0 0-.91-1.67zM12 4.27l6 4.05v1.93l-6-3.15-6 3.15V8.32zM6 16.51v-4.66l6 3.15 6-3.15v4.66l-6 4.06z"/></svg>
+            <svg class="yin-yang-logo" viewBox="0 0 64 64" role="img" aria-label="Awaru yin yang logo">
+              <defs>
+                <linearGradient id="yyGlow" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0" stop-color="#8ee7ff"/>
+                  <stop offset="0.52" stop-color="#ff94cf"/>
+                  <stop offset="1" stop-color="#a78bfa"/>
+                </linearGradient>
+              </defs>
+              <circle cx="32" cy="32" r="28" fill="#fff9f1" stroke="#564179" stroke-width="4"/>
+              <path d="M32 4a28 28 0 0 1 0 56c-7.7 0-14-6.3-14-14s6.3-14 14-14 14-6.3 14-14S39.7 4 32 4z" fill="url(#yyGlow)"/>
+              <circle cx="32" cy="18" r="5.5" fill="#fff9f1"/>
+              <circle cx="32" cy="46" r="5.5" fill="#6d5dfc"/>
+              <path d="M14 14h4v4h-4zM48 46h4v4h-4zM48 13h3v3h-3zM12 48h3v3h-3z" fill="#ffe58f"/>
+            </svg>
           </div>
           <div>
             <h1 id="main-title">loading...</h1>
@@ -726,6 +825,13 @@
                 </span>
                 <strong id="planet-youtube-label">youtube</strong><small id="planet-youtube-small">videos</small>
               </button>
+
+              <button class="hub-planet planet-instagram" type="button" data-panel="instagram-panel" aria-label="Open Instagram planet">
+                <span class="orb orb-instagram">
+                  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm0 2a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3H7zm5 3.5A4.5 4.5 0 1 1 7.5 12 4.5 4.5 0 0 1 12 7.5zm0 2A2.5 2.5 0 1 0 14.5 12 2.5 2.5 0 0 0 12 9.5zM17.75 6.75a1 1 0 1 1-1 1 1 1 0 0 1 1-1z"/></svg>
+                </span>
+                <strong id="planet-instagram-label">instagram</strong><small id="planet-instagram-small">dm / photos</small>
+              </button>
               <button class="hub-planet planet-music" type="button" data-panel="music-panel" aria-label="Open music planet">
                 <span class="orb orb-music">
                   <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
@@ -754,6 +860,13 @@
           </aside>
 
           <main class="hub-main-content">
+
+            <section id="terminal-intro-panel" class="panel-section pixel-window content-panel active terminal-intro-card" aria-labelledby="terminal-intro-title">
+              <div class="window-label">🪐 <span id="terminal-intro-label">terminal hub</span></div>
+              <h3 id="terminal-intro-title" class="panel-title">CHOOSE A TERMINAL</h3>
+              <p id="terminal-intro-copy" class="terminal-intro-copy">tap any planet to open its cozy pop-up terminal. youtube, instagram, music, letters, patreon, and secret stars are waiting.</p>
+            </section>
+
             <section id="youtube-panel" class="panel-section pixel-window content-panel" aria-labelledby="heading-yt">
               <div class="window-label">
                 <svg viewBox="0 0 24 24" fill="currentColor"><path d="M21 3H3c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-9 9H3V5h9v7z"/></svg>
@@ -779,6 +892,20 @@
                   </div>
                 </a>
               </div>
+            </section>
+
+
+            <section id="instagram-panel" class="panel-section pixel-window content-panel" aria-labelledby="instagram-title">
+              <div class="window-label">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm5 5.5A4.5 4.5 0 1 1 7.5 12 4.5 4.5 0 0 1 12 7.5z"/></svg>
+                <span id="instagram-window-label">instagram terminal</span>
+              </div>
+              <h3 id="instagram-title" class="panel-title">INSTAGRAM</h3>
+              <a id="instagram-link" href="#" target="_blank" rel="noopener" class="insta-card">
+                <p class="insta-handle">@awaru.pdf</p>
+                <p id="instagram-copy" class="insta-copy">follow @awaru.pdf for updates, photos, and soft little dream fragments.</p>
+                <span class="cute-button pink-button" style="margin-top:12px; min-height:36px;"><span id="instagram-btn">open instagram</span></span>
+              </a>
             </section>
 
             <section id="music-panel" class="panel-section pixel-window content-panel" aria-labelledby="music-title">
@@ -822,6 +949,7 @@
                       <span id="btn-submit-text">send</span>
                     </button>
                     <button onclick="clearLetter()" class="game-button" type="button" id="btn-clear">clear</button>
+                    <button onclick="openInstagramDM()" class="game-button pink-button" type="button" id="btn-dm-awaru">💌 dm awaru</button>
                   </div>
                 </div>
               </div>
@@ -856,6 +984,8 @@
       </section>
     </div>
   </main>
+
+  <div class="terminal-modal-backdrop" id="terminal-modal-backdrop" onclick="closeTerminalModal()" aria-hidden="true"></div>
 
   <div class="sound-dock" aria-label="Sound controls">
     <button id="back-to-planet" class="dock-button planet-back-btn hidden-section" type="button" onclick="returnToPlanetSelection()">◀ planet</button>
@@ -1034,7 +1164,12 @@
         identityHeader: "player stats & identity",
         identityBio1: "4th year student at Korea University of Media Arts",
         identityBio2: "chasing the ultimate dream: collaborating with SM Entertainment artists!",
-        backPlanet: "◀ planet"
+        backPlanet: "◀ planet",
+        terminalIntroLabel: "terminal hub",
+        terminalIntroTitle: "CHOOSE A TERMINAL",
+        terminalIntroCopy: "tap any planet to open its cozy pop-up terminal. youtube, instagram, music, letters, patreon, and secret stars are waiting.",
+        galaxyLoaderTitle: "CONNECTING TO GALAXY...",
+        galaxyLoaderCopy: "loading awaru universe ✨"
       },
       ko: {
         htmlLang: "ko",
@@ -1131,9 +1266,197 @@
         identityHeader: "플레이어 정보 & 프로필",
         identityBio1: "한국영상대학교 4학년 재학 중",
         identityBio2: "최종 목표: SM 엔터테인먼트 아티스트와 콜라보 성사시키기!",
-        backPlanet: "◀ 행성"
+        backPlanet: "◀ 행성",
+        terminalIntroLabel: "터미널 허브",
+        terminalIntroTitle: "터미널을 선택하세요",
+        terminalIntroCopy: "행성을 누르면 포근한 팝업 터미널이 열립니다. 유튜브, 인스타그램, 음악, 편지, 패트리온, 그리고 비밀 별들이 기다리고 있어요.",
+        galaxyLoaderTitle: "은하계 연결 중...",
+        galaxyLoaderCopy: "아와루 유니버스를 불러오는 중 ✨"
       }
     };
+
+
+    // Built-in fallback copy synced from awaru universe.csv. Keys are preserved; external CSV can still override these.
+    localization.en["mainTitle"] = "bizarre universe";
+    localization.ko["mainTitle"] = "\ubcc4\ub09c \uc720\ub2c8\ubc84\uc2a4";
+    localization.en["preferenceLabel"] = "...";
+    localization.ko["preferenceLabel"] = "...";
+    localization.en["languageTitle"] = "CHOOSE WHICH PLANET";
+    localization.ko["languageTitle"] = "\uc5b4\ub5a4 \ud589\uc131\uc5d0\uc11c \uc0ac\ub294";
+    localization.en["chooseSubtitle"] = "of awaru you would like to see?";
+    localization.ko["chooseSubtitle"] = "\uc544\uc640\ub8e8\ub97c \ubcf4\uace0 \uc2f6\uc73c\uc2e0\uac00\uc694?";
+    localization.en["characterClass"] = "is an Indonesian guy.";
+    localization.ko["characterClass"] = "\uc778\ub3c4\ub124\uc2dc\uc544 \uc0ac\ub78c\uc785\ub2c8\ub2e4.";
+    localization.en["missionIntro"] = "introduction";
+    localization.ko["missionIntro"] = "\uc790\uae30 \uc18c\uac1c";
+    localization.en["nextBtn"] = "next \u25b6";
+    localization.ko["nextBtn"] = "\ub2e4\uc74c \u25b6";
+    localization.en["finishBtn"] = "it's time to";
+    localization.ko["finishBtn"] = "\uc9c0\uae08 \ubd80\ud130";
+    localization.en["skipBtn"] = "go to terminal \u25b6";
+    localization.ko["skipBtn"] = "\ud130\ubbf8\ub110\ub85c \uac74\ub108\ub6f0\uae30 \u25b6";
+    localization.en["hubTitle"] = "AWARU";
+    localization.ko["hubTitle"] = "\uc544\uc640\ub8e8";
+    localization.en["planetYoutubeLabel"] = "youtube";
+    localization.ko["planetYoutubeLabel"] = "\uc720\ud29c\ube0c";
+    localization.en["planetYoutubeSmall"] = "videos";
+    localization.ko["planetYoutubeSmall"] = "\uc601\uc0c1\ub4e4";
+    localization.en["planetMusicLabel"] = "music";
+    localization.ko["planetMusicLabel"] = "\uc74c\uc545";
+    localization.en["planetMusicSmall"] = "radio";
+    localization.ko["planetMusicSmall"] = "\ub77c\ub514\uc624";
+    localization.en["planetLetterLabel"] = "letter";
+    localization.ko["planetLetterLabel"] = "\ud3b8\uc9c0";
+    localization.en["planetLetterSmall"] = "space mail";
+    localization.ko["planetLetterSmall"] = "\uc6b0\uc8fc \uc6b0\ud3b8";
+    localization.en["planetPatreonLabel"] = "patreon";
+    localization.ko["planetPatreonLabel"] = "\ud328\ud2b8\ub9ac\uc628";
+    localization.en["planetPatreonSmall"] = "portal";
+    localization.ko["planetPatreonSmall"] = "\ud3ec\ud138";
+    localization.en["planetSecretLabel"] = "secret";
+    localization.ko["planetSecretLabel"] = "\ube44\ubc00";
+    localization.en["ytWindowLabel"] = "video terminal";
+    localization.ko["ytWindowLabel"] = "\ube44\ub514\uc624 \ud130\ubbf8\ub110";
+    localization.en["headingYt"] = "YOUTUBE CHANNEL";
+    localization.ko["headingYt"] = "\uc720\ud29c\ube0c \ucc44\ub110";
+    localization.en["ytChannel"] = "visit my youtube channel";
+    localization.ko["ytChannel"] = "\uc720\ud29c\ube0c \ucc44\ub110 \ubc29\ubb38\ud558\uae30";
+    localization.en["ytChannelDesc"] = "please subscribe, it will help awaru chase his dreams.";
+    localization.ko["ytChannelDesc"] = "\ucc44\ub110\uc744 \uad6c\ub3c5\ud574 \uc544\uc640\ub8e8\uac00 \uafc8\uc744 \ucad3\uc744 \uc218 \uc788\ub3c4\ub85d \ub3c4\uc640\uc8fc\uc138\uc694.";
+    localization.en["musicWindowLabel"] = "music terminal";
+    localization.ko["musicWindowLabel"] = "\uc74c\uc545 \ud130\ubbf8\ub110";
+    localization.en["musicTitle"] = "PIXEL RADIO";
+    localization.ko["musicTitle"] = "\ud53d\uc140 \ub77c\ub514\uc624";
+    localization.en["musicCopy"] = "awaru's favorite soft retro bleeps from the universe.";
+    localization.ko["musicCopy"] = "\uc544\uc640\ub8e8\uac00 \uac00\uc7a5 \uc88b\uc544\ud558\ub294 \uc6b0\uc8fc\uc5d0\uc11c \uc628 \ubd80\ub4dc\ub7ec\uc6b4 \ub808\ud2b8\ub85c\ud48d \uc804\uc790\uc74c\ub4e4.";
+    localization.en["musicPlay"] = "\u25b6 play";
+    localization.ko["musicPlay"] = "\u25b6 \uc7ac\uc0dd";
+    localization.en["musicPause"] = "\u23f8 pause";
+    localization.ko["musicPause"] = "\u23f8 \uc77c\uc2dc\uc815\uc9c0";
+    localization.en["musicMute"] = "\ud83d\udd07 mute";
+    localization.ko["musicMute"] = "\ud83d\udd07 \uc74c\uc18c\uac70";
+    localization.en["musicUnmute"] = "\ud83d\udd08 unmute";
+    localization.ko["musicUnmute"] = "\ud83d\udd08 \uc74c\uc18c\uac70 \ud574\uc81c";
+    localization.en["volumeLabel"] = "volume";
+    localization.ko["volumeLabel"] = "\ubcfc\ub968";
+    localization.en["letterWindowLabel"] = "space mail terminal";
+    localization.ko["letterWindowLabel"] = "\uc6b0\uc8fc \uc6b0\ud3b8 \ud130\ubbf8\ub110";
+    localization.en["headingLetter"] = "SEND A LETTER";
+    localization.ko["headingLetter"] = "\ud3b8\uc9c0 \ubcf4\ub0b4\uae30";
+    localization.en["labelName"] = "FROM";
+    localization.ko["labelName"] = "\ubcf4\ub0b4\ub294 \uc774";
+    localization.en["labelMessage"] = "MESSAGE";
+    localization.ko["labelMessage"] = "\uba54\uc2dc\uc9c0";
+    localization.en["namePlaceholder"] = "write your name";
+    localization.ko["namePlaceholder"] = "\uc774\ub984\uc744 \uc801\uc5b4\uc8fc\uc138\uc694";
+    localization.en["messagePlaceholder"] = "write something to awaru...";
+    localization.ko["messagePlaceholder"] = "\uc544\uc640\ub8e8\uc5d0\uac8c \uc804\ub2ec\ud560 \uba54\uc2dc\uc9c0\ub97c \uc801\uc5b4\uc8fc\uc138\uc694...";
+    localization.en["btnSubmit"] = "send";
+    localization.ko["btnSubmit"] = "\ubcf4\ub0b4\uae30";
+    localization.en["clear"] = "clear";
+    localization.ko["clear"] = "\uc9c0\uc6b0\uae30";
+    localization.en["rocketCopy"] = "ready to launch your letter across the galaxy.";
+    localization.ko["rocketCopy"] = "\uc740\ud558\uacc4\ub97c \uac00\ub85c\uc9c8\ub7ec \ud3b8\uc9c0\ub97c \ubc1c\uc0ac\ud560 \uc900\ube44\uac00 \ub418\uc5c8\uc2b5\ub2c8\ub2e4.";
+    localization.en["patreonWindowLabel"] = "creator terminal";
+    localization.ko["patreonWindowLabel"] = "\ud06c\ub9ac\uc5d0\uc774\ud130 \ud130\ubbf8\ub110";
+    localization.en["patreonTitle"] = "SUPPORT AWARU";
+    localization.ko["patreonTitle"] = "\uc544\uc640\ub8e8 \ud6c4\uc6d0\ud558\uae30";
+    localization.en["patreonCopy"] = "help fuel more cozy korea adventures, vlogs, music, and dream projects.";
+    localization.ko["patreonCopy"] = "\ub354 \ud3ec\uadfc\ud55c \ud55c\uad6d \ubaa8\ud5d8, \ube0c\uc774\ub85c\uadf8, \uc74c\uc545, \uadf8\ub9ac\uace0 \uafc8\uc758 \ud504\ub85c\uc81d\ud2b8\ub97c \uc9c0\uc18d\ud560 \uc218 \uc788\ub3c4\ub85d \ub3c4\uc640\uc8fc\uc138\uc694.";
+    localization.en["patreonBtnText"] = "support on patreon";
+    localization.ko["patreonBtnText"] = "\ud328\ud2b8\ub9ac\uc628\uc5d0\uc11c \ud6c4\uc6d0\ud558\uae30";
+    localization.en["secretWindowLabel"] = "hidden terminal";
+    localization.ko["secretWindowLabel"] = "\uc228\uaca8\uc9c4 \ud130\ubbf8\ub110";
+    localization.en["secretTitle"] = "SECRET PLANET";
+    localization.ko["secretTitle"] = "\ube44\ubc00 \ud589\uc131";
+    localization.en["secretCopy"] = "fun fact about awaru is...";
+    localization.ko["secretCopy"] = "\uc544\uc640\ub8e8 \uc7ac\ubbf8\uc788\ub294 \uc0ac\uc2e4\uc740...";
+    localization.en["secretSmall"] = "are you surprised?";
+    localization.ko["secretSmall"] = "\ub180\ub77c\uc168\ub108\uc694?";
+    localization.en["alertFill"] = "please fill out both your name and message!";
+    localization.ko["alertFill"] = "\uc774\ub984\uacfc \uba54\uc2dc\uc9c0\ub97c \ubaa8\ub450 \uc785\ub825\ud574\uc8fc\uc138\uc694!";
+    localization.en["overlayWindowLabel"] = "\ud83d\ude80 rocket mail";
+    localization.ko["overlayWindowLabel"] = "\ud83d\ude80 \ub85c\ucf13 \uc6b0\ud3b8";
+    localization.en["launchTitle"] = "LAUNCHING LETTER...";
+    localization.ko["launchTitle"] = "\ud3b8\uc9c0 \uc774\ubbf8\uc9c0 \ubc1c\uc0ac \uc911...";
+    localization.en["launchCopy"] = "preparing your galaxy letter image for awaru.";
+    localization.ko["launchCopy"] = "\uc544\uc640\ub8e8\uc5d0\uac8c \uc804\ub2ec\ud560 \uc740\ud558 \ud3b8\uc9c0 \uc774\ubbf8\uc9c0\ub97c \uad6c\uc131\ud558\uace0 \uc788\uc2b5\ub2c8\ub2e4.";
+    localization.en["successTitle"] = "MISSION COMPLETE!";
+    localization.ko["successTitle"] = "\ubbf8\uc158 \uc644\ub8cc!";
+    localization.en["successCopy"] = "your letter is ready! take a screenshot & open instagram to send it straight to awaru.";
+    localization.ko["successCopy"] = "\ud3b8\uc9c0\uac00 \uc900\ube44\ub410\uc5b4\uc694! \uc2a4\ud06c\ub9b0\uc0f7\uc744 \ucc0d\uc5b4\uc11c \uc778\uc2a4\ud0c0\uadf8\ub7a8\uc744 \uc5f4\uace0 \uc544\uc640\ub8e8\uc5d0\uac8c \ubc14\ub85c \ubcf4\ub0b4\uc138\uc694.";
+    localization.en["openInstaBtn"] = "\ud83d\udc8c open instagram dm";
+    localization.ko["openInstaBtn"] = "\ud83d\udc8c \uc778\uc2a4\ud0c0\uadf8\ub7a8 DM \uc5f4\uae30";
+    localization.en["closeLaunchBtn"] = "close";
+    localization.ko["closeLaunchBtn"] = "\ub2eb\uae30";
+    localization.en["congratsWindowLabel"] = "\u2b50\u2b50\u2b50";
+    localization.ko["congratsWindowLabel"] = "\u2b50\u2b50\u2b50";
+    localization.en["congratsTitle"] = "thank you";
+    localization.ko["congratsTitle"] = "\uac10\uc0ac\ud569\ub2c8\ub2e4";
+    localization.en["congratsCopy"] = "thank you for supporting awaru! it truly means the world to him.";
+    localization.ko["congratsCopy"] = "\uc544\uc640\ub8e8\ub97c \uc751\uc6d0\ud574 \uc8fc\uc154\uc11c \uac10\uc0ac\ud569\ub2c8\ub2e4! \uc5ec\ub7ec\ubd84\uc758 \uc9c0\uc9c0\uac00 \uc815\ub9d0 \ud070 \ud798\uc774 \ub429\ub2c8\ub2e4.";
+    localization.en["congratsBtn"] = "awesome!";
+    localization.ko["congratsBtn"] = "\ucd5c\uace0\uc57c!";
+    localization.en["soundOn"] = "\ud83d\udd0a sound on";
+    localization.ko["soundOn"] = "\ud83d\udd0a \uc18c\ub9ac \ucf2c";
+    localization.en["soundOff"] = "\ud83d\udd08 sound off";
+    localization.ko["soundOff"] = "\ud83d\udd08 \uc18c\ub9ac \ub054";
+    localization.en["motionOn"] = "\u2728 motion on";
+    localization.ko["motionOn"] = "\u2728 \ubaa8\uc158 \ucf2c";
+    localization.en["motionOff"] = "\u2728 motion off";
+    localization.ko["motionOff"] = "\u2728 \ubaa8\uc158 \ub054";
+    localization.en["pdfTitle"] = "a letter for awaru";
+    localization.ko["pdfTitle"] = "\uc544\uc640\ub8e8\uc5d0\uac8c \ubcf4\ub0b4\ub294 \ud3b8\uc9c0";
+    localization.en["from"] = "from";
+    localization.ko["from"] = "\ubcf4\ub0b4\ub294 \uc774";
+    localization.en["date"] = "date";
+    localization.ko["date"] = "\ub0a0\uc9dc";
+    localization.en["unlockedToast"] = "secret planet unlocked! \u2b50";
+    localization.ko["unlockedToast"] = "\ube44\ubc00 \ud589\uc131\uc774 \uc5f4\ub838\uc2b5\ub2c8\ub2e4! \u2b50";
+    localization.en["stayToast"] = "thank you for visiting my universe page";
+    localization.ko["stayToast"] = "\ub0b4 \uc720\ub2c8\ubc84\uc2a4 \ud398\uc774\uc9c0\ub97c \ubc29\ubb38\ud574 \uc8fc\uc154\uc11c \uac10\uc0ac\ud569\ub2c8\ub2e4!";
+    localization.en["konamiToast"] = "konami code accepted. hidden alien activated! \ud83d\udc7e";
+    localization.ko["konamiToast"] = "\ucf54\ub098\ubbf8 \ucf54\ub4dc\uac00 \uc218\ub77d\ub418\uc5c8\uc2b5\ub2c8\ub2e4. \uc228\uaca8\uc9c4 \uc678\uacc4\uc778\uc774 \ud65c\uc131\ud654\ub418\uc5c8\uc2b5\ub2c8\ub2e4! \ud83d\udc7e";
+    localization.en["toastClear"] = "space mail cleared \u2728";
+    localization.ko["toastClear"] = "\uc6b0\uc8fc \uc6b0\ud3b8 \ub0b4\uc6a9\uc774 \uc0ad\uc81c\ub418\uc5c8\uc2b5\ub2c8\ub2e4 \u2728";
+    localization.en["identityHeader"] = "my dreams";
+    localization.ko["identityHeader"] = "\ub098\uc758 \uafc8\uc740";
+    localization.en["identityBio1"] = "welcome to the terminal";
+    localization.ko["identityBio1"] = "\ud130\ubbf8\ub110\uc5d0\uc11c \ud658\uc601\ud569\ub2c8\ub2e4";
+    localization.en["identityBio2"] = "...";
+    localization.ko["identityBio2"] = "...";
+    localization.en["backPlanet"] = "choose planet";
+    localization.ko["backPlanet"] = "\ud589\uc131 \uc120\ud0dd";
+    localization.en["storyCharacterName"] = "AWARU";
+    localization.ko["storyCharacterName"] = "\uc544\uc640\ub8e8";
+    localization.en.story = ["hello traveler! scale up your curiosity. meet awaru, a pisces born in the year 2000 with an energetic ENFJ spirit.", "he's a 4th year student at Korea University of Media Arts who made a brave jump to south korea to chase his dreams.", "his ultimate quest? build a life through youtube, capture colorful moments, and create a dream collaboration with one of sm entertainment artists before turning 30! "];
+    localization.ko.story = ["안녕하세요 모험가님! 호기심을 가득 채워보세요. 2000년도에 태어난 활기찬 ENFJ 영혼을 가진 아와루를 소개합니다.", "한국영상대학교 4학년에 재학 중인 그는 더 밝은 미래를 위해 용감하게 한국으로 건너왔습니다.", "아와루의 최종 퀘스트는 유튜브를 통해 삶을 개척하고 다채로운 일상을 기록하며 30세가 되기 전에 SM 엔터테인먼트 아티스트와 꿈의 콜라보를 성사시키는 것입니다! "];
+    localization.en.randomMessages = ["he is the fist son.", "he had a lot of pet fish when he was a kid.", "he likes anything citrus.", "he is vegetarian."];
+    localization.ko.randomMessages = ["장남인 거다.", "어렸을 때 애완용 물고기를 많이 키웠다.", "감귤류라면 뭐든 좋아한다.", "채식주의자이다."];
+    localization.en.planetInstagramLabel = "instagram";
+    localization.ko.planetInstagramLabel = "인스타";
+    localization.en.planetInstagramSmall = "dm / photos";
+    localization.ko.planetInstagramSmall = "dm / 사진";
+    localization.en.instagramWindowLabel = "instagram terminal";
+    localization.ko.instagramWindowLabel = "인스타그램 터미널";
+    localization.en.instagramTitle = "INSTAGRAM";
+    localization.ko.instagramTitle = "인스타그램";
+    localization.en.instagramCopy = "follow @awaru.pdf for updates, photos, and soft little dream fragments.";
+    localization.ko.instagramCopy = "@awaru.pdf에서 아와루의 근황, 사진, 그리고 작은 꿈의 조각들을 만나보세요.";
+    localization.en.instagramBtn = "open instagram";
+    localization.ko.instagramBtn = "인스타그램 열기";
+    localization.en.terminalIntroLabel = "terminal hub";
+    localization.ko.terminalIntroLabel = "터미널 허브";
+    localization.en.terminalIntroTitle = "CHOOSE A TERMINAL";
+    localization.ko.terminalIntroTitle = "터미널을 선택하세요";
+    localization.en.terminalIntroCopy = "tap any planet to open its cozy pop-up terminal. youtube, instagram, music, letters, patreon, and secret stars are waiting.";
+    localization.ko.terminalIntroCopy = "행성을 누르면 포근한 팝업 터미널이 열립니다. 유튜브, 인스타그램, 음악, 편지, 패트리온, 그리고 비밀 별들이 기다리고 있어요.";
+    localization.en.galaxyLoaderTitle = "CONNECTING TO GALAXY...";
+    localization.ko.galaxyLoaderTitle = "은하계 연결 중...";
+    localization.en.galaxyLoaderCopy = "loading awaru universe ✨";
+    localization.ko.galaxyLoaderCopy = "아와루 유니버스를 불러오는 중 ✨";
+    localization.en.dmAwaruBtn = "💌 dm awaru";
+    localization.ko.dmAwaruBtn = "💌 아와루에게 dm";
 
     const $ = selector => document.querySelector(selector);
     const $$ = selector => Array.from(document.querySelectorAll(selector));
@@ -1188,8 +1511,9 @@
 
       for (let i = 1; i < lines.length; i++) {
         if (!lines[i].trim()) continue;
-        const [key, en, ko] = parseRow(lines[i]);
+        let [key, en, ko] = parseRow(lines[i]);
         if (!key) continue;
+        if (key.startsWith("namePlaceholder:")) key = "namePlaceholder";
 
         if (key.startsWith("story_")) {
           if (en) storyEn.push(en);
@@ -1311,6 +1635,8 @@
 
       setText("planet-youtube-label", data.planetYoutubeLabel);
       setText("planet-youtube-small", data.planetYoutubeSmall);
+      setText("planet-instagram-label", data.planetInstagramLabel);
+      setText("planet-instagram-small", data.planetInstagramSmall);
       setText("planet-music-label", data.planetMusicLabel);
       setText("planet-music-small", data.planetMusicSmall);
       setText("planet-letter-label", data.planetLetterLabel);
@@ -1323,6 +1649,10 @@
       setText("heading-yt", data.headingYt);
       setText("yt-channel-text", data.ytChannel);
       setText("yt-channel-desc", data.ytChannelDesc);
+      setText("instagram-window-label", data.instagramWindowLabel);
+      setText("instagram-title", data.instagramTitle);
+      setText("instagram-copy", data.instagramCopy);
+      setText("instagram-btn", data.instagramBtn);
 
       const ytCover = document.getElementById("yt-cover-img");
       if (ytCover) {
@@ -1343,6 +1673,7 @@
       setText("label-message", data.labelMessage);
       setText("btn-submit-text", data.btnSubmit);
       setText("btn-clear", data.clear);
+      setText("btn-dm-awaru", data.dmAwaruBtn);
       setText("rocket-copy", data.rocketCopy);
 
       setText("patreon-window-label", data.patreonWindowLabel);
@@ -1374,10 +1705,16 @@
       setText("sound-toggle", state.soundEnabled ? data.soundOn : data.soundOff);
       setText("motion-toggle", document.body.classList.contains("reduced-motion") ? data.motionOff : data.motionOn);
       setText("back-to-planet", data.backPlanet);
+      setText("terminal-intro-label", data.terminalIntroLabel);
+      setText("terminal-intro-title", data.terminalIntroTitle);
+      setText("terminal-intro-copy", data.terminalIntroCopy);
+      setText("galaxy-loader-title", data.galaxyLoaderTitle);
+      setText("galaxy-loader-copy", data.galaxyLoaderCopy);
 
       $("#sender-name").placeholder = data.namePlaceholder;
       $("#sender-msg").placeholder = data.messagePlaceholder;
       $("#yt-link").href = LINKS.youtube[state.currentLang];
+      $("#instagram-link").href = LINKS.instagram;
       $("#patreon-link").href = LINKS.patreon;
     }
 
@@ -1427,14 +1764,52 @@
       applyLocalization();
       updateHud(76, 2);
       showScreen("hub-screen");
-      openPanel("youtube-panel");
+      showTerminalIntro();
       playSound("level");
     }
 
-    function openPanel(id) {
+    function showTerminalIntro() {
+      closeTerminalModal(false);
       $$(".panel-section").forEach(panel => panel.classList.remove("active"));
+      const intro = document.getElementById("terminal-intro-panel");
+      if (intro) intro.classList.add("active");
+      $$(".hub-planet").forEach(button => button.classList.remove("active-planet"));
+    }
+
+    function ensureTerminalCloseButtons() {
+      $$(".panel-section").forEach(panel => {
+        if (panel.id === "terminal-intro-panel" || panel.querySelector(".terminal-close-btn")) return;
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "terminal-close-btn";
+        btn.setAttribute("aria-label", "close terminal");
+        btn.textContent = "×";
+        btn.addEventListener("click", () => closeTerminalModal());
+        panel.appendChild(btn);
+      });
+    }
+
+    function closeTerminalModal(showIntro = true) {
+      document.body.classList.remove("terminal-modal-open");
+      const backdrop = document.getElementById("terminal-modal-backdrop");
+      if (backdrop) backdrop.classList.remove("active");
+      $$(".panel-section").forEach(panel => panel.classList.remove("active"));
+      $$(".hub-planet").forEach(button => button.classList.remove("active-planet"));
+      if (showIntro) {
+        const intro = document.getElementById("terminal-intro-panel");
+        if (intro) intro.classList.add("active");
+      }
+    }
+
+    function openPanel(id) {
+      ensureTerminalCloseButtons();
+      $$(".panel-section").forEach(panel => panel.classList.remove("active"));
+      $$(".hub-planet").forEach(button => button.classList.toggle("active-planet", button.dataset.panel === id));
       const panel = $("#" + id);
       if (panel) panel.classList.add("active");
+      document.body.classList.add("terminal-modal-open");
+      const backdrop = document.getElementById("terminal-modal-backdrop");
+      if (backdrop) backdrop.classList.add("active");
       
       state.visitedPlanets.add(id);
       checkHubCompletion();
@@ -1446,7 +1821,7 @@
     }
 
     function checkHubCompletion() {
-      if (state.visitedPlanets.size >= 4 && !state.congratsTriggered) {
+      if (state.visitedPlanets.size >= 5 && !state.congratsTriggered) {
         state.congratsTriggered = true;
         setTimeout(() => {
           updateHud(100, 4);
@@ -1800,7 +2175,7 @@
         });
       });
       document.addEventListener("mousemove", event => {
-        if (document.getElementById("launch-overlay").classList.contains("active")) return;
+        if (document.getElementById("launch-overlay").classList.contains("active") || document.body.classList.contains("terminal-modal-open")) return;
         const x = (event.clientX / window.innerWidth - .5) * 2;
         const y = (event.clientY / window.innerHeight - .5) * 2;
         $("#app-shell").style.transform = `scale(0.8) rotateY(\${x * 1.2}deg) rotateX(\${-y * 1.2}deg)`;
@@ -1838,12 +2213,18 @@
     window.clearLetter = clearLetter;
     window.returnToPlanetSelection = returnToPlanetSelection;
     window.saveAsPDF = saveAsPDF;
+    window.closeTerminalModal = closeTerminalModal;
 
     document.addEventListener("DOMContentLoaded", async () => {
       await loadExternalLocalization();
       updateHud(14, 1);
       bindEvents();
+      ensureTerminalCloseButtons();
       updateSoundToggle();
+      setTimeout(() => {
+        const loader = document.getElementById("galaxy-loader");
+        if (loader) loader.classList.add("hidden");
+      }, 520);
     });
   </script>
 </body>
