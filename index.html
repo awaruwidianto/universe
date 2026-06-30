@@ -2338,6 +2338,7 @@
 
     function awardAchievement(key) {
       if (!key || state.achievements.has(key)) return;
+      const data = t();
       state.achievements.add(key);
       const badge = document.querySelector(`[data-achievement="${key}"]`);
       if (badge) badge.classList.add("unlocked");
