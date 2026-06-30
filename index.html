@@ -581,7 +581,7 @@
     @media (max-width: 760px) {
       .galaxy-stage { padding: 8px; align-items: start; place-items: start center; }
       .app-shell { min-height: auto; border-radius: 26px; transform: scale(var(--shell-scale-mobile, 0.92)) !important; width: min(108vw, 1020px); }
-      :root { --shell-scale-mobile: 0.92; }
+      :root { --shell-scale-mobile: 0.75; }
       .topbar { align-items: flex-start; flex-direction: column; }
       .hud { width: 100%; max-width: 100%; }
       .xp-wrap { width: 100%; flex: 1 1 100%; }
@@ -599,7 +599,7 @@
     }
 
     @media (max-width: 430px) {
-      :root { --shell-scale-mobile: 0.9; }
+      :root { --shell-scale-mobile: 0.75; }
       .screen { padding: 14px; }
       .hub-hero h2 { font-size: clamp(28px, 12vw, 44px); }
       .player-identity-clean { font-size: 13px; }
@@ -618,7 +618,7 @@
     }
     .game-button:hover::after, .cute-button:hover::after, .dock-button:hover::after { transform: translateX(120%); }
     .content-panel { background: linear-gradient(145deg, rgba(255,255,255,.78), rgba(255,255,255,.52)); }
-    .terminal-screen { box-shadow: inset 0 0 0 3px rgba(255,255,255,.12), 0 6px 0 rgba(55,38,98,.28), 0 0 28px rgba(142,231,255,.16); }
+    .terminal-screen { background: linear-gradient(180deg, rgba(82,65,136,.84), rgba(64,50,112,.84)); box-shadow: inset 0 0 0 3px rgba(255,255,255,.16), 0 6px 0 rgba(55,38,98,.24), 0 0 28px rgba(142,231,255,.22); }
     .mini-social-row { display:flex; gap:8px; flex-wrap:wrap; margin-top:10px; }
     .orb-instagram { background: radial-gradient(circle at 36% 28%, #fff, #ff94cf 35%, #8b5cf6 68%, #f97316); color: #fff; }
     #instagram-panel.panel-section { max-width: 580px; margin: 0 auto; }
@@ -636,14 +636,14 @@
     .terminal-intro-card { text-align: center; padding: 18px 18px 22px; max-width: 620px; margin: 0 auto; }
     .terminal-intro-card .panel-title { margin-top: 6px; }
     .terminal-intro-copy { margin: 8px auto 0; max-width: 460px; color: var(--ink-soft); font-weight: 900; font-size: 14px; line-height: 1.55; }
-    .terminal-modal-backdrop { position: fixed; inset: 0; z-index: 49; display: none; background: rgba(37, 28, 72, .24); backdrop-filter: none; -webkit-backdrop-filter: none; pointer-events: none; }
-    .terminal-modal-backdrop.active { display: block; }
+    .terminal-modal-backdrop { position: fixed; inset: 0; z-index: 49; display: none; background: rgba(37, 28, 72, .08); backdrop-filter: none; -webkit-backdrop-filter: none; pointer-events: none; }
+    .terminal-modal-backdrop.active { display: block; pointer-events: auto; }
     body.terminal-modal-open { overflow: hidden; }
-    body.terminal-modal-open #app-shell { transform: none !important; }
+    body.terminal-modal-open #app-shell { transform: scale(var(--shell-scale, 0.84)) !important; }
     body.terminal-modal-open .panel-section.active {
       position: fixed; left: 56%; top: 52%; transform: translate3d(-50%, -50%, 0);
       z-index: 55; width: min(78vw, 620px); max-height: min(76vh, 760px); overflow: auto; pointer-events: auto;
-      background: rgba(255,255,255,.94); backdrop-filter: none; -webkit-backdrop-filter: none;
+      background: rgba(255,255,255,.98); backdrop-filter: none !important; -webkit-backdrop-filter: none !important;
       backface-visibility: hidden; -webkit-font-smoothing: antialiased; text-rendering: geometricPrecision;
       animation: terminalModalPop .34s cubic-bezier(.18,.89,.32,1.28) both;
     }
@@ -669,8 +669,9 @@
     .loader-copy { margin: 6px 0 0; color: #fff9f1; font-weight: 1000; }
 
     @media (max-width: 760px) {
-      body.terminal-modal-open .panel-section.active { left: 50%; top: 54%; width: min(92vw, 620px); max-height: 72vh; }
-      .terminal-modal-backdrop { pointer-events: none; }
+      body.terminal-modal-open #app-shell { transform: scale(var(--shell-scale-mobile, 0.75)) !important; }
+      body.terminal-modal-open .panel-section.active { left: 50%; top: 54%; width: min(86vw, 620px); max-height: 72vh; }
+      .terminal-modal-backdrop { pointer-events: auto; }
     }
     @keyframes terminalModalPop { from{opacity:0; transform:translate3d(-50%, -46%, 0) scale(.98)} to{opacity:1; transform:translate3d(-50%, -50%, 0) scale(1)} }
 
