@@ -7,7 +7,7 @@
   <meta name="description" content="" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Jua&family=Gaegu:wght@400;700&family=M+PLUS+Rounded+1c:wght@400;500;700;800&family=Nunito:wght@400;600;700;800;900&family=Pixelify+Sans:wght@500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;800&family=Nunito:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
   <style>
     :root {
@@ -27,10 +27,10 @@
       --shadow: 0 24px 70px rgba(46, 24, 98, 0.28);
       --pixel-shadow: 0 5px 0 rgba(70, 49, 117, 0.55), 0 18px 32px rgba(70, 49, 117, 0.22);
       --radius: 26px;
-      --font-title: "Pixelify Sans", system-ui, sans-serif;
+      --font-title: "Nunito", system-ui, sans-serif;
       --font-body: "Nunito", system-ui, sans-serif;
-      --font-ko: "Gaegu", "M PLUS Rounded 1c", system-ui, sans-serif;
-      --font-ko-title: "Jua", "Gaegu", system-ui, sans-serif;
+      --font-ko: "Noto Sans KR", system-ui, sans-serif;
+      --font-ko-title: "Noto Sans KR", system-ui, sans-serif;
     }
 
     * { box-sizing: border-box; text-transform: lowercase; }
@@ -1281,30 +1281,58 @@
       #snake-canvas { max-width: 220px; }
     }
 
+
+    /* === AWARU GALAXY LIGHT EDITION === */
+    :root {
+      --shadow: 0 16px 42px rgba(46, 24, 98, 0.20);
+      --pixel-shadow: 0 3px 0 rgba(70, 49, 117, 0.28), 0 12px 24px rgba(70, 49, 117, 0.14);
+      --radius: 22px;
+    }
+    * { text-transform: none; }
+    h1, h2, .big-title, .panel-title { text-transform: none !important; }
+    body { animation-duration: 34s; }
+    body::before { opacity: .55; animation-duration: 52s; }
+    body::after { opacity: .55; filter: blur(6px); }
+    .app-shell {
+      border-width: 2px;
+      border-radius: 28px;
+      box-shadow: var(--shadow), inset 0 0 0 2px rgba(255,255,255,.45);
+      backdrop-filter: blur(14px) saturate(115%);
+    }
+    .app-shell::before, .pixel-window::before { display: none; }
+    .pixel-window { border-width: 2px; box-shadow: var(--pixel-shadow); backdrop-filter: blur(12px); }
+    .window-label, .game-button, .cute-button, .dock-button, .choice-orb, .hub-workspace .hub-planet .orb { border-width: 2px; }
+    .planet.two, .particle.p2, .particle.p3, .shooting-star.s2, .cozy-alien { display: none; }
+    .planet, .choice-orb, .hub-workspace .hub-planet .orb { animation-name: planetFloat !important; animation-duration: 8s !important; }
+    .hub-workspace .hub-planet .orb, .choice-orb { box-shadow: inset 6px 6px 0 rgba(255,255,255,.30), 0 3px 0 rgba(255,255,255,.55), 0 10px 22px rgba(123,92,255,.14) !important; }
+    .brand h1, .hub-hero h2, .panel-title, .big-title { letter-spacing: -0.02em; font-weight: 800; }
+    body.lang-ko { font-size: 1rem; word-break: keep-all; }
+    body.lang-ko h1, body.lang-ko h2, body.lang-ko .big-title, body.lang-ko .panel-title,
+    body.lang-ko .choice-name, body.lang-ko .hub-workspace .hub-planet strong, body.lang-ko .dock-button { font-weight: 700; }
+
+    .galaxy-loader { overflow: hidden; }
+    .ufo-loader { position: relative; width: 132px; height: 132px; animation: ufoLoaderFloat 2.2s ease-in-out infinite; filter: drop-shadow(0 15px 24px rgba(30,20,70,.28)); }
+    .ufo-loader-dome { position: absolute; left: 38px; top: 18px; width: 56px; height: 42px; border-radius: 56px 56px 18px 18px; background: linear-gradient(145deg, rgba(255,255,255,.96), rgba(142,231,255,.68)); border: 3px solid rgba(255,255,255,.88); box-shadow: inset 0 -8px 14px rgba(109,93,252,.18); z-index: 2; }
+    .ufo-loader-body { position: absolute; left: 14px; top: 50px; width: 104px; height: 42px; border-radius: 50%; background: linear-gradient(180deg, #fff9f1, #ff94cf 52%, #8b7dff); border: 3px solid rgba(255,255,255,.88); box-shadow: inset 0 -8px 10px rgba(75,57,112,.18), 0 0 28px rgba(255,255,255,.55); z-index: 3; display:flex; justify-content:center; align-items:flex-end; gap:12px; padding-bottom:7px; }
+    .ufo-loader-body span { width: 9px; height: 9px; border-radius: 50%; background: #ffe58f; box-shadow: 0 0 12px rgba(255,229,143,.95); animation: ufoLight 1s ease-in-out infinite alternate; }
+    .ufo-loader-body span:nth-child(2) { animation-delay: -.35s; background:#b5f7d3; }
+    .ufo-loader-body span:nth-child(3) { animation-delay: -.7s; background:#8ee7ff; }
+    .ufo-loader-beam { position:absolute; left:34px; top:80px; width:64px; height:50px; background: linear-gradient(180deg, rgba(181,247,211,.48), rgba(142,231,255,0)); clip-path: polygon(28% 0,72% 0,100% 100%,0 100%); animation: beamPulse 1.4s ease-in-out infinite; }
+    @keyframes ufoLoaderFloat { 0%,100% { transform: translateY(4px) rotate(-2deg); } 50% { transform: translateY(-10px) rotate(2deg); } }
+    @keyframes ufoLight { from { opacity:.45; transform:scale(.8); } to { opacity:1; transform:scale(1.15); } }
+    @keyframes beamPulse { 0%,100% { opacity:.35; transform:scaleY(.88); } 50% { opacity:.8; transform:scaleY(1.08); } }
+
   </style>
 </head>
 <body>
 
-  <div class="galaxy-loader" id="galaxy-loader" aria-live="polite">
-    <div class="pixel-window loader-card">
-      <div class="loader-orb" aria-hidden="true">
-        <svg class="yin-yang-logo" viewBox="0 0 64 64" role="img" aria-label="Awaru yin yang logo">
-          <defs>
-            <linearGradient id="yyLoaderGlow" x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0" stop-color="#8ee7ff"/>
-              <stop offset="0.52" stop-color="#ff94cf"/>
-              <stop offset="1" stop-color="#a78bfa"/>
-            </linearGradient>
-          </defs>
-          <circle cx="32" cy="32" r="28" fill="#fff9f1" stroke="#564179" stroke-width="4"/>
-          <path d="M32 4a28 28 0 0 1 0 56c-7.7 0-14-6.3-14-14s6.3-14 14-14 14-6.3 14-14S39.7 4 32 4z" fill="url(#yyLoaderGlow)"/>
-          <circle cx="32" cy="18" r="5.5" fill="#fff9f1"/>
-          <circle cx="32" cy="46" r="5.5" fill="#6d5dfc"/>
-          <path d="M14 14h4v4h-4zM48 46h4v4h-4zM48 13h3v3h-3zM12 48h3v3h-3z" fill="#ffe58f"/>
-        </svg>
+  <div class="galaxy-loader" id="galaxy-loader" aria-label="Loading Awaru Universe">
+    <div class="ufo-loader" aria-hidden="true">
+      <div class="ufo-loader-dome"></div>
+      <div class="ufo-loader-body">
+        <span></span><span></span><span></span>
       </div>
-      <h2 class="loader-title" id="galaxy-loader-title">CONNECTING TO GALAXY...</h2>
-      <p class="loader-copy" id="galaxy-loader-copy">loading awaru universe ✨</p>
+      <div class="ufo-loader-beam"></div>
     </div>
   </div>
 
@@ -1457,12 +1485,6 @@
                 </span>
                 <strong id="planet-music-label">music</strong><small id="planet-music-small">radio</small>
               </button>
-              <button class="hub-planet planet-letter" type="button" data-panel="letter-panel" aria-label="Open letter planet">
-                <span class="orb orb-letter">
-                  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
-                </span>
-                <strong id="planet-letter-label">letter</strong><small id="planet-letter-small">space mail</small>
-              </button>
               <button class="hub-planet planet-patreon" type="button" data-panel="patreon-panel" aria-label="Open Patreon planet">
                 <span class="orb orb-patreon">
                   <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.5 3 21.9 5.42 21.9 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
@@ -1489,7 +1511,7 @@
             <section id="terminal-intro-panel" class="panel-section pixel-window content-panel active terminal-intro-card" aria-labelledby="terminal-intro-title">
               <div class="window-label">🪐 <span id="terminal-intro-label">terminal hub</span></div>
               <h3 id="terminal-intro-title" class="panel-title">CHOOSE A TERMINAL</h3>
-              <p id="terminal-intro-copy" class="terminal-intro-copy">tap any planet to open its cozy pop-up terminal. youtube, instagram, music, letters, patreon, secret, and mystery are waiting.</p>
+              <p id="terminal-intro-copy" class="terminal-intro-copy">tap any planet to open its cozy pop-up terminal. youtube, instagram, music, patreon, secret, and mystery are waiting.</p>
             </section>
 
             <section id="youtube-panel" class="panel-section pixel-window content-panel" aria-labelledby="heading-yt">
@@ -1549,33 +1571,6 @@
                   </div>
                   <label id="volume-label" for="volume-range" style="display:block;margin-top:10px;font-weight:1000;color:var(--ink-soft);font-size:11px;">volume</label>
                   <input id="volume-range" class="range" type="range" min="0" max="1" step="0.01" value="0.28">
-                </div>
-              </div>
-            </section>
-
-            <section id="letter-panel" class="panel-section pixel-window content-panel" aria-labelledby="heading-letter">
-              <div class="window-label">
-                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
-                <span id="letter-window-label">space mail terminal</span>
-              </div>
-              <h3 id="heading-letter" class="panel-title">SEND A LETTER</h3>
-              <div class="mail-terminal">
-                <div class="terminal-screen">
-                  <div class="field-group">
-                    <label for="sender-name" id="label-name">FROM</label>
-                    <input type="text" id="sender-name" class="field" placeholder="your name / 이름" autocomplete="name">
-                  </div>
-                  <div class="field-group">
-                    <label for="sender-msg" id="label-message">MESSAGE</label>
-                    <textarea id="sender-msg" rows="4" class="field" placeholder="write something to awaru... / 메시지를 적어주세요..."></textarea>
-                  </div>
-                  <div class="send-row">
-                    <button onclick="handleLetterSubmission()" class="game-button primary-button" type="button">
-                      <span id="btn-submit-text">send</span>
-                    </button>
-                    <button onclick="clearLetter()" class="game-button" type="button" id="btn-clear">clear</button>
-                    <button onclick="openInstagramDM()" class="game-button pink-button" type="button" id="btn-dm-awaru">💌 dm awaru</button>
-                  </div>
                 </div>
               </div>
             </section>
@@ -1657,33 +1652,6 @@
 
   <div class="toast-stack" id="toast-stack" aria-live="polite"></div>
   <div id="qr-cache" aria-hidden="true"></div>
-
-  <div class="launch-overlay" id="launch-overlay" role="dialog" aria-modal="true" aria-labelledby="launch-title">
-    <div class="pixel-window launch-card">
-      <div class="window-label" id="overlay-window-label">🚀 rocket dm mail</div>
-      <div id="launch-state">
-        <div class="big-rocket-wrap">
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
-        </div>
-        <h2 class="panel-title" id="launch-title">LAUNCHING PNG...</h2>
-        <p class="subtitle" id="launch-copy">preparing your galaxy letter image for awaru.</p>
-      </div>
-      <div id="success-state" class="hidden-section">
-        <div class="success-check">✓</div>
-        <h2 class="panel-title" id="success-title">LETTER READY!</h2>
-        <p class="subtitle" id="success-copy">please screen capture the layout below and send it to awaru by dm!</p>
-        
-        <div style="text-align: center; margin: 14px 0; overflow: hidden;">
-          <img id="preview-letter-img" src="" alt="Letter Preview" style="max-width: 100%; max-height: min(76vh, 720px); width: min(100%, 620px); height: auto; border-radius: 14px; border: 3px solid rgba(69,44,109,.82); box-shadow: var(--pixel-shadow);">
-        </div>
-
-        <div class="button-row" style="justify-content:center">
-          <button id="open-instagram-btn" type="button" class="game-button primary-button">💌 open instagram dm</button>
-          <button id="close-launch-btn" type="button" class="game-button">close</button>
-        </div>
-      </div>
-    </div>
-  </div>
 
   <div class="launch-overlay" id="congrats-overlay" role="dialog" aria-modal="true">
     <div class="pixel-window launch-card" style="background: linear-gradient(145deg, #fffcf0, #fff3ff);">
@@ -1827,7 +1795,7 @@
         backPlanet: "◀ planet",
         terminalIntroLabel: "terminal hub",
         terminalIntroTitle: "CHOOSE A TERMINAL",
-        terminalIntroCopy: "tap any planet to open its cozy pop-up terminal. youtube, instagram, music, letters, patreon, secret, and mystery are waiting.",
+        terminalIntroCopy: "tap any planet to open its cozy pop-up terminal. youtube, instagram, music, patreon, secret, and mystery are waiting.",
         galaxyLoaderTitle: "CONNECTING TO GALAXY...",
         galaxyLoaderCopy: "loading awaru universe ✨"
       },
@@ -1928,7 +1896,7 @@
         backPlanet: "◀ 행성",
         terminalIntroLabel: "터미널 허브",
         terminalIntroTitle: "터미널을 선택하세요",
-        terminalIntroCopy: "행성을 누르면 포근한 팝업 터미널이 열립니다. 유튜브, 인스타그램, 음악, 편지, 패트리온, 그리고 비밀 별들이 기다리고 있어요.",
+        terminalIntroCopy: "행성을 누르면 포근한 팝업 터미널이 열립니다. 유튜브, 인스타그램, 음악, 패트리온, 그리고 비밀 별들이 기다리고 있어요.",
         galaxyLoaderTitle: "은하계 연결 중...",
         galaxyLoaderCopy: "아와루 유니버스를 불러오는 중 ✨"
       }
@@ -2106,8 +2074,8 @@
     localization.ko.terminalIntroLabel = "터미널 허브";
     localization.en.terminalIntroTitle = "CHOOSE A TERMINAL";
     localization.ko.terminalIntroTitle = "터미널을 선택하세요";
-    localization.en.terminalIntroCopy = "tap any planet to open its cozy pop-up terminal. youtube, instagram, music, letters, patreon, secret, and mystery are waiting.";
-    localization.ko.terminalIntroCopy = "행성을 누르면 포근한 팝업 터미널이 열립니다. 유튜브, 인스타그램, 음악, 편지, 패트리온, 그리고 비밀 별들이 기다리고 있어요.";
+    localization.en.terminalIntroCopy = "tap any planet to open its cozy pop-up terminal. youtube, instagram, music, patreon, secret, and mystery are waiting.";
+    localization.ko.terminalIntroCopy = "행성을 누르면 포근한 팝업 터미널이 열립니다. 유튜브, 인스타그램, 음악, 패트리온, 그리고 비밀 별들이 기다리고 있어요.";
     localization.en.galaxyLoaderTitle = "CONNECTING TO GALAXY...";
     localization.ko.galaxyLoaderTitle = "은하계 연결 중...";
     localization.en.galaxyLoaderCopy = "loading awaru universe ✨";
@@ -2144,7 +2112,7 @@
       secretGameScore: "score",
       secretGameOver: "game over",
       secretGameRetry: "press start to retry",
-      terminalIntroCopy: "tap any planet to open its cozy terminal. youtube, instagram, music, letters, patreon, secret, and mystery are waiting."
+      terminalIntroCopy: "tap any planet to open its cozy terminal. youtube, instagram, music, patreon, secret, and mystery are waiting."
     });
     Object.assign(localization.ko, {
       savePdfBtn: "",
@@ -2169,7 +2137,7 @@
       secretGameScore: "점수",
       secretGameOver: "게임 오버",
       secretGameRetry: "시작을 눌러 다시 플레이",
-      terminalIntroCopy: "행성을 누르면 포근한 터미널이 열립니다. 유튜브, 인스타그램, 음악, 편지, 패트리온, 비밀, 미스터리가 기다리고 있어요."
+      terminalIntroCopy: "행성을 누르면 포근한 터미널이 열립니다. 유튜브, 인스타그램, 음악, 패트리온, 비밀, 미스터리가 기다리고 있어요."
     });
 
     function t() { return localization[state.currentLang]; }
@@ -2423,8 +2391,6 @@
       setText("terminal-intro-label", data.terminalIntroLabel);
       setText("terminal-intro-title", data.terminalIntroTitle);
       setText("terminal-intro-copy", data.terminalIntroCopy);
-      setText("galaxy-loader-title", data.galaxyLoaderTitle);
-      setText("galaxy-loader-copy", data.galaxyLoaderCopy);
       setText("mystery-window-label", data.mysteryWindowLabel);
       setText("mystery-title", data.mysteryTitleHeading || data.planetMysteryLabel || "mystery");
       setText("mystery-copy", data.mysteryCopy);
@@ -2432,8 +2398,8 @@
       updateMysteryAvailability();
       updateSecretVisibility();
 
-      $("#sender-name").placeholder = data.namePlaceholder;
-      $("#sender-msg").placeholder = data.messagePlaceholder;
+      if ($("#sender-name")) $("#sender-name").placeholder = data.namePlaceholder;
+      if ($("#sender-msg")) $("#sender-msg").placeholder = data.messagePlaceholder;
       $("#yt-link").href = LINKS.youtube[state.currentLang];
       $("#instagram-link").href = LINKS.instagram;
       $("#patreon-link").href = LINKS.patreon;
@@ -3060,8 +3026,8 @@
         el.addEventListener("click", () => playSound("click"));
       });
       $$(".hub-planet").forEach(button => button.addEventListener("click", () => openPanel(button.dataset.panel)));
-      $("#open-instagram-btn").addEventListener("click", openInstagramDM);
-      $("#close-launch-btn").addEventListener("click", () => $("#launch-overlay").classList.remove("active"));
+      $("#open-instagram-btn")?.addEventListener("click", openInstagramDM);
+      $("#close-launch-btn")?.addEventListener("click", () => $("#launch-overlay")?.classList.remove("active"));
       $("#sound-toggle").addEventListener("click", (e) => {
         e.stopPropagation();
         state.soundEnabled = !state.soundEnabled;
@@ -3095,7 +3061,7 @@
         });
       });
       document.addEventListener("mousemove", event => {
-        if (document.getElementById("launch-overlay").classList.contains("active") || document.body.classList.contains("terminal-modal-open")) return;
+        if (document.getElementById("launch-overlay")?.classList.contains("active") || document.body.classList.contains("terminal-modal-open")) return;
         const x = (event.clientX / window.innerWidth - .5) * 2;
         const y = (event.clientY / window.innerHeight - .5) * 2;
         $("#app-shell").style.transform = `scale(0.8) rotateY(\${x * 1.2}deg) rotateX(\${-y * 1.2}deg)`;
