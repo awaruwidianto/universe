@@ -1322,6 +1322,199 @@
     @keyframes ufoLight { from { opacity:.45; transform:scale(.8); } to { opacity:1; transform:scale(1.15); } }
     @keyframes beamPulse { 0%,100% { opacity:.35; transform:scaleY(.88); } 50% { opacity:.8; transform:scaleY(1.08); } }
 
+
+
+    /* === Mobile compact layout refinement (built-in browsers) ===
+       Visual-only overrides: keeps all CSV, links, IDs, and JavaScript unchanged. */
+    @media (max-width: 760px) {
+      body::before {
+        background-image:
+          radial-gradient(circle, rgba(255,255,255,.78) 0 1px, transparent 1.7px),
+          radial-gradient(circle, rgba(255,255,255,.48) 0 1px, transparent 1.8px);
+        background-size: 108px 108px, 176px 176px;
+        background-position: 12px 18px, 64px 42px;
+        opacity: .52;
+      }
+
+      .galaxy-stage {
+        padding: 6px 6px 84px !important;
+      }
+
+      .app-shell {
+        max-width: calc(100vw - 12px) !important;
+        border-radius: 22px !important;
+      }
+
+      .topbar {
+        padding: 10px 12px !important;
+        gap: 8px !important;
+      }
+
+      .brand { gap: 9px !important; }
+      .brand-badge {
+        width: 36px !important;
+        height: 36px !important;
+        border-radius: 11px !important;
+        padding: 7px !important;
+      }
+      .brand h1 {
+        font-size: clamp(22px, 7.2vw, 31px) !important;
+        line-height: .95 !important;
+      }
+      body.lang-ko .brand h1 {
+        font-size: clamp(21px, 6.8vw, 29px) !important;
+        letter-spacing: -0.035em !important;
+      }
+
+      .screen { padding: 10px !important; }
+
+      #lang-screen .choose-card {
+        padding: 6px 16px 18px !important;
+        margin: 6px 0 !important;
+      }
+      .big-title {
+        font-size: clamp(17px, 5.6vw, 23px) !important;
+        line-height: 1.12 !important;
+      }
+      .subtitle {
+        font-size: 12px !important;
+        line-height: 1.4 !important;
+        margin-bottom: 10px !important;
+      }
+      .planet-choice-grid { gap: 12px !important; }
+      .planet-choice { width: 72px !important; }
+      .choice-orb { width: 56px !important; height: 56px !important; }
+      .choice-name { margin-top: 7px !important; font-size: 13px !important; }
+
+      .unified-story-window {
+        padding: 10px 12px 14px !important;
+      }
+      .story-profile-compact {
+        padding: 7px 10px !important;
+        gap: 9px !important;
+      }
+      .compact-avatar-bubble { width: 44px !important; height: 44px !important; }
+      .story-profile-meta .character-name { font-size: 16px !important; }
+      .story-profile-meta .character-class { font-size: 10px !important; }
+      .mission-tag { font-size: 13px !important; }
+      .speech-bubble {
+        min-height: 88px !important;
+        padding: 12px !important;
+      }
+      #story-text,
+      body.lang-ko #story-text {
+        font-size: clamp(14px, 4.1vw, 17px) !important;
+        line-height: 1.45 !important;
+      }
+      .game-button, .cute-button {
+        min-height: 34px !important;
+        padding: 5px 11px !important;
+        font-size: 12px !important;
+      }
+
+      .hub-hero { margin-bottom: 8px !important; }
+      .hub-title-container { gap: 5px !important; }
+      .hub-hero-avatar {
+        width: 31px !important;
+        height: 31px !important;
+      }
+      .hub-hero h2 {
+        font-size: clamp(27px, 9.5vw, 37px) !important;
+        line-height: .95 !important;
+      }
+      body.lang-ko .hub-hero h2 {
+        font-size: clamp(25px, 8.8vw, 34px) !important;
+        letter-spacing: -0.05em !important;
+      }
+      .hub-age-inline {
+        padding: 3px 8px !important;
+        font-size: 11px !important;
+      }
+      .player-identity-clean {
+        font-size: 12px !important;
+        margin-bottom: 6px !important;
+      }
+
+      .hub-workspace { margin-top: 6px !important; }
+      .hub-sidebar { margin-bottom: 8px !important; }
+      .hub-workspace .hub-map { gap: 8px 5px !important; }
+      .hub-workspace .hub-planet {
+        width: 64px !important;
+        min-height: 74px !important;
+      }
+      .hub-workspace .hub-planet .orb {
+        width: 46px !important;
+        height: 46px !important;
+        padding: 9px !important;
+      }
+      .hub-workspace .hub-planet strong {
+        font-size: 10.5px !important;
+        margin-top: 3px !important;
+      }
+      .hub-workspace .hub-planet small {
+        font-size: 8px !important;
+        line-height: 1.02 !important;
+      }
+
+      .content-panel { padding: 9px 11px 13px !important; }
+      .terminal-intro-card { padding: 11px 10px 14px !important; }
+      .window-label {
+        padding: 5px 11px !important;
+        margin-left: 12px !important;
+        font-size: 10.5px !important;
+      }
+      .window-label svg { width: 12px !important; height: 12px !important; }
+      .panel-title {
+        font-size: clamp(18px, 6.2vw, 25px) !important;
+        line-height: 1.08 !important;
+        margin-bottom: 6px !important;
+      }
+      #terminal-intro-title {
+        font-size: clamp(22px, 7.7vw, 31px) !important;
+      }
+      body.lang-ko #terminal-intro-title {
+        font-size: clamp(21px, 7vw, 28px) !important;
+        letter-spacing: -0.045em !important;
+      }
+      .terminal-intro-copy {
+        font-size: 12px !important;
+        line-height: 1.5 !important;
+        margin-top: 5px !important;
+      }
+
+      .sound-dock {
+        left: 6px !important;
+        right: 6px !important;
+        gap: 6px !important;
+      }
+      .dock-button {
+        min-height: 36px !important;
+        padding: 7px 9px !important;
+        font-size: 11px !important;
+        border-radius: 13px !important;
+      }
+
+      .planet.one { width: 48px !important; height: 48px !important; }
+      .planet.three { width: 62px !important; height: 62px !important; }
+      .alien-sprite-wrap { width: 34px !important; height: 34px !important; }
+      .particle { width: 5px !important; height: 5px !important; opacity: .55; }
+    }
+
+    @media (max-width: 430px) {
+      body::before {
+        background-size: 124px 124px, 210px 210px;
+        opacity: .46;
+      }
+      .brand h1 { font-size: clamp(21px, 7vw, 28px) !important; }
+      body.lang-ko .brand h1 { font-size: clamp(20px, 6.6vw, 27px) !important; }
+      .hub-hero h2 { font-size: clamp(25px, 8.8vw, 34px) !important; }
+      body.lang-ko .hub-hero h2 { font-size: clamp(24px, 8.2vw, 32px) !important; }
+      .hub-workspace .hub-planet { width: 61px !important; }
+      .hub-workspace .hub-planet .orb { width: 44px !important; height: 44px !important; }
+      .panel-title { font-size: clamp(17px, 5.8vw, 23px) !important; }
+      #terminal-intro-title { font-size: clamp(21px, 7.2vw, 28px) !important; }
+    }
+
   </style>
 </head>
 <body>
