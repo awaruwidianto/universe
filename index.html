@@ -1515,6 +1515,86 @@
       #terminal-intro-title { font-size: clamp(21px, 7.2vw, 28px) !important; }
     }
 
+
+    /* === V2 mobile harmony refinement: balanced intro typography + stable 3x2 planet grid === */
+    @keyframes hubOrbFloatMobile {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-3px); }
+    }
+
+    @media (max-width: 760px) {
+      .speech-bubble {
+        min-height: 78px !important;
+        padding: 11px 13px !important;
+      }
+
+      #story-text,
+      body.lang-ko #story-text {
+        font-size: clamp(13px, 3.55vw, 15.5px) !important;
+        line-height: 1.48 !important;
+        font-weight: 800 !important;
+        letter-spacing: -0.01em !important;
+      }
+
+      .hub-workspace .hub-map {
+        display: grid !important;
+        grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+        align-items: start !important;
+        justify-items: center !important;
+        gap: 12px 8px !important;
+        width: min(100%, 292px) !important;
+        margin: 0 auto !important;
+      }
+
+      .hub-workspace .hub-planet {
+        width: 100% !important;
+        min-width: 0 !important;
+        min-height: 82px !important;
+        justify-self: center !important;
+      }
+
+      .hub-workspace .hub-planet .orb {
+        animation: hubOrbFloatMobile 6s ease-in-out infinite !important;
+        transform-origin: center center !important;
+      }
+
+      .hub-workspace .hub-planet:nth-child(2) .orb { animation-delay: -1s !important; }
+      .hub-workspace .hub-planet:nth-child(3) .orb { animation-delay: -2s !important; }
+      .hub-workspace .hub-planet:nth-child(4) .orb { animation-delay: -3s !important; }
+      .hub-workspace .hub-planet:nth-child(5) .orb { animation-delay: -4s !important; }
+      .hub-workspace .hub-planet:nth-child(6) .orb { animation-delay: -5s !important; }
+
+      .hub-workspace .hub-planet:hover,
+      .hub-workspace .hub-planet:active {
+        transform: none !important;
+      }
+
+      .hub-workspace .hub-planet strong,
+      .hub-workspace .hub-planet small {
+        width: 100% !important;
+        text-align: center !important;
+        overflow-wrap: normal !important;
+        word-break: keep-all !important;
+      }
+    }
+
+    @media (max-width: 430px) {
+      #story-text,
+      body.lang-ko #story-text {
+        font-size: clamp(12.5px, 3.45vw, 14.5px) !important;
+        line-height: 1.5 !important;
+      }
+
+      .hub-workspace .hub-map {
+        width: min(100%, 272px) !important;
+        gap: 11px 6px !important;
+      }
+
+      .hub-workspace .hub-planet {
+        min-height: 78px !important;
+      }
+    }
+
   </style>
 </head>
 <body>
