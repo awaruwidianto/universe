@@ -1595,7 +1595,92 @@
       }
     }
 
-  </style>
+  
+
+    /* === AWARU hierarchy + cuter striped planet polish === */
+    /* Keep the main Bizarre Universe title visually dominant. */
+    #terminal-intro-title {
+      font-size: clamp(22px, 4.2vw, 34px) !important;
+      line-height: 1.08 !important;
+    }
+
+    .hub-main-content .panel-title:not(#terminal-intro-title) {
+      font-size: clamp(18px, 3vw, 26px) !important;
+      line-height: 1.08 !important;
+    }
+
+    /* Soft candy stripes and tiny sparkle details for every terminal planet. */
+    .hub-workspace .hub-planet .orb::before {
+      content: "";
+      position: absolute;
+      inset: 17% -22%;
+      height: 16%;
+      border: 0 !important;
+      border-radius: 999px;
+      transform: rotate(-17deg);
+      background: linear-gradient(
+        90deg,
+        rgba(255,255,255,.10) 0 12%,
+        rgba(255,255,255,.72) 12% 26%,
+        rgba(255,255,255,.18) 26% 40%,
+        rgba(255,255,255,.62) 40% 57%,
+        rgba(255,255,255,.12) 57% 72%,
+        rgba(255,255,255,.48) 72% 86%,
+        rgba(255,255,255,.08) 86% 100%
+      );
+      box-shadow: 0 1px 0 rgba(255,255,255,.35);
+      opacity: .9;
+      pointer-events: none;
+    }
+
+    .hub-workspace .hub-planet .orb::after {
+      content: "✦";
+      position: absolute;
+      width: auto;
+      height: auto;
+      left: 16%;
+      top: 10%;
+      border-radius: 0;
+      background: transparent;
+      color: rgba(255,255,255,.9);
+      font-size: 10px;
+      line-height: 1;
+      filter: drop-shadow(0 1px 2px rgba(86,65,121,.18));
+      pointer-events: none;
+    }
+
+    .hub-workspace .hub-planet .orb svg {
+      position: relative;
+      z-index: 2;
+    }
+
+    .hub-workspace .planet-instagram .orb::before { transform: rotate(14deg); opacity: .82; }
+    .hub-workspace .planet-music .orb::before { transform: rotate(-28deg); }
+    .hub-workspace .planet-patreon .orb::before { transform: rotate(22deg); opacity: .88; }
+    .hub-workspace .planet-secret .orb::before { transform: rotate(-8deg); opacity: .7; }
+    .hub-workspace .planet-mystery .orb::before { transform: rotate(30deg); }
+
+    @media (max-width: 760px) {
+      #terminal-intro-title {
+        font-size: clamp(21px, 6.6vw, 28px) !important;
+      }
+
+      .hub-main-content .panel-title:not(#terminal-intro-title) {
+        font-size: clamp(17px, 5.7vw, 23px) !important;
+      }
+    }
+
+    @media (max-width: 430px) {
+      #terminal-intro-title {
+        font-size: clamp(20px, 6.3vw, 26px) !important;
+      }
+
+      .hub-main-content .panel-title:not(#terminal-intro-title) {
+        font-size: clamp(16px, 5.4vw, 21px) !important;
+      }
+    }
+
+</style>
 </head>
 <body>
 
