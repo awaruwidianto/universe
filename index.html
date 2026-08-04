@@ -1684,7 +1684,236 @@
       }
     }
 
+
+
+    /* === Cute cruising star fix: replaces the old UFO/toilet-looking icon === */
+    .ufo-wrap.cute-star-cruiser {
+      width: 58px;
+      height: 58px;
+      color: initial;
+      filter: drop-shadow(0 7px 10px rgba(104, 76, 176, .22));
+    }
+    .cute-star-cruiser svg { width: 100%; height: 100%; overflow: visible; }
+    .cute-star-cruiser .cruising-star {
+      fill: url(#cruisingStarGradient);
+      stroke: rgba(255,255,255,.95);
+      stroke-width: 3;
+      stroke-linejoin: round;
+    }
+    .cute-star-cruiser .star-eye { fill: #66509f; }
+    .cute-star-cruiser .star-smile {
+      fill: none;
+      stroke: #66509f;
+      stroke-width: 2.3;
+      stroke-linecap: round;
+    }
+    .cute-star-cruiser .star-cheek { fill: #ff8fbd; opacity: .72; }
+    .cute-star-cruiser .star-trail {
+      fill: none;
+      stroke: rgba(255,255,255,.9);
+      stroke-width: 3;
+      stroke-linecap: round;
+      animation: cuteTrailPulse 1.4s ease-in-out infinite alternate;
+    }
+    .cute-star-cruiser .trail-two { animation-delay: -.7s; opacity: .7; }
+    .cute-star-cruiser .star-sparkle {
+      fill: none;
+      stroke: #fff8c9;
+      stroke-width: 2.5;
+      stroke-linecap: round;
+      transform-origin: 54px 14px;
+      animation: cuteSparkle 1.8s ease-in-out infinite;
+    }
+    @keyframes cuteTrailPulse { from { opacity: .35; transform: translateX(3px); } to { opacity: 1; transform: translateX(-2px); } }
+    @keyframes cuteSparkle { 0%,100% { opacity:.45; transform:scale(.8) rotate(0deg); } 50% { opacity:1; transform:scale(1.15) rotate(12deg); } }
+    @media (max-width: 760px) {
+      .ufo-wrap.cute-star-cruiser { width: 46px; height: 46px; }
+    }
+
 </style>
+
+
+  <!-- === 2026 UI/UX RESPONSIVE POLISH === -->
+  <style id="awaru-responsive-polish">
+    :root {
+      --theme-a: #f7c8e8;
+      --theme-b: #c9d7ff;
+      --theme-c: #c8f2e4;
+      --theme-d: #fff0bd;
+      --theme-accent: #735bd8;
+      --surface: rgba(255,255,255,.82);
+      --surface-strong: rgba(255,255,255,.94);
+      --line: rgba(82,63,128,.22);
+      --soft-shadow: 0 22px 60px rgba(55,38,104,.18);
+    }
+
+    html { background: var(--theme-b); }
+    body {
+      background:
+        radial-gradient(circle at 12% 12%, var(--theme-a), transparent 30%),
+        radial-gradient(circle at 88% 20%, var(--theme-b), transparent 28%),
+        radial-gradient(circle at 50% 92%, var(--theme-c), transparent 34%),
+        linear-gradient(135deg, var(--theme-a), var(--theme-b) 42%, var(--theme-c) 72%, var(--theme-d));
+      background-size: 160% 160%;
+      transition: background 1.2s ease;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      text-rendering: optimizeLegibility;
+    }
+
+    .galaxy-stage {
+      padding: clamp(18px, 3vw, 48px);
+      min-height: 100dvh;
+    }
+
+    .app-shell {
+      width: min(1180px, calc(100vw - 40px));
+      max-width: 1180px;
+      transform: none !important;
+      transform-origin: center top !important;
+      border: 1px solid rgba(255,255,255,.7);
+      border-radius: 30px;
+      background: linear-gradient(145deg, rgba(255,255,255,.86), rgba(255,255,255,.64));
+      box-shadow: var(--soft-shadow), inset 0 1px 0 rgba(255,255,255,.85);
+      backdrop-filter: blur(18px) saturate(125%);
+      -webkit-backdrop-filter: blur(18px) saturate(125%);
+      isolation: isolate;
+    }
+
+    .topbar {
+      padding: 18px clamp(20px, 3vw, 34px);
+      border-bottom: 1px solid var(--line);
+      background: rgba(255,255,255,.48);
+    }
+
+    .brand h1 {
+      font-size: clamp(30px, 3.2vw, 48px);
+      letter-spacing: -.035em;
+      text-shadow: none;
+    }
+
+    .brand-badge {
+      width: 48px;
+      height: 48px;
+      border-width: 2px;
+      box-shadow: 0 8px 22px rgba(84,63,139,.14);
+    }
+
+    .screen { padding: clamp(20px, 3vw, 38px); }
+    .pixel-window {
+      background: var(--surface);
+      border: 1px solid rgba(255,255,255,.75);
+      box-shadow: 0 16px 38px rgba(54,37,103,.13), inset 0 1px 0 rgba(255,255,255,.9);
+    }
+
+    .hub-workspace {
+      grid-template-columns: 158px minmax(0, 1fr);
+      gap: clamp(22px, 3vw, 38px);
+      max-width: 1060px;
+    }
+
+    .hub-workspace .hub-map { gap: 15px; }
+    .hub-workspace .hub-planet { width: 112px; }
+    .hub-workspace .hub-planet .orb {
+      width: 62px;
+      height: 62px;
+      transition: transform .24s ease, box-shadow .24s ease, filter .24s ease;
+    }
+    .hub-workspace .hub-planet:hover .orb { transform: translateY(-4px) scale(1.06); }
+    .hub-workspace .hub-planet strong { font-size: 14px; }
+    .hub-workspace .hub-planet small { font-size: 10px; }
+
+    .terminal-intro-card,
+    .panel-section.active { max-width: 780px !important; }
+    .content-panel { padding: 16px 20px 22px; }
+    .yt-channel-card, .insta-card, .mystery-card, .secret-login-card, .secret-game-card {
+      border-width: 1px;
+      box-shadow: 0 12px 30px rgba(54,37,103,.10);
+    }
+
+    .game-button, .cute-button, .dock-button {
+      border-width: 2px;
+      box-shadow: 0 4px 0 rgba(70,49,117,.20), 0 10px 22px rgba(70,49,117,.10);
+    }
+
+    .theme-indicator {
+      position: fixed;
+      top: max(10px, env(safe-area-inset-top));
+      right: max(12px, env(safe-area-inset-right));
+      z-index: 9;
+      width: 10px;
+      height: 10px;
+      border-radius: 999px;
+      background: var(--theme-accent);
+      box-shadow: 0 0 0 5px rgba(255,255,255,.45), 0 0 18px var(--theme-accent);
+      opacity: .72;
+      pointer-events: none;
+      transition: background 1s ease, box-shadow 1s ease;
+    }
+
+    @media (min-width: 1400px) {
+      .app-shell { max-width: 1240px; }
+      .hub-workspace { max-width: 1120px; }
+      .screen { padding: 42px; }
+    }
+
+    @media (max-width: 900px) {
+      .app-shell { width: min(100%, calc(100vw - 20px)); }
+      .hub-workspace { grid-template-columns: 1fr; }
+      .hub-sidebar { position: relative; top: auto; }
+      .hub-workspace .hub-map {
+        display: grid !important;
+        grid-template-columns: repeat(6, minmax(74px, 1fr)) !important;
+        width: 100% !important;
+        max-width: 760px;
+      }
+      .hub-workspace .hub-planet { width: 100% !important; }
+    }
+
+    @media (max-width: 760px) {
+      body { background-attachment: scroll; }
+      .galaxy-stage { padding: 6px 6px 86px !important; }
+      .app-shell {
+        width: calc(100vw - 12px) !important;
+        max-width: calc(100vw - 12px) !important;
+        border-radius: 22px !important;
+        backdrop-filter: blur(10px) saturate(112%);
+        -webkit-backdrop-filter: blur(10px) saturate(112%);
+      }
+      .topbar { padding: 10px 12px !important; }
+      .screen { padding: 10px !important; }
+      .hub-workspace .hub-map {
+        grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+        width: min(100%, 300px) !important;
+      }
+      .hub-workspace .hub-planet .orb { width: 48px !important; height: 48px !important; }
+      .sound-dock { bottom: max(7px, env(safe-area-inset-bottom)) !important; }
+    }
+
+    /* Instagram and other embedded browsers: reduce GPU-heavy effects, preserve polish. */
+    html.embedded-browser body::after { display: none; }
+    html.embedded-browser body::before { opacity: .30; animation: none; }
+    html.embedded-browser .app-shell,
+    html.embedded-browser .pixel-window,
+    html.embedded-browser .dock-button {
+      backdrop-filter: none !important;
+      -webkit-backdrop-filter: none !important;
+    }
+    html.embedded-browser .app-shell { background: rgba(255,255,255,.90); }
+    html.embedded-browser .planet,
+    html.embedded-browser .particle,
+    html.embedded-browser .shooting-star,
+    html.embedded-browser .cozy-alien { animation-duration: 18s !important; }
+    html.embedded-browser .hub-workspace .hub-planet .orb { animation: none !important; }
+    html.embedded-browser .game-button::after,
+    html.embedded-browser .cute-button::after,
+    html.embedded-browser .dock-button::after { display: none; }
+
+    @media (prefers-reduced-motion: reduce) {
+      .theme-indicator { display: none; }
+    }
+  </style>
+
 </head>
 <body>
 
@@ -1707,8 +1936,25 @@
     <div class="planet one" data-depth="0.05"></div>
     <div class="planet two" data-depth="0.08"></div>
     <div class="planet three" data-depth="0.04"></div>
-    <div class="ufo-wrap" data-depth="0.12">
-      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.69 2 6 4.69 6 8c0 .34.03.67.09 1H4c-1.1 0-2 .9-2 2v2c0 1.1.9 2 2 2h1.12c.38 2.29 2.14 4.15 4.54 4.72V21c0 .55.45 1 1 1h4c.55 0 1-.45 1-1v-1.28c2.4-.57 4.16-2.43 4.54-4.72H20c1.1 0 2-.9 2-2v-2c0-1.1-.9-2-2-2h-2.09c.06-.33.09-.66.09-1 0-3.31-2.69-6-6-6zm0 2c2.21 0 4 1.79 4 4 0 .22-.02.44-.06.65L15.6 9H8.4l-.34-.35C8.02 8.44 8 8.22 8 8c0-2.21 1.79-4 4-4zm-8 7h16v2H4v-2z"/></svg>
+    <div class="ufo-wrap cute-star-cruiser" data-depth="0.12">
+      <svg viewBox="0 0 64 64" aria-hidden="true">
+        <defs>
+          <linearGradient id="cruisingStarGradient" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#fff7b8"/>
+            <stop offset="0.58" stop-color="#ffd18f"/>
+            <stop offset="1" stop-color="#ff9fca"/>
+          </linearGradient>
+        </defs>
+        <path class="star-trail trail-one" d="M5 31h15"/>
+        <path class="star-trail trail-two" d="M9 42h10"/>
+        <path class="cruising-star" d="M38 8l7.3 14.8 16.3 2.4-11.8 11.5 2.8 16.2L38 45.2 23.4 53l2.8-16.3-11.8-11.5 16.3-2.4L38 8z"/>
+        <circle class="star-eye" cx="33" cy="31" r="2.1"/>
+        <circle class="star-eye" cx="43" cy="31" r="2.1"/>
+        <path class="star-smile" d="M34 37c2.4 2.2 5.6 2.2 8 0"/>
+        <circle class="star-cheek" cx="29" cy="36" r="2"/>
+        <circle class="star-cheek" cx="47" cy="36" r="2"/>
+        <path class="star-sparkle" d="M54 10v8M50 14h8"/>
+      </svg>
     </div>
     <div class="alien-sprite-wrap" id="hidden-alien" data-depth="0.1">
       <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm1 11a1 1 0 1 1-1-1 1 1 0 0 1 1 1zm-5-1a1 1 0 1 1 1-1 1 1 0 0 1-1 1zm8-1a1 1 0 1 1-1-1 1 1 0 0 1 1 1zm-4 6a4 4 0 0 1-3.44-2h6.88A4 4 0 0 1 12 17z"/></svg>
@@ -3507,5 +3753,57 @@
       }, 520);
     });
   </script>
+
+
+  <script id="awaru-theme-engine">
+    (() => {
+      const themes = [
+        { a:'#f7c8e8', b:'#c9d7ff', c:'#c8f2e4', d:'#fff0bd', accent:'#735bd8' },
+        { a:'#ffd3c4', b:'#e0cdfb', c:'#c9f0ef', d:'#fff4cf', accent:'#9a66cc' },
+        { a:'#d9d0ff', b:'#bfe8ff', c:'#d6f5dc', d:'#ffd5e7', accent:'#5f72d8' },
+        { a:'#ffe0ea', b:'#d6e2ff', c:'#c6f4e8', d:'#ffe7bd', accent:'#d06a9f' },
+        { a:'#d8f0ff', b:'#ead6ff', c:'#d9f4ce', d:'#ffe3d0', accent:'#6c63c9' },
+        { a:'#ffd7ef', b:'#c8e1ff', c:'#d0f6ed', d:'#fff2c8', accent:'#7d5ccf' }
+      ];
+
+      const root = document.documentElement;
+      const ua = navigator.userAgent || '';
+      const embedded = /Instagram|FBAN|FBAV|Line\/|KAKAOTALK|NAVER\(inapp/i.test(ua);
+      if (embedded) root.classList.add('embedded-browser');
+
+      const indicator = document.createElement('span');
+      indicator.className = 'theme-indicator';
+      indicator.setAttribute('aria-hidden', 'true');
+      document.body.appendChild(indicator);
+
+      function applyTheme() {
+        const fiveMinuteSlot = Math.floor(Date.now() / 300000);
+        const theme = themes[fiveMinuteSlot % themes.length];
+        root.style.setProperty('--theme-a', theme.a);
+        root.style.setProperty('--theme-b', theme.b);
+        root.style.setProperty('--theme-c', theme.c);
+        root.style.setProperty('--theme-d', theme.d);
+        root.style.setProperty('--theme-accent', theme.accent);
+      }
+
+      applyTheme();
+      const now = Date.now();
+      const delay = 300000 - (now % 300000) + 50;
+      setTimeout(() => {
+        applyTheme();
+        setInterval(applyTheme, 300000);
+      }, delay);
+
+      // Prevent desktop blur caused by legacy scale transforms after resize/orientation changes.
+      function stabilizeShell() {
+        const shell = document.getElementById('app-shell');
+        if (shell) shell.style.setProperty('transform', 'none', 'important');
+      }
+      stabilizeShell();
+      window.addEventListener('resize', stabilizeShell, { passive: true });
+      window.addEventListener('orientationchange', stabilizeShell, { passive: true });
+    })();
+  </script>
+
 </body>
 </html>
