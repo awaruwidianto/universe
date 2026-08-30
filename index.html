@@ -22,11 +22,11 @@
       --glass-strong: rgba(255, 255, 255, 0.98);
       --purple: #333333;
       --deep-purple: #000000;
-      --pink: #ff8c00;
-      --peach: #ffb04f;
+      --pink: #ff9aab;
+      --peach: #ffb3c1;
       --cyan: #e2e2e2;
       --mint: #d1d1d1;
-      --yellow: #fca311;
+      --yellow: #ffc2d1;
       --border: #111111;
       --shadow: 0 24px 70px rgba(0, 0, 0, 0.08);
       --pixel-shadow: 0 5px 0 rgba(17, 17, 17, 0.9), 0 18px 32px rgba(0, 0, 0, 0.1);
@@ -47,9 +47,9 @@
       color: var(--ink);
       font-family: var(--font-body);
       background:
-        radial-gradient(circle at 18% 16%, rgba(255, 140, 0, .08), transparent 28%),
+        radial-gradient(circle at 18% 16%, rgba(255, 154, 171, .08), transparent 28%),
         radial-gradient(circle at 82% 26%, rgba(0, 0, 0, .04), transparent 24%),
-        radial-gradient(circle at 45% 88%, rgba(255, 140, 0, .05), transparent 30%),
+        radial-gradient(circle at 45% 88%, rgba(255, 154, 171, .05), transparent 30%),
         linear-gradient(130deg, #ffffff, #f4f4f4, #eeeeee, #f9f9f9, #ffffff);
       background-size: 200% 200%;
       animation: galaxyShift 22s ease-in-out infinite;
@@ -106,7 +106,7 @@
     button, a { -webkit-tap-highlight-color: transparent; }
     button { cursor: pointer; border: 0; }
     a { color: inherit; text-decoration: none; }
-    :focus-visible { outline: 4px solid rgba(255, 140, 0, .9); outline-offset: 4px; }
+    :focus-visible { outline: 4px solid rgba(255, 154, 171, .9); outline-offset: 4px; }
 
     .reduced-motion * { animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; }
 
@@ -124,9 +124,9 @@
     .planet, .ufo-wrap, .alien-sprite-wrap, .shooting-star, .particle, .star-clicker, .cozy-alien { position: absolute; will-change: transform; }
     .planet { border-radius: 50%; filter: drop-shadow(0 16px 28px rgba(0, 0, 0, .1)); animation: planetFloat 9s ease-in-out infinite, dynamicColorShift 12s linear infinite; }
     .planet::before { content: ""; position: absolute; inset: 46% -34%; height: 18%; border: 3px solid rgba(255,255,255,.8); border-radius: 50%; transform: rotate(-18deg); }
-    .planet.one { width: 86px; height: 86px; left: 7%; top: 10%; background: radial-gradient(circle at 35% 28%, #fff, #ff8c00 48%, #111); }
+    .planet.one { width: 86px; height: 86px; left: 7%; top: 10%; background: radial-gradient(circle at 35% 28%, #fff, #ff9aab 48%, #111); }
     .planet.two { width: 60px; height: 60px; right: 9%; top: 18%; background: radial-gradient(circle at 30% 24%, #fff, #e2e2e2 52%, #555); animation-delay: -2.5s; }
-    .planet.three { width: 104px; height: 104px; right: 4%; bottom: 10%; background: radial-gradient(circle at 32% 28%, #fff, #f4f4f4 34%, #ff8c00 76%); animation-delay: -5s; }
+    .planet.three { width: 104px; height: 104px; right: 4%; bottom: 10%; background: radial-gradient(circle at 32% 28%, #fff, #f4f4f4 34%, #ff9aab 76%); animation-delay: -5s; }
     .ufo-wrap { width: 50px; height: 50px; animation: ufoCruise 15s ease-in-out infinite; left: -70px; top: 60%; color: #111; filter: drop-shadow(0 0 12px rgba(0,0,0,.1)); }
     .alien-sprite-wrap { right: 9%; bottom: 26%; width: 44px; height: 44px; animation: alienPeek 8s ease-in-out infinite; color: #111; }
     .shooting-star { width: 130px; height: 2px; border-radius: 99px; background: linear-gradient(90deg, rgba(0,0,0,0), rgba(0,0,0,.2)); transform: rotate(-25deg); opacity: 0; animation: shooting 8s ease-in-out infinite; }
@@ -142,9 +142,9 @@
 
     .star-clicker {
       width: 18px; height: 18px;
-      background: #ff8c00;
+      background: #ff9aab;
       clip-path: polygon(50% 0%, 61% 34%, 98% 35%, 68% 56%, 79% 91%, 50% 70%, 21% 91%, 32% 56%, 2% 35%, 39% 34%);
-      filter: drop-shadow(0 0 10px rgba(255,140,0,.4));
+      filter: drop-shadow(0 0 10px rgba(255,154,171,.4));
       pointer-events: auto;
       cursor: pointer;
       animation: twinkle 1.9s ease-in-out infinite;
@@ -201,7 +201,7 @@
     
     .hud { display: flex; align-items: center; justify-content: flex-end; gap: 12px; flex-grow: 1; max-width: 500px; }
     .xp-wrap { width: 100%; height: 16px; padding: 3px; border-radius: 999px; background: rgba(17,17,17,.1); border: 2px solid rgba(17,17,17,.2); }
-    .xp-fill { width: 14%; height: 100%; border-radius: 999px; background: linear-gradient(90deg, #111, #555, #ff8c00); box-shadow: 0 0 14px rgba(255,140,0,.4); transition: width .8s cubic-bezier(.2,.9,.2,1); }
+    .xp-fill { width: 14%; height: 100%; border-radius: 999px; background: linear-gradient(90deg, #111, #555, #ff9aab); box-shadow: 0 0 14px rgba(255,154,171,.4); transition: width .8s cubic-bezier(.2,.9,.2,1); }
 
     .screen {
       display: none;
@@ -331,7 +331,7 @@
       position: relative;
     }
     #story-text { margin: 0; font-size: clamp(15px, 2vw, 20px); line-height: 1.4; font-weight: 900; color: #111; }
-    .cursor-dot { display: inline-block; width: .65em; height: 1em; margin-left: 3px; background: #ff8c00; vertical-align: -0.12em; animation: cursorBlink .85s infinite; }
+    .cursor-dot { display: inline-block; width: .65em; height: 1em; margin-left: 3px; background: #ff9aab; vertical-align: -0.12em; animation: cursorBlink .85s infinite; }
 
     .game-button, .cute-button {
       display: inline-flex; align-items: center; justify-content: center; gap: 6px;
@@ -350,7 +350,7 @@
     .game-button:active, .cute-button:active { transform: translateY(2px) scale(.98); box-shadow: 0 2px 0 #111; }
     .button-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
     .primary-button { background: #111; color: #fff; text-shadow: none; }
-    .pink-button { background: linear-gradient(180deg, #ffb04f, #ff8c00); color: #fff; }
+    .pink-button { background: linear-gradient(180deg, #ffb3c1, #ff9aab); color: #fff; }
 
     .hub-hero { text-align: center; margin-bottom: 12px; }
     .hub-title-container { display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 2px; flex-wrap: wrap; }
@@ -382,7 +382,7 @@
     .hub-age-inline {
       display: inline-block;
       padding: 4px 10px;
-      background: #ff8c00;
+      background: #ff9aab;
       border: 2px solid #111;
       border-radius: 99px;
       font-family: var(--font-title);
@@ -527,10 +527,10 @@
       overflow: hidden;
     }
     .terminal-screen::before { content: ""; position: absolute; inset: 0; background: linear-gradient(rgba(255,255,255,.06) 50%, transparent 50%); background-size: 100% 8px; opacity: .28; pointer-events: none; }
-    .terminal-screen label { display: block; position: relative; z-index: 1; font-family: var(--font-title); font-size: 15px; margin: 0 0 6px; color: #ff8c00; }
+    .terminal-screen label { display: block; position: relative; z-index: 1; font-family: var(--font-title); font-size: 15px; margin: 0 0 6px; color: #ff9aab; }
     .field { position: relative; z-index: 1; width: 100%; border: 3px solid rgba(255,255,255,.26); border-radius: 14px; background: rgba(255,255,255,.12); color: #fff; padding: 10px 12px; outline: none; font-weight: 800; transition: border .2s, background .2s, transform .2s; font-size: 16px; }
     .field::placeholder { color: rgba(255,255,255,.62); }
-    .field:focus { border-color: #ff8c00; background: rgba(255,255,255,.18); transform: translateY(-2px); }
+    .field:focus { border-color: #ff9aab; background: rgba(255,255,255,.18); transform: translateY(-2px); }
     textarea.field { min-height: 90px; resize: vertical; line-height: 1.4; }
     .field-group { margin-bottom: 10px; }
     .send-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
@@ -555,7 +555,7 @@
     }
     .launch-overlay.active { display: grid; }
     .launch-card { width: min(520px, 100%); padding: 24px; text-align: center; }
-    .big-rocket-wrap { width: 80px; height: 80px; margin: 0 auto; color: #ff8c00; animation: launchRocket 1.4s ease-in-out infinite; }
+    .big-rocket-wrap { width: 80px; height: 80px; margin: 0 auto; color: #ff9aab; animation: launchRocket 1.4s ease-in-out infinite; }
     .success-check { width: 70px; height: 70px; border-radius: 50%; display: grid; place-items: center; margin: 0 auto 12px; background: linear-gradient(145deg, #fff, #f4f4f4); border: 4px solid #111; font-size: 38px; font-weight: bold; color: #111; animation: panelPop .42s cubic-bezier(.18,.89,.32,1.28) both; }
 
     @keyframes galaxyShift { 0%,100%{background-position:0% 50%} 50%{background-position:100% 50%} }
@@ -580,7 +580,7 @@
     @keyframes rocketIdle { 0%,100%{transform:translateY(0) rotate(-2deg)} 50%{transform:translateY(-12px) rotate(3deg)} }
     @keyframes launchRocket { 0%{transform:translateY(32px) scale(.92)} 50%{transform:translateY(-24px) scale(1.08)} 100%{transform:translateY(32px) scale(.92)} }
     @keyframes toastIn { from{opacity:0; transform:translateY(18px)} to{opacity:1; transform:translateY(0)} }
-    @keyframes secretGlow { 0%,100%{filter:drop-shadow(0 0 0 rgba(255,255,255,0))} 50%{filter:drop-shadow(0 0 36px rgba(255,140,0,.8))} }
+    @keyframes secretGlow { 0%,100%{filter:drop-shadow(0 0 0 rgba(255,255,255,0))} 50%{filter:drop-shadow(0 0 36px rgba(255,154,171,.8))} }
 
     @media (max-width: 760px) {
       .galaxy-stage { padding: 8px; align-items: start; place-items: start center; }
@@ -611,7 +611,7 @@
     }
 
     .hub-planet.active-planet .orb {
-      box-shadow: inset 0 -5px 0 rgba(17,17,17,.12), 0 5px 0 rgba(17,17,17,1), 0 0 0 5px rgba(255,255,255,.9), 0 0 22px rgba(255,140,0,.5);
+      box-shadow: inset 0 -5px 0 rgba(17,17,17,.12), 0 5px 0 rgba(17,17,17,1), 0 0 0 5px rgba(255,255,255,.9), 0 0 22px rgba(255,154,171,.5);
     }
     .hub-planet.active-planet strong { color: #111; }
     .game-button, .cute-button, .dock-button { position: relative; overflow: hidden; }
@@ -624,7 +624,7 @@
     .content-panel { background: #fff; }
     .terminal-screen { background: linear-gradient(180deg, #333, #111); box-shadow: inset 0 0 0 3px rgba(255,255,255,.16), 0 6px 0 rgba(0,0,0,1), 0 0 28px rgba(0,0,0,.1); }
     .mini-social-row { display:flex; gap:8px; flex-wrap:wrap; margin-top:10px; }
-    .orb-instagram { background: radial-gradient(circle at 36% 28%, #fff, #f4f4f4 35%, #ff8c00 68%, #333); color: #111; }
+    .orb-instagram { background: radial-gradient(circle at 36% 28%, #fff, #f4f4f4 35%, #ff9aab 68%, #333); color: #111; }
     #instagram-panel.panel-section { max-width: 580px; margin: 0 auto; }
     .insta-card {
       display:block; border-radius:20px; padding:16px; background: #fff;
@@ -661,7 +661,7 @@
     .galaxy-loader {
       position: fixed; inset: 0; z-index: 80; display: grid; place-items: center; padding: 20px;
       background:
-        radial-gradient(circle at 20% 20%, rgba(255,140,0,.1), transparent 28%),
+        radial-gradient(circle at 20% 20%, rgba(255,154,171,.1), transparent 28%),
         radial-gradient(circle at 80% 30%, rgba(0,0,0,.05), transparent 26%),
         linear-gradient(135deg, #eee, #ddd, #fff);
       transition: opacity .45s ease, visibility .45s ease;
@@ -1181,7 +1181,7 @@
     .secret-terminal-prompt {
       text-align:left;
       font-family: var(--font-title);
-      color:#ff8c00;
+      color:#ff9aab;
       background: linear-gradient(180deg, #333, #111);
       border: 4px solid #000;
       border-radius: 18px;
@@ -1303,11 +1303,11 @@
     .galaxy-loader { overflow: hidden; }
     .ufo-loader { position: relative; width: 132px; height: 132px; animation: ufoLoaderFloat 2.2s ease-in-out infinite; filter: drop-shadow(0 15px 24px rgba(0,0,0,.1)); }
     .ufo-loader-dome { position: absolute; left: 38px; top: 18px; width: 56px; height: 42px; border-radius: 56px 56px 18px 18px; background: linear-gradient(145deg, #fff, #eee); border: 3px solid #111; box-shadow: inset 0 -8px 14px rgba(0,0,0,.05); z-index: 2; }
-    .ufo-loader-body { position: absolute; left: 14px; top: 50px; width: 104px; height: 42px; border-radius: 50%; background: linear-gradient(180deg, #fff, #ff8c00 52%, #111); border: 3px solid #111; box-shadow: inset 0 -8px 10px rgba(0,0,0,.1), 0 0 28px rgba(0,0,0,.1); z-index: 3; display:flex; justify-content:center; align-items:flex-end; gap:12px; padding-bottom:7px; }
+    .ufo-loader-body { position: absolute; left: 14px; top: 50px; width: 104px; height: 42px; border-radius: 50%; background: linear-gradient(180deg, #fff, #ff9aab 52%, #111); border: 3px solid #111; box-shadow: inset 0 -8px 10px rgba(0,0,0,.1), 0 0 28px rgba(0,0,0,.1); z-index: 3; display:flex; justify-content:center; align-items:flex-end; gap:12px; padding-bottom:7px; }
     .ufo-loader-body span { width: 9px; height: 9px; border-radius: 50%; background: #f4f4f4; box-shadow: 0 0 12px rgba(255,255,255,.95); animation: ufoLight 1s ease-in-out infinite alternate; }
     .ufo-loader-body span:nth-child(2) { animation-delay: -.35s; background:#ccc; }
     .ufo-loader-body span:nth-child(3) { animation-delay: -.7s; background:#888; }
-    .ufo-loader-beam { position:absolute; left:34px; top:80px; width:64px; height:50px; background: linear-gradient(180deg, rgba(255,140,0,.2), rgba(0,0,0,0)); clip-path: polygon(28% 0,72% 0,100% 100%,0 100%); animation: beamPulse 1.4s ease-in-out infinite; }
+    .ufo-loader-beam { position:absolute; left:34px; top:80px; width:64px; height:50px; background: linear-gradient(180deg, rgba(255,154,171,.2), rgba(0,0,0,0)); clip-path: polygon(28% 0,72% 0,100% 100%,0 100%); animation: beamPulse 1.4s ease-in-out infinite; }
     @keyframes ufoLoaderFloat { 0%,100% { transform: translateY(4px) rotate(-2deg); } 50% { transform: translateY(-10px) rotate(2deg); } }
     @keyframes ufoLight { from { opacity:.45; transform:scale(.8); } to { opacity:1; transform:scale(1.15); } }
     @keyframes beamPulse { 0%,100% { opacity:.35; transform:scaleY(.88); } 50% { opacity:.8; transform:scaleY(1.08); } }
@@ -1683,7 +1683,7 @@
       stroke-width: 2.3;
       stroke-linecap: round;
     }
-    .cute-star-cruiser .star-cheek { fill: #ff8c00; opacity: .72; }
+    .cute-star-cruiser .star-cheek { fill: #ff9aab; opacity: .72; }
     .cute-star-cruiser .star-trail {
       fill: none;
       stroke: rgba(17,17,17,.9);
@@ -1694,7 +1694,7 @@
     .cute-star-cruiser .trail-two { animation-delay: -.7s; opacity: .7; }
     .cute-star-cruiser .star-sparkle {
       fill: none;
-      stroke: #ff8c00;
+      stroke: #ff9aab;
       stroke-width: 2.5;
       stroke-linecap: round;
       transform-origin: 54px 14px;
@@ -1709,14 +1709,13 @@
 </style>
 
 
-  <!-- === 2026 UI/UX RESPONSIVE POLISH === -->
   <style id="awaru-responsive-polish">
     :root {
       --theme-a: #ffffff;
       --theme-b: #f4f4f4;
       --theme-c: #eaeaea;
       --theme-d: #fafafa;
-      --theme-accent: #ff8c00;
+      --theme-accent: #ff9aab;
       --surface: rgba(255,255,255,.95);
       --surface-strong: #fff;
       --line: #ddd;
@@ -1915,9 +1914,9 @@
       <svg viewBox="0 0 64 64" aria-hidden="true">
         <defs>
           <linearGradient id="cruisingStarGradient" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0" stop-color="#fff7b8"/>
-            <stop offset="0.58" stop-color="#ffb04f"/>
-            <stop offset="1" stop-color="#ff8c00"/>
+            <stop offset="0" stop-color="#ffe4e8"/>
+            <stop offset="0.58" stop-color="#ffb3c1"/>
+            <stop offset="1" stop-color="#ff9aab"/>
           </linearGradient>
         </defs>
         <path class="star-trail trail-one" d="M5 31h15"/>
@@ -1961,7 +1960,7 @@
               <path d="M32 4a28 28 0 0 1 0 56c-7.7 0-14-6.3-14-14s6.3-14 14-14 14-6.3 14-14S39.7 4 32 4z" fill="url(#yyGlow)"/>
               <circle cx="32" cy="18" r="5.5" fill="#fff"/>
               <circle cx="32" cy="46" r="5.5" fill="#111"/>
-              <path d="M14 14h4v4h-4zM48 46h4v4h-4zM48 13h3v3h-3zM12 48h3v3h-3z" fill="#ff8c00"/>
+              <path d="M14 14h4v4h-4zM48 46h4v4h-4zM48 13h3v3h-3zM12 48h3v3h-3z" fill="#ff9aab"/>
             </svg>
           </div>
           <div>
@@ -3112,7 +3111,7 @@
           if ((i + j) % 2 === 0) ctx.fillRect(i * cell, j * cell, cell, cell);
         }
       }
-      ctx.fillStyle = "#ff8c00";
+      ctx.fillStyle = "#ff9aab";
       ctx.fillRect(snakeState.food.x * cell + 3, snakeState.food.y * cell + 3, cell - 6, cell - 6);
       snakeState.snake.forEach((part, index) => {
         ctx.fillStyle = index === 0 ? "#fff" : "#ccc";
@@ -3385,7 +3384,7 @@
 
       const p1Grad = ctx.createRadialGradient(120, 140, 5, 120, 140, 50);
       p1Grad.addColorStop(0, '#ffffff');
-      p1Grad.addColorStop(0.5, '#ff8c00');
+      p1Grad.addColorStop(0.5, '#ff9aab');
       p1Grad.addColorStop(1, '#111111');
       ctx.fillStyle = p1Grad;
       ctx.beginPath();
@@ -3410,7 +3409,7 @@
       ctx.beginPath();
       ctx.ellipse(680, 880, 35, 10, 0, 0, Math.PI * 2);
       ctx.fill();
-      ctx.fillStyle = "rgba(255, 140, 0, 0.85)";
+      ctx.fillStyle = "rgba(255, 154, 171, 0.85)";
       ctx.beginPath();
       ctx.arc(680, 876, 15, Math.PI, 0);
       ctx.fill();
@@ -3478,7 +3477,7 @@
         y += lineHeight;
       }
 
-      ctx.fillStyle = "#ff8c00";
+      ctx.fillStyle = "#ff9aab";
       ctx.font = "bold 20px sans-serif";
       ctx.textAlign = "center";
       ctx.fillText("@awaru.pdf", canvas.width / 2, 915);
@@ -3731,9 +3730,9 @@
   <script id="awaru-theme-engine">
     (() => {
       const themes = [
-        { a:'#ffffff', b:'#f4f4f4', c:'#eaeaea', d:'#fafafa', accent:'#ff8c00' },
-        { a:'#ffffff', b:'#f0f0f0', c:'#d1d1d1', d:'#f9f9f9', accent:'#ffb04f' },
-        { a:'#f4f4f4', b:'#ffffff', c:'#eeeeee', d:'#f4f4f4', accent:'#ff8c00' }
+        { a:'#ffffff', b:'#f4f4f4', c:'#eaeaea', d:'#fafafa', accent:'#ff9aab' },
+        { a:'#ffffff', b:'#f0f0f0', c:'#d1d1d1', d:'#f9f9f9', accent:'#ffb3c1' },
+        { a:'#f4f4f4', b:'#ffffff', c:'#eeeeee', d:'#f4f4f4', accent:'#ff9aab' }
       ];
 
       const root = document.documentElement;
