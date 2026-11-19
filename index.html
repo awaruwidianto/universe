@@ -2464,8 +2464,134 @@
     }
   </style>
 
+  <!-- Bilingual pixel font: matching Hangul and Latin letterforms. -->
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/galmuri/dist/galmuri.css">
   <style id="remove-annoying-decoration">
     .planet.three, #hidden-alien { display: none !important; }
+  </style>
+
+  <style id="awaru-balanced-bilingual-typography">
+    /* Typography only. No layout, behavior, animations or content are modified. */
+    :root {
+      --font-body: "Noto Sans KR", system-ui, sans-serif;
+      --font-ko: "Noto Sans KR", system-ui, sans-serif;
+      --font-title: "Galmuri11", "Noto Sans KR", sans-serif;
+      --font-ko-title: "Galmuri11", "Noto Sans KR", sans-serif;
+    }
+
+    /* Consistent everyday text in either language. */
+    body, body.lang-ko {
+      font-family: var(--font-body);
+      font-size: 1rem;
+    }
+
+    /* One Korean-and-English pixel family across all game-style display labels. */
+    body .brand h1,
+    body .hub-hero h2,
+    body .big-title,
+    body .panel-title,
+    body .character-name,
+    body .mission-tag,
+    body .choice-name,
+    body .hub-workspace .hub-planet strong,
+    body .window-label,
+    body .hub-age-inline,
+    body .secret-game-title,
+    body .mystery-card strong,
+    body .loader-title {
+      font-family: var(--font-title) !important;
+      letter-spacing: 0 !important;
+    }
+
+    /* Korean dock buttons had a separate font override; equalize with English. */
+    body .dock-button,
+    body.lang-ko .dock-button {
+      font-family: var(--font-body) !important;
+    }
+
+    /* Match headings that previously had larger Korean-only sizing. */
+    body .brand h1,
+    body.lang-ko .brand h1 {
+      font-size: clamp(16px, 2.3vw, 24px) !important;
+    }
+    body .hub-hero h2,
+    body.lang-ko .hub-hero h2 {
+      font-size: clamp(22px, 4vw, 38px) !important;
+    }
+    body #terminal-intro-title,
+    body.lang-ko #terminal-intro-title {
+      font-size: clamp(16px, 2.8vw, 25px) !important;
+    }
+    body #story-text,
+    body.lang-ko #story-text {
+      font-size: clamp(15px, 2vw, 20px) !important;
+    }
+
+    /* Small pixel captions remain legible in both scripts. */
+    body .hub-workspace .hub-planet strong,
+    body.lang-ko .hub-workspace .hub-planet strong {
+      font-size: 11px !important;
+      line-height: 1.4 !important;
+    }
+    body .window-label,
+    body.lang-ko .window-label,
+    body .hub-age-inline,
+    body.lang-ko .hub-age-inline {
+      font-size: 10px !important;
+    }
+
+    @media (max-width: 760px) {
+      body .brand h1,
+      body.lang-ko .brand h1 {
+        font-size: clamp(14px, 4vw, 18px) !important;
+      }
+      body .hub-hero h2,
+      body.lang-ko .hub-hero h2 {
+        font-size: clamp(20px, 6vw, 29px) !important;
+      }
+      body #terminal-intro-title,
+      body.lang-ko #terminal-intro-title {
+        font-size: clamp(16px, 4.6vw, 20px) !important;
+      }
+      body #story-text,
+      body.lang-ko #story-text {
+        font-size: clamp(13px, 3.55vw, 15.5px) !important;
+      }
+      body .hub-workspace .hub-planet strong,
+      body.lang-ko .hub-workspace .hub-planet strong {
+        font-size: 10px !important;
+      }
+      body .window-label,
+      body.lang-ko .window-label,
+      body .hub-age-inline,
+      body.lang-ko .hub-age-inline {
+        font-size: 9px !important;
+      }
+    }
+
+    @media (max-width: 430px) {
+      body .brand h1,
+      body.lang-ko .brand h1 {
+        font-size: clamp(13px, 4vw, 16px) !important;
+      }
+      body .hub-hero h2,
+      body.lang-ko .hub-hero h2 {
+        font-size: clamp(20px, 6vw, 28px) !important;
+      }
+      body #terminal-intro-title,
+      body.lang-ko #terminal-intro-title {
+        font-size: clamp(15px, 4.6vw, 19px) !important;
+      }
+      body #story-text,
+      body.lang-ko #story-text {
+        font-size: clamp(12.5px, 3.45vw, 14.5px) !important;
+      }
+      body .hub-workspace .hub-planet strong,
+      body.lang-ko .hub-workspace .hub-planet strong {
+        font-size: 9.5px !important;
+      }
+    }
   </style>
 </head>
 <body>
